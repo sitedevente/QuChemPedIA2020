@@ -1,6 +1,11 @@
 import flask
 from flask import Flask, jsonify, request
+
+import elasticsearch
 from elasticsearch import Elasticsearch
+
+import elasticsearch.exceptions
+
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.connections import connections
 
@@ -23,15 +28,18 @@ def search_molecule(formula):
     }
 
 	results = elasticClient.search(index='molecules', doc_type='molecule', body=body)
-	return jsonify(results['hits']['hits'])
+	return jsonify(results['hits']['hits']), 200
 
 
 # Route pour retrouver une molécule avec son ID
 @app.route('/api/details/<id_mol>', methods=['GET'])
 def details_molecule(id_mol):
 
-	results = elasticClient.get(index='molecules', doc_type='molecule', id=id_mol)
-	return jsonify(results)
+	try:
+		results = elasticClient.get(index='molecules', doc_type='molecule', id=id_mol)
+		return jsonify(results), 200
+	except elasticsearch.exceptions.NotFoundError:
+		return jsonify({'Error': 'Molecule with id = \''+ id_mol +'\' does not exists!'}), 404	
 
 
 # Route pour l'ajout d'une molécule
