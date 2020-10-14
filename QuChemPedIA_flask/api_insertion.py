@@ -69,7 +69,7 @@ def delete_molecule(id_mol):
 ###  Fonction pour la création d'un fichier de log lors de l'ajout de molécules  ###
 def add_log_file(id_mol):
 
-	root_path = '../data_dir/'
+	root_path = 'data_dir/'
 	log_path = ''
 
 	for char in id_mol:
