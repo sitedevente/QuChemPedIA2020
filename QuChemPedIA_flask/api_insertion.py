@@ -1,3 +1,5 @@
+import os
+
 import flask
 from flask import Flask, jsonify, request
 
@@ -27,7 +29,7 @@ def search_molecule(formula):
         }
     }
 
-	results = elasticClient.search(index='molecules', doc_type='molecule', body=body)
+	results = elasticClient.search(index='molecules', body=body)
 	return jsonify(results['hits']['hits']), 200
 
 
@@ -49,6 +51,7 @@ def add_molecule():
 	body = request.json
 
 	results = elasticClient.index(index='molecules', doc_type='molecule', body=body)
+	add_log_file(results["_id"])
 	return jsonify(results)
 
 
@@ -62,4 +65,20 @@ def delete_molecule(id_mol):
 	except elasticsearch.exceptions.NotFoundError:
 		return jsonify({'Error': 'Molecule with id = \''+ id_mol +'\' does not exists!'}), 404	
 
+
+###  Fonction pour la création d'un fichier de log lors de l'ajout de molécules  ###
+def add_log_file(id_mol):
+
+	root_path = '../data_dir/'
+	log_path = ''
+
+	for char in id_mol:
+		log_path += char
+		log_path += '/'
+
+	root_path += log_path
+	os.makedirs(root_path)
+
+	log_file = open(root_path+ "data.log", "x")
+	log_file.write(id_mol)
 
