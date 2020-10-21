@@ -40,16 +40,46 @@ def recherche():
     )
     return response
 
-#Route pour le détail d'une molécule
+    #Route pour le détail d'une molécule
 @app.route('/API/detail')
 def detail():
     identifiant = request.args.get('id')
     s = Search(using=client, index="molecules", doc_type="molecule")
-    s = s.query({"match":{"_id":identifiant}})
-    #s = s.query('match',id=identifiant)
+    # s = s.query({"match":{"_id":identifiant}})
+    s = s.query('match',_id=identifiant)
     mol = s.execute()[0].to_dict()
     response = app.response_class(
         response=json.dumps(mol,indent=4),
         mimetype='application/json'
     )
+    return response
+
+@app.route('/API/recherche_partielle')
+def recherche_partielle():
+
+    query = request.args.get('q')
+    response = []
+    s = Search(using=client, index="molecules", doc_type="molecule")
+
+    if query.find('*')!=-1 or query.find('_')!=-1:
+        query = query.replace("*","[1-9]+")
+        query = query.replace("_","[a-zA-Z]*")
+        s = s.query({"regexp":{"molecule.formula":query}})
+
+    else:
+        #query = query.replace("?","[1-9]+")
+        s = s.query({"regexp":{"molecule.formula":'[a-zA-Z0-9]*'+query+'[a-zA-Z0-9]*'}})
+
+
+    molecules = s.execute()
+
+    for molecule in s.execute():
+        response.append(molecule.molecule.to_dict())
+
+    response = sorted(response, key = lambda x : len(x["formula"]))
+    response = app.response_class(
+        response = json.dumps(response,indent=4),
+        mimetype = 'application/json'
+    )
+
     return response
