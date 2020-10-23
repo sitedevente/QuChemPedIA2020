@@ -61,6 +61,7 @@ def delete_molecule(id_mol):
 
 	try:
 		results = elasticClient.delete(index='molecules', doc_type='molecule', id=id_mol)
+		delete_log_file(id_mol)
 		return jsonify(results), 200
 	except elasticsearch.exceptions.NotFoundError:
 		return jsonify({'Error': 'Molecule with id = \''+ id_mol +'\' does not exists!'}), 404	
@@ -81,4 +82,30 @@ def add_log_file(id_mol):
 
 	log_file = open(root_path+ "data.log", "x")
 	log_file.write(id_mol)
+
+
+###  Fonction pour la suppression d'un fichier de log  ###
+def delete_log_file(id_mol):
+
+	root_path = 'data_dir/'
+	log_path = ''
+
+	for char in id_mol:
+		log_path += char
+		log_path += '/'
+
+	root_path += log_path
+	log_file_path = root_path + 'data.log'
+
+	if os.path.exists(log_file_path):
+		os.remove(log_file_path)
+		delete_empty_path(root_path[:-1])
+
+
+###  Fonction pour supprimer les dossiers vides  ###
+def delete_empty_path(path):
+
+	if len(os.listdir(path)) == 0:
+		os.rmdir(path)
+		delete_empty_path(path[:-2])
 
