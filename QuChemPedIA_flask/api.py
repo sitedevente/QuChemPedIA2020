@@ -1,4 +1,4 @@
-from flask import Flask,json, request
+from flask import Flask,json, request, render_template
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.connections import connections
@@ -53,3 +53,9 @@ def detail():
         mimetype='application/json'
     )
     return response
+
+
+#Route pour la page index (accueil-recherche)
+@app.route('/')
+def index():
+    return render_template('index.html')
