@@ -25,10 +25,39 @@ def pretty_print_response(response):
     )
 
 
-def test_details_molecule_200():
+def test_add_molecule():
 
     # Define url for the API call.
-    id_mol = 'L-IN1HQBkjVcihM6lgKA'
+    url = base_url + 'add'
+
+    # Define the body
+    body = {'molecule': {'formula': 'test'}}
+
+    # Call the API with POST method
+    resp = requests.post(url, json=body)
+
+    # Validate response headers and body contents and status code.
+    assert resp.status_code == 200
+    resp_body = resp.json()
+    assert resp_body['_id'] is not None
+    assert resp_body['result'] == 'created'
+
+    # Print full request and response
+    pretty_print_request(resp.request)
+    pretty_print_response(resp)
+
+
+def test_details_molecule():
+
+    # Create and get a new molecule id
+    new_mol = requests.post(
+        base_url + 'add',
+        json={
+            'molecule': {
+                'formula': 'test'}})
+    id_mol = new_mol.json()['_id']
+
+    # Define url for the API call.
     url = base_url + 'details/' + id_mol
 
     # Call the API with GET method.
@@ -45,19 +74,27 @@ def test_details_molecule_200():
     pretty_print_response(resp)
 
 
-def test_details_molecule_404():
+def test_delete_molecule():
+
+    # Create and get a new molecule id
+    new_mol = requests.post(
+        base_url + 'add',
+        json={
+            'molecule': {
+                'formula': 'test'}})
+    id_mol = new_mol.json()['_id']
 
     # Define url for the API call.
-    id_mol = 'fake_id_mol'
-    url = base_url + 'details/' + id_mol
+    url = base_url + 'delete/' + id_mol
 
-    # Call the API with GET method.
-    resp = requests.get(url)
+    # Call the API with DELETE method.
+    resp = requests.delete(url)
 
     # Validate response headers and body contents and status code.
-    assert resp.status_code == 404
+    assert resp.status_code == 200
     resp_body = resp.json()
-    assert resp_body['Error'] == 'Molecule with id = \'fake_id_mol\' does not exists!'
+    assert resp_body['_id'] == id_mol
+    assert resp_body['result'] == 'deleted'
 
     # Print full request and response
     pretty_print_request(resp.request)
