@@ -54,6 +54,9 @@ def add_molecule():
 
     body = request.json
 
+    if (body == None):
+    	return jsonify({'Error': 'There is no body provided for the molecule!'}), 404
+
     results = elasticClient.index(
         index='molecules', doc_type='molecule', body=body)
     add_log_file(results["_id"])
