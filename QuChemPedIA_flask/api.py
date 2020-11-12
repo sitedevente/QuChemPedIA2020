@@ -18,7 +18,7 @@ def recherche():
     type  = request.args.get('type')
     liste = []
 
-    s = Search(using=client, index="molecules", doc_type="molecule")
+    s = Search(using = client, index = "molecules", doc_type = "molecule")
     s = s.query(
         {"regexp": {"molecule.formula": '[a-zA-Z0-9]*' + query + '[a-zA-Z0-9]*'}})
     #s = s.query('regexp',formula='[a-z0-9]'+query+'[a-z0-9]*')
@@ -47,13 +47,13 @@ def recherche():
 @app.route('/API/detail')
 def detail():
     identifiant = request.args.get('id')
-    s = Search(using=client, index="molecules", doc_type="molecule")
-    # s = s.query({"match":{"_id":identifiant}})
-    s = s.query('match', _id=identifiant)
+    s   = Search(using = client, index = "molecules", doc_type = "molecule")
+    s   = s.query('match', _id=identifiant)
     mol = s.execute()[0].to_dict()
+
     response = app.response_class(
-        response=json.dumps(mol, indent=4),
-        mimetype='application/json'
+        response = json.dumps(mol, indent=4),
+        mimetype = 'application/json'
     )
     return response
 
@@ -63,7 +63,7 @@ def recherche_partielle():
 
     query = request.args.get('q')
     response = []
-    s = Search(using=client, index="molecules", doc_type="molecule")
+    s = Search(using = client, index = "molecules", doc_type = "molecule")
 
     if query.find('*') != -1 or query.find('_') != -1:
         query = query.replace("*", "[1-9]+")
