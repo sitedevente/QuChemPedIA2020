@@ -1,8 +1,12 @@
 import requests
 import json
+import os
+
+import api_administration as api
 
 
 base_url = 'http://127.0.0.1:5000/api/'
+root_path = 'data_dir/'
 
 
 def pretty_print_request(request):
@@ -192,3 +196,32 @@ def test_wrong_route():
     # Print full request and response
     pretty_print_request(resp.request)
     pretty_print_response(resp)
+
+
+def test_add_log_file():
+
+    # Define a fake molecule id and its associate path.
+    fake_id_mol = 'thisIsAFakeIdMol'
+    path_to_fake_file = root_path + 't/h/i/s/I/s/A/F/a/k/e/I/d/M/o/l/data.log'
+
+    # Run the function for create the log file.
+    api.add_log_file(fake_id_mol)
+
+    # Validate the log file creation.
+    assert os.path.isfile(path_to_fake_file)
+
+
+def test_delete_log_file():
+
+    # Define a fake molecule id and its associate path.
+    fake_id_mol = 'thisIsAFakeIdMol'
+    path_to_fake_file = root_path + 't/h/i/s/I/s/A/F/a/k/e/I/d/M/o/l/data.log'
+
+    # Verify the log file exists before deletion.
+    assert os.path.isfile(path_to_fake_file)
+
+    # Run the function for delete the log file.
+    api.delete_log_file(fake_id_mol)
+
+    assert os.path.isfile(path_to_fake_file) == False
+
