@@ -19,6 +19,12 @@ elasticClient = Elasticsearch(
 app = Flask(__name__)
 
 
+# Error 404 handler.
+@app.errorhandler(404)
+def resource_not_found(e):
+    return jsonify({'error': 'Wrong url, resource not found!'}), 404
+
+
 #  Route to search a molecule with its formula in Elasticsearch.
 @app.route('/api/search/<formula>', methods=['GET'])
 def search_molecule(formula):
@@ -54,7 +60,7 @@ def details_molecule(id_mol):
         return jsonify(results), 200
     except elasticsearch.exceptions.NotFoundError:
         # Return the error message, e.g. status code = 404.
-        return jsonify({'Error': 'Molecule with id = \'' +
+        return jsonify({'error': 'Molecule with id = \'' +
                         id_mol + '\' does not exists!'}), 404
 
 
@@ -66,9 +72,9 @@ def add_molecule():
     body = request.json
 
     if (body is None):
-        # Return the error message, e.g. status code = 404.
+        # Return the error message, e.g. status code = 400.
         return jsonify(
-            {'Error': 'There is no body provided for the molecule!'}), 404
+            {'error': 'You must provide a body for the molecule!'}), 400
 
     # Try the INDEX request on the Elasticsearch client.
     # index and doc_type are specific at the molecules documents.
@@ -78,8 +84,8 @@ def add_molecule():
     # Call the function for the log file creation
     add_log_file(results["_id"])
 
-    # Return the results formatted in Json, e.g. status code = 200.
-    return jsonify(results), 200
+    # Return the results formatted in Json, e.g. status code = 201.
+    return jsonify(results), 201
 
 
 # Route to delete a molecule with its ID in Elasticsearch.
@@ -99,7 +105,7 @@ def delete_molecule(id_mol):
         return jsonify(results), 200
     except elasticsearch.exceptions.NotFoundError:
         # Return the error message, e.g. status code = 404.
-        return jsonify({'Error': 'Molecule with id = \'' +
+        return jsonify({'error': 'Molecule with id = \'' +
                         id_mol + '\' does not exists!'}), 404
 
 
