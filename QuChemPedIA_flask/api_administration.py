@@ -15,6 +15,9 @@ from elasticsearch_dsl.connections import connections
 # Elasticsearch client connection
 elasticClient = Elasticsearch(
     'https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net')
+# Define root path for log files
+root_path_log_files = 'data_dir/'
+
 
 app = Flask(__name__)
 
@@ -114,7 +117,6 @@ def delete_molecule(id_mol):
 def add_log_file(id_mol):
 
     # Define the root path for log files.
-    root_path = 'data_dir/'
     log_path = ''
 
     # Parse the molecule id and define the path of the log file.
@@ -122,13 +124,13 @@ def add_log_file(id_mol):
         log_path += char
         log_path += '/'
 
-    root_path += log_path
+    path = root_path_log_files + log_path
 
     # Create directories for the log file.
-    os.makedirs(root_path)
+    os.makedirs(path)
 
     # Create the log file.
-    log_file = open(root_path + "data.log", "x")
+    log_file = open(path + "data.log", "x")
     log_file.write(id_mol)
 
 
@@ -137,7 +139,6 @@ def add_log_file(id_mol):
 def delete_log_file(id_mol):
 
     # Define the root path for log files.
-    root_path = 'data_dir/'
     log_path = ''
 
     # Parse the molecule id and define the path of the log file.
@@ -145,13 +146,13 @@ def delete_log_file(id_mol):
         log_path += char
         log_path += '/'
 
-    root_path += log_path
-    log_file_path = root_path + 'data.log'
+    path = root_path_log_files + log_path
+    log_file_path = path + 'data.log'
 
     # Delete the existing log file and empty directories.
     if os.path.exists(log_file_path):
         os.remove(log_file_path)
-        delete_empty_path(root_path[:-1])
+        delete_empty_path(path[:-1])
 
 
 # Function for the suppresion of empty folders.
