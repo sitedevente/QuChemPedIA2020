@@ -3,6 +3,8 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.connections import connections
 
+
+
 #es = Elasticsearch(['https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net:433'])
 #Connexion au client Elasticsearch
 client = Elasticsearch('https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net')
@@ -55,7 +57,3 @@ def detail():
     return response
 
 
-#Route pour la page index (accueil-recherche)
-@app.route('/')
-def index():
-    return render_template('index.html')
