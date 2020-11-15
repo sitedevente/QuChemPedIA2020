@@ -115,7 +115,7 @@ $("#submit_search").click(function () {
                 data: "formule",
                 fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                   $(nTd).html(
-                    "<a href='/tickets/" +
+                    "<a href='/details/" +
                       oData.id +
                       "'>" +
                       oData.formule +
