@@ -52,21 +52,13 @@ $("#submit_search").click(function () {
     $(document.body).append(div_container_resultat);
 
     var div_resultat = document.createElement("div");
-<<<<<<< HEAD
     $(div_resultat).attr("id", "affichage_resultat");
-=======
-    $(div_resultat).attr("id", "Affichage_Resultat");
->>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
     $(div_resultat).addClass("container");
     $(div_container_resultat).append(div_resultat);
   }
 
   // Pour enlever tout ce qui est présent dans le résultat après une nouvelle recherche
-<<<<<<< HEAD
   $("#affichage_resultat").html("");
-=======
-  $("#Affichage_Resultat").html("");
->>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
 
   // Recherche
   var query = $("#query").val();
@@ -88,11 +80,7 @@ $("#submit_search").click(function () {
           "</b></h3><br></br>"
       );
 
-<<<<<<< HEAD
       var Affichage_Resultat = $("#affichage_resultat");
-=======
-      var Affichage_Resultat = $("#Affichage_Resultat");
->>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
 
       // Aucun résultat
       if (data_result.length === 0) {
@@ -106,28 +94,19 @@ $("#submit_search").click(function () {
           display: "block",
         });
         Affichage_Resultat.append(no_result);
-<<<<<<< HEAD
       }
-=======
-      } 
->>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
       // Résultat
       else {
         var result = document.createElement("table");
         $(result).attr("id", "table_result");
         $(result).html(
-<<<<<<< HEAD
           "<thead><tr><th>Smiles</th><th>Formule</th><th>ID</th><th>Inchi</th><th>Total Molecular Energy</th><th>Heavy Atoms number</th><th>Multiplicity</th></tr></thead>"
-=======
-          "<thead><tr><th>Formule</th><th>ID</th><th>Inchi</th><th>Total Molecular Energy</th></tr></thead>"
->>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
         );
         Affichage_Resultat.append(result);
 
         // Utilisation de DataTable pour afficher nos résultat
         $(document).ready(function () {
           $(result).DataTable({
-<<<<<<< HEAD
             data: data_result.data,
 
             columns: [
@@ -150,13 +129,6 @@ $("#submit_search").click(function () {
                 },
               },
               {
-=======
-            data:
-              data_result.data,
-
-            columns: [
-              {
->>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
                 data: "formule",
                 fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                   $(nTd).html(
@@ -171,33 +143,22 @@ $("#submit_search").click(function () {
               { data: "id" },
               { data: "inchi" },
               { data: "total_molecular_energy" },
-<<<<<<< HEAD
               { data: "nb_heavy_atoms", className: "text-center" },
               { data: "multiplicity", className: "text-center" },
             ],
             // Pour executer un callback une fois que les données sont ajoutées
-=======
-              { data: "nb_heavy_atoms" },
-              { data: "multiplicity" },
-            ],
-            // Pour ajouter un id sur chaque <tr>, au besoin
->>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
             fnRowCallback: function (
               nRow,
               aData,
               iDisplayIndex,
               iDisplayIndexFull
             ) {
-<<<<<<< HEAD
               // Ajout d'un ID pour chaque résultat
-=======
->>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
               var id = aData.id;
               $(nRow).attr("id", id);
               return nRow;
             },
           });
-<<<<<<< HEAD
           // Draw_canvas sur la première page
           draw_canvas();
           //Draw_canvas quand on va changer de page
@@ -206,8 +167,6 @@ $("#submit_search").click(function () {
             .addEventListener("click", function () {
               draw_canvas();
             });
-=======
->>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
         });
       }
     },
