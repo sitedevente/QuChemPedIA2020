@@ -107,8 +107,8 @@ $("#submit_search").click(function () {
         // Utilisation de DataTable pour afficher nos résultat
         $(document).ready(function () {
           $(result).DataTable({
-            ajax:
-              "http://127.0.0.1/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/js/data_test.json",
+            data:
+              data_result.data,
 
             columns: [
               {
@@ -126,6 +126,8 @@ $("#submit_search").click(function () {
               { data: "id" },
               { data: "inchi" },
               { data: "total_molecular_energy" },
+              { data: "nb_heavy_atoms" },
+              { data: "multiplicity" },
             ],
             // Pour ajouter un id sur chaque <tr>, au besoin
             fnRowCallback: function (
