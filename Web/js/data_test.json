@@ -1,0 +1,204 @@
+{
+  "data": [
+    {
+      "charge": 0,
+      "formule": "H2",
+      "id": "0jgL1XQBOSF22BvMylUz",
+      "inchi": "InChI=1S/H2/h1H",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 0,
+      "total_molecular_energy": -1.15446321966,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "H2",
+      "id": "6eIL1XQBkjVcihM6_wP9",
+      "inchi": "InChI=1S/H2/h1H",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 0,
+      "total_molecular_energy": -1.15446321966,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "I2",
+      "id": "0zgM1XQBOSF22BvMKlXw",
+      "inchi": "InChI=1S/I2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -13780.2830965,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "I2",
+      "id": "1jgM1XQBOSF22BvMT1XF",
+      "inchi": "InChI=1S/I2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -13780.2830965,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "Ni",
+      "id": "bSAM1XQBPSgPotL6cnxy",
+      "inchi": "InChI=1S/Ni",
+      "multiplicity": 3,
+      "nb_heavy_atoms": 1,
+      "total_molecular_energy": -1507.9604709,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "Ni",
+      "id": "1zgM1XQBOSF22BvMoFXX",
+      "inchi": "InChI=1S/Ni",
+      "multiplicity": 3,
+      "nb_heavy_atoms": 1,
+      "total_molecular_energy": -1507.9604709,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "6uIM1XQBkjVcihM6xwOx",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.44001518,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "byAM1XQBPSgPotL67Xxm",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.44001518,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "7OIN1XQBkjVcihM6JQOz",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.440009423,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "cCAN1XQBPSgPotL6Rnzb",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.567371742,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "cCAN1XQBPSgPotL6Rnza",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.567371742,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "cCAN1XQBPSgPotL6Rnzc",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.567371742,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "cCAN1XQBPSgPotL6Rnzd",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.567371742,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "cCAN1XQBPSgPotL6Rnze",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.567371742,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "cCAN1XQBPSgPotL6Rnzf",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.567371742,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "cCAN1XQBPSgPotL6Rnzg",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.567371742,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "cCAN1XQBPSgPotL6Rnzh",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.567371742,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "cCAN1XQBPSgPotL6Rnzi",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.567371742,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "cCAN1XQBPSgPotL6Rnzj",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.567371742,
+      "smiles": "ccccc"
+    },
+    {
+      "charge": 0,
+      "formule": "N2",
+      "id": "cCAN1XQBPSgPotL6Rnzk",
+      "inchi": "InChI=1S/N2/c1-2",
+      "multiplicity": 1,
+      "nb_heavy_atoms": 2,
+      "total_molecular_energy": -109.567371742,
+      "smiles": "ccccc"
+    }
+  ]
+}
