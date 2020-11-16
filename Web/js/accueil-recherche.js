@@ -167,6 +167,14 @@ $("#submit_search").click(function () {
             .addEventListener("click", function () {
               draw_canvas();
             });
+          
+          //Draw_canvas pour le tri
+          document
+          .getElementById("table_header")
+          .addEventListener("click", function () {
+            draw_canvas();
+          });
+          
         });
       }
     },
