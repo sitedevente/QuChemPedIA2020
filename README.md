@@ -18,6 +18,21 @@ Pour démarrer le serveur, il suffit tout simplement d'exécuter cette commande 
 
     flask run
 
+Si il y a une erreur pour accéder a l'api (error cross origin)  :
+    
+    pip3 install flask_cors
+
+Et ajouter dans l'api.py au début :
+
+    from flask_cors import CORS
+    
+Ajouter aussi apres :
+    
+    app = Flask(name)
+    
+Le code suivant :
+
+    CORS(app)
 
 Si le serveur a bien été lancé, on devrait obtenir ceci :
 
