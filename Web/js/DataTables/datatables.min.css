@@ -4,6 +4,7 @@ table.dataTable {
   clear: both;
   border-collapse: collapse;
   border-spacing: 0;
+  white-space: nowrap;
 }
 table.dataTable thead th,
 table.dataTable tfoot th {
@@ -56,7 +57,9 @@ table.dataTable tbody tr {
 table.dataTable tr:hover td {
     background-color: #095680;
     color: white;
-    transform: scale(1.2);
+    transform: scale(1.05);
+    border-radius: 4%;
+    transition: transform .5s ease;
     }
 
 table.dataTable tbody tr.selected {
@@ -65,10 +68,8 @@ table.dataTable tbody tr.selected {
 table.dataTable tbody th,
 table.dataTable tbody td {
   padding: 8px 10px;
-<<<<<<< HEAD
   text-align:center;
-=======
->>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
+  vertical-align:middle;
 }
 table.dataTable.row-border tbody th,
 table.dataTable.row-border tbody td,
@@ -581,3 +582,4 @@ table.dataTable td {
     margin-top: 0.5em;
   }
 }
+

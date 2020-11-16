@@ -55,6 +55,7 @@ $("#submit_search").click(function () {
     $(div_resultat).attr("id", "affichage_resultat");
     $(div_resultat).addClass("container");
     $(div_container_resultat).append(div_resultat);
+    $('.container').css({'width':'auto','height':'auto','display':'table'})
   }
 
   // Pour enlever tout ce qui est présent dans le résultat après une nouvelle recherche
@@ -99,8 +100,9 @@ $("#submit_search").click(function () {
       else {
         var result = document.createElement("table");
         $(result).attr("id", "table_result");
+        $(result).attr("class","table table-striped table-bordered");
         $(result).html(
-          "<thead><tr><th>Smiles</th><th>Formule</th><th>ID</th><th>Inchi</th><th>Total Molecular Energy</th><th>Heavy Atoms number</th><th>Multiplicity</th></tr></thead>"
+          "<thead id='table_header'><tr><th>Smiles</th><th>Formule</th><th>ID</th><th>Inchi</th><th>Total Molecular Energy</th><th>Heavy Atoms number</th><th>Multiplicity</th></tr></thead>"
         );
         Affichage_Resultat.append(result);
 
@@ -108,6 +110,7 @@ $("#submit_search").click(function () {
         $(document).ready(function () {
           $(result).DataTable({
             data: data_result.data,
+            pagingType:"full_numbers",
 
             columns: [
               {
@@ -165,15 +168,23 @@ $("#submit_search").click(function () {
           document
             .getElementById("table_result_paginate")
             .addEventListener("click", function () {
+              var all_tr = document.querySelectorAll("tr");
+          console.log(all_tr);
               draw_canvas();
             });
-          
+
           //Draw_canvas pour le tri
           document
-          .getElementById("table_header")
-          .addEventListener("click", function () {
-            draw_canvas();
-          });
+            .getElementById("table_header")
+            .addEventListener("click", function () {
+              var all_tr = document.querySelectorAll("tr");
+          console.log(all_tr);
+              draw_canvas();
+            });
+
+            var all_tr = document.querySelectorAll("tr");
+            $('tr').on('mouseover',function(){console.log("test");}).on('mouseout',function(){/* code goes here */})
+          console.log(all_tr);
           
         });
       }
