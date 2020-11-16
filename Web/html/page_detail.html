@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page de détail</title>
+    <!--Bootstrap et css-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/detail.css">
+</head>
+
+<body>
+<!-- Barre de navigation en heading -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light py-2">
+    <!-- Bouton pour réduire le menu de recherche en responsive -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Logo et nom du site pour retour accueil -->
+    <a class="navbar-brand mb-0 h1 mr-0 mw-10" href="#">
+        <img src="../img/logo.png" class="img-fluid rounded" width="4%" alt="Logo"> uChemPedIA
+    </a>
+
+    <!-- Barre de recherche avec le choix du type, l'input et le bouton submit -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form>
+            <div class="form-row">
+                <!-- Input pour saisir la molécule -->
+                <div class="col">
+                    <!-- Petit Regex pour mettre que des formules moléculaires -->
+                    <input class="form-control" type="text" placeholder="Molecule" pattern="[a-zA-Z]*[0-9]*" aria-label="Search">
+                </div>
+
+                <!-- Choix de la notation de la molécule-->
+                <div class="col">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle form-control" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Type
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item active" id="type_formula">Formula</a>
+                            <a class="dropdown-item" id="type_inchi">InChi</a>
+                            <a class="dropdown-item" id="type_iupac">IUPAC name</a>
+                            <a class="dropdown-item" id="type_cid">CID PubChem</a>
+                            <a class="dropdown-item" id="type_smiles">SMILES</a>
+                            <a class="dropdown-item" id="type_idlog">id_log</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bouton submit -->
+                <div class = 'col'>
+                    <button type="submit" class="btn btn-outline-success">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tab text-primary">
+                <li class="nav-item ">
+                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="results-tab" data-toggle="tab" href="#result" role="tab" aria-controls="results" aria-selected="false">Results</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="calculs-tab" data-toggle="tab" href="#calculs" role="tab" aria-controls="calculs" aria-selected="false">Associated Calculations</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="container">
+                        <div class="row-justify-content-around">
+                            <div class="col-auto d-inline text-primary">
+                                <h2 id="titre"></h2>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="row align-item-center">
+                                    <div id="inchi"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <div class="row align-item-center">
+                                    <div id="smiles"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg">
+                                <div class="card" style="width: 85%">
+                                    <h1 class="display-1" id="titre_card"></h1>
+                                    <div class="card-body">
+                                        <p class="card-text">Some content.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab"></div>
+                <div class="tab-pane fade" id="calculs" role="tabpanel" aria-labelledby="calculs-tab"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--Bootstrap js-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="../js/detail.js"></script>
+</body>
+</html>
