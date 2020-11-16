@@ -65,7 +65,10 @@ table.dataTable tbody tr.selected {
 table.dataTable tbody th,
 table.dataTable tbody td {
   padding: 8px 10px;
+<<<<<<< HEAD
   text-align:center;
+=======
+>>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
 }
 table.dataTable.row-border tbody th,
 table.dataTable.row-border tbody td,
@@ -578,5 +581,8 @@ table.dataTable td {
     margin-top: 0.5em;
   }
 }
+<<<<<<< HEAD
 
 th.dt-center, td.dt-center { text-align: center; }
+=======
+>>>>>>> eba876ee2efcede245aa9333335ef0e4c7396c1e
