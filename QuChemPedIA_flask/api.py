@@ -1,4 +1,4 @@
-from flask import Flask, json, request
+from flask import Flask, json, request,render_template
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.connections import connections
@@ -22,24 +22,27 @@ def recherche():
     s = s.query(
         {"regexp": {"molecule.formula": '[a-zA-Z0-9]*' + query + '[a-zA-Z0-9]*'}})
     #s = s.query('regexp',formula='[a-z0-9]'+query+'[a-z0-9]*')
+    mol = s.execute()
+    if mol.hits.total.value <= 0:
+        return render_template('error/blade404.html')
+    else:
+        for molecules in s.execute():
+            dict = {
+                "id": molecules.meta.id,
+                "formule": molecules.molecule.formula,
+                "inchi": molecules.molecule.inchi,
+                "nb_heavy_atoms": molecules.molecule.nb_heavy_atoms,
+                "charge": molecules.molecule.charge,
+                "total_molecular_energy": molecules.results.wavefunction.total_molecular_energy,
+                "multiplicity": molecules.molecule.multiplicity,
+            }
+            liste.append(dict)
 
-    for molecules in s.execute():
-        dict = {
-            "id": molecules.meta.id,
-            "formule": molecules.molecule.formula,
-            "inchi": molecules.molecule.inchi,
-            "nb_heavy_atoms": molecules.molecule.nb_heavy_atoms,
-            "charge": molecules.molecule.charge,
-            "total_molecular_energy": molecules.results.wavefunction.total_molecular_energy,
-            "multiplicity": molecules.molecule.multiplicity,
-        }
-        liste.append(dict)
-
-    response = app.response_class(
-        response = json.dumps(liste, indent=4),
-        mimetype = 'application/json'
-    )
-    return response
+        response = app.response_class(
+            response = json.dumps(mol.to_dict(), indent=4),
+            mimetype = 'application/json'
+        )
+        return response
 
     # Route pour le détail d'une molécule
 
@@ -49,7 +52,10 @@ def detail():
     identifiant = request.args.get('id')
     s   = Search(using = client, index = "molecules", doc_type = "molecule")
     s   = s.query('match', _id=identifiant)
-    mol = s.execute()[0].to_dict()
+    try:
+        mol = s.execute()[0].to_dict()
+    except Exception as e:
+        return render_template('error/blade404.html')
 
     response = app.response_class(
         response = json.dumps(mol, indent=4),
