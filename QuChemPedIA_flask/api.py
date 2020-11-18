@@ -2,13 +2,16 @@ from flask import Flask,json, request, render_template
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.connections import connections
+from flask_cors import CORS
+
+
 
 #es = Elasticsearch(['https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net:433'])
 #Connexion au client Elasticsearch
 client = Elasticsearch('https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net')
 
 app = Flask(__name__)
-
+CORS(app)
 
 #Route pour la recherche de molécule
 @app.route('/API/recherche')
@@ -55,7 +58,3 @@ def detail():
     return response
 
 
-#Route pour la page index (accueil-recherche)
-@app.route('/')
-def index():
-    return render_template('index.html')
