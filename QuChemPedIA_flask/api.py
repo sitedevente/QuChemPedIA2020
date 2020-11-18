@@ -13,12 +13,16 @@ app = Flask(__name__)
 
 
 # Route pour la recherche de molécule
-@app.route('/API/recherche')
-def recherche():
+@app.route('/API/recherche/<type>/<name>')
+def recherche(type,name):
 
-    query = request.args.get('q')
-    type  = request.args.get('type')
-    s = Search(using = client, index = "molecules", doc_type = "molecule")
+    if(not (type and type.strip()) or not (name and name.strip())):
+        return jsonify({'Error': 'Something is missing please check your URL'}),404
+        # return ""+query
+    else:
+        type  = type
+        query = name
+        s = Search(using = client, index = "molecules", doc_type = "molecule")
 
     if type == "formula" :
         if query.find('*') != -1 or query.find('_') != -1:
@@ -37,7 +41,8 @@ def recherche():
 
     #s = s.query('regexp',formula='[a-z0-9]'+query+'[a-z0-9]*')
     mol = s.execute()
-
+    if mol.hits.total.value <= 0:
+        return jsonify({'Error': 'Molecule does not exist'}), 404
     for molecules in s.execute():
         dict = {
             "id": molecules.meta.id,
@@ -55,25 +60,47 @@ def recherche():
         response = json.dumps(liste, indent=4),
         mimetype = 'application/json'
     )
-    return response
+    return response,200
 
     # Route pour le détail d'une molécule
 
 
-@app.route('/API/detail')
-def detail():
+@app.route('/API/detail/<id>')
+def detail(id):
 
 
-    identifiant = request.args['id']
+    if(not (id and not id.isspace())):
+        return jsonify({'Error': 'Please specify an id '}),404
+    else:
+        identifiant = id
+
+    try:
+        s   = Search(using = client, index = "molecules", doc_type = "molecule")
+        s   = s.query('match', _id=identifiant)
+        mol = s.execute()[0].to_dict()
+        response = app.response_class(
+            response = json.dumps(mol, indent=4),
+            mimetype = 'application/json'
+        )
+
+        return response ,200
+    except Exception as e:
+        return jsonify({'Error': 'Molecule with id = \'' + identifiant + '\' does not exists!'}),404
 
 
-    s   = Search(using = client, index = "molecules", doc_type = "molecule")
-    s   = s.query('match', _id=identifiant)
-    mol = s.execute()[0].to_dict()
 
-    response = app.response_class(
-        response = json.dumps(mol, indent=4),
-        mimetype = 'application/json'
-    )
+@app.errorhandler(werkzeug.exceptions.NotFound)
+def not_found(e):
+    # Page not found.
+    return jsonify({'Error': 'Resource not found please check your url!'}), 404
 
-    return response
+@app.errorhandler(werkzeug.exceptions.BadRequest)
+def bad_request():
+    # Bad request
+    return jsonify({'Error': 'Sorry, the server cannot handle your request'}), 400
+
+
+@app.errorhandler(werkzeug.exceptions.InternalServerError)
+def server_error():
+    # Internal server error
+    return jsonify({'Error': 'Sorry , an internal server error occurred'}), 500
