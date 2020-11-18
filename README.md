@@ -1,9 +1,17 @@
 # Projet QuChemPedia avec Flask
 
+## Préambule
+
+Ce projet ainsi que le tutoriel qui suit a été réalisé avec la version 3.6.9 de Python.
+Pour vérifier la version de votre client Python, lancez la commande :
+
+    python3 --version
+
 ## Création de environnement virtuel et installation du projet
 
 Après avoir cloner le projet Git, rendez vous dans le dossier du projet et créez un nouvel environnement virtuel Python.
 
+    cd QuChemPedIA_flask
     python3 -m venv quchempedia-env
 
 Puis activez ce nouvel environnement en lançant la commande :
