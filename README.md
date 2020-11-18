@@ -6,6 +6,7 @@ Ce projet ainsi que le tutoriel qui suit a été réalisé avec la version 3.6.9
 Pour vérifier la version de votre client Python, lancez la commande :
 
     python3 --version
+    Python 3.6.9
 
 ## Création de environnement virtuel et installation du projet
 
