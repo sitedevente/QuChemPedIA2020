@@ -237,7 +237,7 @@ function search() {
             iDisplayIndexFull
           ) {
             // Ajout d'un ID pour chaque résultat
-            var id = aData.id;
+            var id = aData.comp_details.general.basis_set_md5;
             $(nRow).attr("id", id);
             return nRow;
           },
