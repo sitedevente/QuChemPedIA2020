@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>QuChemPedIA</title>
     <link rel="icon" type="image/png" href="../img/logo.png" />
-    <!--Bootstrap et css-->
+    <!--Bootstrap datatable et css-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../css/detail.css">
 </head>
 
@@ -63,18 +64,19 @@
 <div class="container mt-4">
     <div class="card text-center">
         <div class="card-header">
-            <ul class="nav nav-pills card-header-pills text-primary">
-                <li class="nav-item ">
+            <ul class="nav nav-pills text-primary">
+                <li class="nav-item">
                     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="results-tab" data-toggle="tab" href="#result" role="tab" aria-controls="results" aria-selected="false">Results</a>
+                    <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Results</a>
                 </li>
             </ul>
         </div>
         <div class="card-body">
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="home-tab">
+                <!-- Onglet description avec les informations principales-->
+                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                     <div class="container">
                         <div class="row-justify-content-around">
                             <div class="col-auto d-inline text-primary">
@@ -95,13 +97,14 @@
                         <!-- Description plus détaillée de la molécule-->
                         <div class="row">
                             <div class="col-lg">
-                                <div class="card  bg-light" style="width: 100%">
+                                <div class="card bg-light" style="width: 100%">
                                     <div class="card-header">
                                         <h1 class="display-1 mb-4" id="titre_card"></h1>
                                     </div>
                                     <div class="card-body">
                                         <div class="container">
                                             <div class="row">
+                                                <!--Partie sur les détails de calculs-->
                                                 <div class="col text-left">
                                                     <h5 class="card-title">Computation details</h5>
                                                     <div class="dropdown-divider"></div>
@@ -197,6 +200,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <!--Partie détail de la molécule-->
                                                 <div class="col text-left">
                                                     <h5 class="card-title">Molecule Details</h5>
                                                     <div class="dropdown-divider"></div>
@@ -255,7 +260,171 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab"></div>
+
+                <!-- Onglet avec les résultats détaillés avec 3 sous onglets-->
+                <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+                    <div class="card border-light">
+                        <div class="row no-gutters">
+                            <div class="col-2 card-header">
+                                <div class="col">
+                                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                        <a class="nav-link active" id="v-pills-wavefunction-tab" data-toggle="pill" href="#v-pills-wavefunction" role="tab" aria-controls="v-pills-wavefunction" aria-selected="true">Wavefunction</a>
+                                        <a class="nav-link" id="v-pills-geometry-tab" data-toggle="pill" href="#v-pills-geometry" role="tab" aria-controls="v-pills-geometry" aria-selected="false">Geometry</a>
+                                        <a class="nav-link" id="v-pills-states-tab" data-toggle="pill" href="#v-pills-states" role="tab" aria-controls="v-pills-states" aria-selected="false">Excited States</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <div class="tab-content" id="v-pills-tabContent">
+
+                                        <!--Sous onglet Wavefunction-->
+                                        <div class="tab-pane fade show active" id="v-pills-wavefunction" role="tabpanel" aria-labelledby="v-pills-wavefunction-tab">
+                                            <div class="col text-left">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p id="energy" class="text-secondary"></p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <p id="energybis"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p id="homo" class="text-secondary"></p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <p id="homobis"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col text-center">
+                                                        <div class="h3 my-4">Calculated energies for the frontier molecular orbitals</div>
+                                                    </div>
+                                                </div>
+                                                <div class="row justify-content-around text-center ">
+                                                    <div class="col">
+                                                        <p id="homo-1" class="font-weight-bold">Homo-1</p>
+                                                        <p id="homo-1bis"></p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p id="homo0" class="font-weight-bold">Homo</p>
+                                                        <p id="homo0bis"></p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p id="lumo0" class="font-weight-bold">Lumo</p>
+                                                        <p id="lumo0bis"></p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p id="lumo+1" class="font-weight-bold">Lumo+1</p>
+                                                        <p id="lumo+1bis"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col text-center">
+                                                        <div class="h3 my-4">Most intense Mulliken atomic charges</div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col text-center">
+                                                        <p id="mulliken"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" id="tableau_atomes">
+                                                    <div class="col text-center">
+                                                        <table id="mull_id" class="display">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Atom</th>
+                                                                    <th>Number</th>
+                                                                    <th>Mulliken partial charges</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="mulliken_table"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--Sous onglet geometry-->
+                                        <div class="tab-pane fade" id="v-pills-geometry" role="tabpanel" aria-labelledby="v-pills-geometry-tab">
+                                            <div class="col text-left">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p id="nuclear" class="text-secondary"></p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <p id="nuclearbis"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row my-4">
+                                                    <div class="col">
+                                                        <div class="h3">Cartesian atomic coordinates</div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <button type="button" class="btn btn-primary btn-lg">Download</button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col text-center">
+                                                        <p class="text-center text-secondary">Coordinates are shown in Angstroms</p>
+                                                        <table id="cartesian_id" class="display">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Atom</th>
+                                                                <th>X</th>
+                                                                <th>Y</th>
+                                                                <th>Z</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody id="cartesian_table"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--Sous onglet excited States-->
+                                        <div class="tab-pane fade" id="v-pills-states" role="tabpanel" aria-labelledby="v-pills-states-tab">
+                                            <div class="col text-left">
+                                                <div class="row">
+                                                    <div class="col text-center">
+                                                        <div class="h3 my-2">Calculated mono-electronic excitations</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col text-center">
+                                                        <table id="excitation_id" class="display">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Number</th>
+                                                                    <th>Energy Cm N1</th>
+                                                                    <th>Energy (nm)</th>
+                                                                    <th>Symmetry</th>
+                                                                    <th>Oscillator Strength</th>
+                                                                    <th>Rotatory strength</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="excitation_table"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -263,10 +432,11 @@
 
 
 
-<!--Bootstrap js-->
+<!--Bootstrap datatable et js-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="../js/detail.js"></script>
 </body>
 </html>

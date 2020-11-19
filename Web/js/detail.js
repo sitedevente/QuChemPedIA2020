@@ -1,10 +1,37 @@
+//Initialisation pour les datatables
+$(document).ready(function() {
+    $('#mull_id').DataTable( {
+        "paging":   false,
+        "info":     false,
+        "searching":   false
+    } );
+} );
+
+$(document).ready(function() {
+    $('#cartesian_id').DataTable( {
+        "paging":   false,
+        "info":     false,
+        "searching":   false
+    } );
+} );
+
+$(document).ready(function() {
+    $('#excitation_id').DataTable( {
+        "paging":   false,
+        "info":     false,
+        "searching":   false
+    } );
+} );
+
+//Objet XHR ajax permettant de récupérer des données à partir d'une URL
 let requestURL = 'http://127.0.0.1:5000/API/detail?id=LeIN1HQBkjVcihM6WgIo';
 let request = new XMLHttpRequest();
 
-//Fonction pour mettre les indices aux molécules
+//Fonction pour mettre les indices en html aux formules moléculaires (C6H6)
 function mol_sub(molecule){
     let tmp = "";
     for(let i = 0;i<molecule.length;i++){
+        //Si le caractère est un chiffre alors on le met en indice
         if (molecule[i].match(/[0-9]/)){
             tmp += molecule[i].sub();
         }
@@ -15,17 +42,21 @@ function mol_sub(molecule){
     return tmp;
 }
 
-//Fonction pour mettre les exposants
+//Fonction pour mettre les exposants en html sur une expression scientifique (10e-8)
 function exposant(chaine){
     try {
         let index;
         let tmp = "";
         chaine = chaine.toString();
+
+        //Récupération de l'index ou se trouve l'exposant "e"
         for(let i = 0;i<chaine.length;i++){
             if (chaine[i] == "e"){
                 index = i;
             }
         }
+
+        //On ajoute l'exposant en enlevant le "e"
         let exposant = chaine.substring(index);
         tmp += chaine.substring(0,index) ;
         tmp += exposant.sup();
@@ -35,17 +66,24 @@ function exposant(chaine){
     }
 }
 
+//Fonction pour lire l'état de la requête et si le serveur renvoie le statut 200 OK et l'état Done
+//On prends la réponse et on rempli l'HTML avec les informations du Json
 request.onreadystatechange = function() {
     if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+        //On parse la réponse du serveur en JSON
         let response = JSON.parse(this.responseText);
 
+        //////////////////////////////////////////////////////
+        //Onglet Description avec les informations principales
+        //////////////////////////////////////////////////////
         if (response.molecule.formula){
+            //On remplit le titre et le grand titre
             document.getElementById("titre").innerHTML = "Formule : "+mol_sub(response.molecule.formula);
             document.getElementById("titre_card").innerHTML = mol_sub(response.molecule.formula)
         }
 
         if (response.molecule.inchi){
-            // Substring pour ne pas prendre le début avec "INCHI="
+            //Substring pour ne pas prendre le début avec "INCHI="
             document.getElementById("inchi").innerHTML = "Inchi : "+response.molecule.inchi.substring(6);
         }
 
@@ -53,6 +91,7 @@ request.onreadystatechange = function() {
             document.getElementById("smiles").innerHTML = "SMILES : "+response.molecule.smi;
         }
 
+        //Partie plus détaillée pour les caractéristiques de la molécule (partie détail de calcul)
         if (response.comp_details.general.package && response.comp_details.general.package_version){
             document.getElementById("software").innerHTML = "Software";
             document.getElementById("softwarebis").innerHTML = response.comp_details.general.package +" ("+response.comp_details.general.package_version+")";
@@ -98,11 +137,12 @@ request.onreadystatechange = function() {
             document.getElementById("convergencebis").innerHTML = exposant(response.comp_details.general.scf_targets[0][0]);
         }
 
-        if (response.comp_details.excited_states != "[object Object]" || response.comp_details.excited_states  == 0){
+        if (response.comp_details.excited_states.nb_et_states || response.comp_details.excited_states.nb_et_states  == 0){
             document.getElementById("nb_excited_state").innerHTML = "Number of excited states";
-            document.getElementById("nb_excited_statebis").innerHTML = response.comp_details.excited_states;
+            document.getElementById("nb_excited_statebis").innerHTML = response.comp_details.excited_states.nb_et_states;
         }
 
+        //Partie plus détaillée pour les caractéristiques de la molécule (partie détail de la molécule)
         if (response.molecule.formula){
             document.getElementById("formule").innerHTML = "Formule";
             document.getElementById("formulebis").innerHTML = mol_sub(response.molecule.formula);
@@ -126,6 +166,24 @@ request.onreadystatechange = function() {
         if (response.metadata.log_file){
             document.getElementById("logfile").innerHTML = "Original log file";
             document.getElementById("logfilebis").innerHTML = "Download";
+        }
+
+        //////////////////////////////////////////////////////
+        //Onglet Results avec le détail et l'ajout d'infos
+        //////////////////////////////////////////////////////
+        if (response.results.wavefunction.total_molecular_energy || response.results.wavefunction.total_molecular_energy == 0){
+            document.getElementById("energy").innerHTML = "Total molecular energy";
+            document.getElementById("energybis").innerHTML = response.results.wavefunction.total_molecular_energy;
+        }
+
+        if (response.results.wavefunction.homo_indexes || response.results.wavefunction.homo_indexes == 0){
+            document.getElementById("homo").innerHTML = "HOMO number";
+            document.getElementById("homobis").innerHTML = response.results.wavefunction.homo_indexes;
+        }
+
+        if (response.results.geometry.nuclear_repulsion_energy_from_xyz || response.results.geometry.nuclear_repulsion_energy_from_xyz == 0){
+            document.getElementById("nuclear").innerHTML = "Nuclear repulsion energy in atomic units";
+            document.getElementById("nuclearbis").innerHTML = response.results.geometry.nuclear_repulsion_energy_from_xyz;
         }
     }
 };
