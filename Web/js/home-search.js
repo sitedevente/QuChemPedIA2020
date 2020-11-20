@@ -1,15 +1,16 @@
-// Pour utiliser la touche entrée pour effectuer une nouvelle recherche
+// To use enter key
+// when the query is not empty on search bar
 $(document).on("keydown", function (e) {
   var keyCode = e.which || e.keyCode;
   if (keyCode == 13 && $("#query").val() != "") {
     // enter key code
     search();
-    $("#div_container_accueil").remove();
+    $("#div_container_home").remove();
   }
 });
 // ------------------------------------------------
 
-// Pour afficher un loading pendant la recherche
+// To display a loader during the init of datatable
 function loading(isTrue) {
   if (isTrue) {
     var div_flex = document.createElement("div");
@@ -29,14 +30,14 @@ function loading(isTrue) {
     $(spinner).append($(span_spinner));
     $(div_flex).append($(spinner));
 
-    $("#Nombre_Resultat").append($(div_flex));
+    $("#result_number").append($(div_flex));
   } else {
     var div_flex = document.getElementById("loading");
     $(div_flex).remove();
   }
 }
 
-// Pour ajouter un clic -> vers page détail
+// To add a click to /details/id
 function add_click() {
   var all_tr = document.querySelectorAll("tr");
   for (let i = 1; i < all_tr.length; ++i) {
@@ -47,26 +48,27 @@ function add_click() {
   }
 }
 
-// Pour supprimer l'accueil après la première recherche
+// To remove the home page after first submit
 $("#submit_search").click(function () {
-  var elem = document.getElementById("div_container_accueil");
+  var elem = document.getElementById("div_container_home");
   if (elem !== null) {
-    document.getElementById("div_container_accueil").remove();
+    document.getElementById("div_container_home").remove();
   }
 });
 // ------------------------------------------------
 
+// Search function called after each submit
 function search() {
-  // Pour la première recherche, création de la navbar à partir de l'accueil
+  // First submit, we add a navbar
   if ($("#navbar_top").length === 0) {
     var navbar = document.createElement("nav");
     $(navbar).attr("id", "navbar_top");
     $(navbar).addClass("navbar navbar-expand-lg navbar-light bg-light");
 
     var logo = document.createElement("a");
-    $(logo).attr("id", "accueil_bouton");
+    $(logo).attr("id", "home_button");
     $(logo).attr("href", "index.html");
-    $(logo).html("QuChemPedia");
+    $(logo).html("QuChemPedIA");
     $(logo).addClass("navbar-brand primary");
     $(navbar).append(logo);
 
@@ -88,38 +90,38 @@ function search() {
       )
       .addClass("btn btn-primary mt-lg-0  my-2 my-sm-0");
 
-    var div_nombre_resultat = document.createElement("div");
-    $(div_nombre_resultat).attr("id", "nombre_resultat");
-    $(div_nombre_resultat).addClass("");
-    $(div_nombre_resultat).css("text-align", "center");
-    $(document.body).append(div_nombre_resultat);
+    var div_result_number = document.createElement("div");
+    $(div_result_number).attr("id", "result_number");
+    $(div_result_number).addClass("");
+    $(div_result_number).css("text-align", "center");
+    $(document.body).append(div_result_number);
 
-    var div_container_resultat = document.createElement("div");
-    $(div_container_resultat).attr("id", "container_resultat");
-    $(div_container_resultat).addClass("container");
-    $(document.body).append(div_container_resultat);
+    var div_container_result = document.createElement("div");
+    $(div_container_result).attr("id", "container_result");
+    $(div_container_result).addClass("container");
+    $(document.body).append(div_container_result);
 
-    var div_resultat = document.createElement("div");
-    $(div_resultat).attr("id", "affichage_resultat");
-    $(div_resultat).addClass("container");
-    $(div_container_resultat).append(div_resultat);
+    var div_result = document.createElement("div");
+    $(div_result).attr("id", "display_result");
+    $(div_result).addClass("container");
+    $(div_container_result).append(div_result);
     $(".container").css({ width: "auto", height: "auto", display: "table" });
   }
 
-  // Pour enlever tout ce qui est présent dans le résultat après une nouvelle recherche
-  $("#affichage_resultat").empty();
-  $("#nombre_resultat").empty();
+  // To remove last result after a new submit
+  $("#display_result").empty();
+  $("#result_number").empty();
 
-  //Début de loading
+  //Loading() display
   loading(true);
 
-  // Recherche
+  // Search informations
   var query = $("#query").val();
   var type_recherche = $("#id_typeQuery").val();
 
   $.ajax({
     type: "GET",
-    url: "../js/data_test.json", //Route à changer pour requête sur l'API http://127.0.0.1:5000/API/recherche (Flask api)
+    url: "../js/data_test.json", //Change URL to use with  search API http://127.0.0.1:5000/API/recherche (Flask api)
     data: {
       type: type_recherche,
       q: query,
@@ -129,27 +131,28 @@ function search() {
       $(header_result).css("text-align", "center");
       $(header_result).css("margin-top", "45px");
 
-      // Création de la Datatable Résultat
+      // Datatable init
+      // For each variables you want to diplay add them in <thead>
       var result = document.createElement("table");
       $(result).attr("id", "table_result");
       $(result).attr("class", "table table-striped table-bordered");
       $(result).html(
-        "<thead id='table_header'><tr><th>ID</th><th>Formule</th><th>Inchi</th><th>Smile</th><th>Number heavy atoms</th><th>Charge</th><th>Total Molecular Energy</th><th>Basis set name</th><th>Job type</th><th>Multiplicity</th><th>List thoery</th><th>Solvent</th></tr></thead>"
+        "<thead id='table_header'><tr><th>Formule</th><th>Inchi</th><th>Smile</th><th>Number heavy atoms</th><th>Charge</th><th>Total Molecular Energy</th><th>Basis set name</th><th>Job type</th><th>Multiplicity</th><th>List thoery</th><th>Solvent</th></tr></thead>"
       );
-      $("#affichage_resultat").append(result);
+      $("#display_result").append(result);
 
-      // Utilisation de DataTable pour afficher nos résultat
+      // Datatable init
+      // document.ready -> to let the script load successfully
+      // data -> json data
+      // https://datatables.net/reference/option/
       $(document).ready(function () {
         var table = $(result).DataTable({
           data: data_result.data,
           pagingType: "full_numbers",
-          // Récupération des données à mettre dans la datatable
+          lengthMenu: [ 25, 50, 100 ],
+          // get data from json file
           columns: [
-            {
-              data: "comp_details.general.basis_set_md5",
-              title: "ID",
-              defaultContent: "<i>No id</i>",
-            },
+            
             {
               data: "molecule.formula",
               defaultContent: "No formule",
@@ -168,7 +171,7 @@ function search() {
               data: "molecule.smi",
               defaultContent: "<i>No smiles</i>",
               fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                //Récupération du smile pour draw_canvas (smile)
+                //Canvas to display smi with draw_canvas
                 $(nTd).html("");
                 var canvas = document.createElement("canvas");
                 $(canvas).attr(
@@ -229,35 +232,36 @@ function search() {
               className: "text-center",
             },
           ],
-          // Pour executer un callback une fois que les données sont ajoutées
+          // Callback at the end
           fnRowCallback: function (
             nRow,
             aData,
             iDisplayIndex,
             iDisplayIndexFull
           ) {
-            // Ajout d'un ID pour chaque résultat
+            // Add ID for each row
             var id = aData.comp_details.general.basis_set_md5;
             $(nRow).attr("id", id);
             return nRow;
           },
         });
-        //A la fin de la requête on ajoute le lien vers la page détail, on affiche le smile et on affiche dans l'header le résultat
-        // Si l'utilisateur change de page, ou réalise un tri, on diffuse l'information
+        //When request end : add click,draw_canvas then add eventlistener when user change page/sort -> to keep clic,canvas
 
-        //Ajout clic -> page détail
+        //Clic -> details/id
         add_click();
+        // Draw_canvas for first page result
+        draw_canvas();
 
-        //Nombre de résultat
+        //Result number
         $(header_result).html(
           "Found<b> " + table.data().count() + "</b> for <b>" + query + "</b>"
         );
-        var div_nombre_resultat = document.getElementById("nombre_resultat");
-        $(div_nombre_resultat).append($(header_result));
+        var div_result_number = document.getElementById("result_number");
+        $(div_result_number).append($(header_result));
 
-        // Aucun résultat
+        // No result
         if (table.data().count() == 0) {
-          $("#affichage_resultat").hide();
+          $("#display_result").hide();
           var no_result = document.createElement("img");
           $(no_result).attr("src", "../img/confused_scientist.png");
           $(no_result).attr("alt", "No result");
@@ -267,15 +271,14 @@ function search() {
             height: "300px",
             display: "block",
           });
-          $(div_nombre_resultat).append(no_result);
+          $(div_result_number).append(no_result);
         } else {
-          // hide/show pour masquer le datatable quand on à aucun résultat
-          $("#affichage_resultat").show();
+          // show/hide to display or not the datatble when result/no result 
+          $("#display_result").show();
         }
 
-        // Draw_canvas sur la première page
-        draw_canvas();
-        //Draw_canvas/add_click quand on va changer de page
+        
+        //Draw_canvas/add_click when we switch page
         document
           .getElementById("table_result_paginate")
           .addEventListener("click", function () {
@@ -283,7 +286,7 @@ function search() {
             add_click();
           });
 
-        //Draw_canvas/add_click pour le tri
+        //Draw_canvas/add_click when we use sort
         document
           .getElementById("table_header")
           .addEventListener("click", function () {
@@ -291,16 +294,16 @@ function search() {
             add_click();
           });
 
-        //Fin du loading à l'affichage
+        //Loading() no display
         loading(false);
       });
     },
     error: function () {
-      // Message si erreur
+      // If we catch an error
       var no_result = document.createElement("h5");
       $(no_result).html("Sorry, error in execution.");
       $(no_result).css("text-align", "center");
     },
   });
-  // ------------------------------------------------ FIN DE RECHERCHE
+  // ------------------------------------------------ END SEARCH FUNCTION
 }

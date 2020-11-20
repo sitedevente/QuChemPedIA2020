@@ -11,7 +11,7 @@ function draw_canvas() {
       height: 250,
     });
 
-    // Le smile est affiché dans un div qui est hide, qui à comme ID : '"valeur_du_smile"_smile' et comme html :"valeur_du_smile"
+    // Smile value is display in hidden div : '"smi_value"_smile' and as html :"smi_value"
     var input = String($(element).attr("id").replace("_canvas", "")) + "_smile";
     var smile = document.getElementById(input);
 
@@ -21,7 +21,7 @@ function draw_canvas() {
         smileDrawer.draw(tree, $(element).attr("id"), "light", false);
       },
       function (err) {
-        //console.log(err); // Affiche erreur au besoin
+        //console.log(err); // Display error if needed
       }
     );
   });
