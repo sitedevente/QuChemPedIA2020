@@ -47,6 +47,7 @@ def recherche(type, name):
         s = s.query({"match_phrase": {"molecule." + type: name}})
 
     liste = []
+    data = {}
 
     # Check if the molecule with the the provided name and type exists
     # If it's the case , return the results converted to Json format for later use
@@ -72,8 +73,9 @@ def recherche(type, name):
         }
         liste.append(dict)
     liste = sorted(liste, key=lambda x: len(x[type]))
+    data["data"] = liste
     response = app.response_class(
-        response=json.dumps(liste, indent=4),
+        response=json.dumps(data, indent=4),
         mimetype='application/json'
     )
     return response, 200
@@ -128,8 +130,6 @@ def not_found(e):
     return jsonify({'Error': 'Resource not found please check your url!'}), 404
 
 # Error 400 handler.
-
-
 @app.errorhandler(werkzeug.exceptions.BadRequest)
 def bad_request():
     """ Bad request. """
@@ -137,8 +137,6 @@ def bad_request():
         {'Error': 'Sorry, the server cannot handle your request'}), 400
 
 # Error 500 handler.
-
-
 @app.errorhandler(werkzeug.exceptions.InternalServerError)
 def server_error():
     """ Internal server error. """
