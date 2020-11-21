@@ -13,8 +13,8 @@ app = Flask(__name__)
 
 
 #  Route to look for a molecule with its formula and its name in Elasticsearch.
-@app.route('/API/recherche/<type>/<name>')
-def recherche(type, name):
+@app.route('/API/search/<type>/<name>')
+def search(type, name):
 
     # Check if a type and a name were provided in the URL
     # If it's the case , assign them to the variables type and name
@@ -71,6 +71,23 @@ def recherche(type, name):
             "total_molecular_energy": molecules.results.wavefunction.total_molecular_energy,
             "multiplicity": molecules.molecule.multiplicity,
         }
+
+        if(hasattr(molecules.comp_details.general,'basis_set_name')):
+            basis_set_name=molecules.comp_details.general.basis_set_name
+            dict["basis_set_name"] = basis_set_name
+
+        if(hasattr(molecules.comp_details.general,'job_type')):
+            job_type = json.dumps(list(molecules.comp_details.general.job_type))
+            dict["job_type"] = job_type
+
+        if(hasattr(molecules.comp_details.general,'solvent')):
+            solvent=molecules.comp_details.general.solvent
+            dict["solvent"] = solvent
+
+        if(hasattr(molecules.comp_details.general,'list_theory')):
+            list_theory = json.dumps(list(molecules.comp_details.general.list_theory))
+            dict["list_theory"] = list_theory
+
         liste.append(dict)
     liste = sorted(liste, key=lambda x: len(x[type]))
     data["data"] = liste
@@ -83,8 +100,8 @@ def recherche(type, name):
 # Route to retrieve a molecule with its ID in Elasticsearch.
 
 
-@app.route('/API/detail/<id>')
-def detail(id):
+@app.route('/API/details/<id>')
+def details(id):
 
     # Check if an id was provided in the URL
     # If it's the case , assign it to the variable identifiant
