@@ -3,6 +3,10 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.connections import connections
 import werkzeug
+try:
+    from urllib.parse import unquote  # PY3
+except ImportError:
+    from urllib import unquote  # PY2
 
 #es = Elasticsearch(['https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net:433'])
 # Connexion au client Elasticsearch
@@ -13,7 +17,7 @@ app = Flask(__name__)
 
 
 #  Route to look for a molecule with its formula and its name in Elasticsearch.
-@app.route('/API/search/<type>/<name>')
+@app.route('/api/search/<type>/<name>')
 def search(type, name):
 
     # Check if a type and a name were provided in the URL
@@ -27,7 +31,7 @@ def search(type, name):
             {'Error': 'Something is missing please check your URL'}), 404
     else:
         type = type
-        name = name
+        name = unquote(name)
         s = Search(using=client, index="molecules", doc_type="molecule")
 
     if type == "formula":
@@ -100,7 +104,7 @@ def search(type, name):
 # Route to retrieve a molecule with its ID in Elasticsearch.
 
 
-@app.route('/API/details/<id>')
+@app.route('/api/details/<id>')
 def details(id):
 
     # Check if an id was provided in the URL
