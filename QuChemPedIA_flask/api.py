@@ -16,24 +16,32 @@ client = Elasticsearch(
 app = Flask(__name__)
 
 #  Route to look for a molecule with its formula and its name in Elasticsearch.
+
+
 @app.route('/api/search')
 def search():
 
     # Check if a type , name ,page number and results number were provided in the URL
     # If it's the case , assign them to the variables type and name
     # if not , deisplay an error
-    if(request.args.get('q')==None or request.args.get('type')==None or request.args.get('page')==None or request.args.get('showresult')==None) :
+
+    if('q' in request.args and request.args.get('q').split() and 'type' in request.args and request.args.get('type').split() and 'page' in request.args and 'showresult' in request.args):
 
         # Display the error message. status code = 404.
-        return jsonify(
-        {'Error': 'Something is missing please check your URL'}), 404
+        name = request.args.get('q')
+        type = request.args.get('type')
+        try:
+            page = int(request.args.get('page'))
+            result = int(request.args.get('showresult'))
+            s = Search(using=client, index="molecules", doc_type="molecule")
+        except Exception as e:
+            return jsonify(
+                {'Error': 'Something is wrong please check your URL'}), 404
 
     else:
-        name   = request.args.get('q')
-        type   = request.args.get('type')
-        page   = int(request.args.get('page'))
-        result = int(request.args.get('showresult'))
-        s = Search(using=client, index="molecules", doc_type="molecule")
+
+        return jsonify(
+            {'Error': 'Something is missing please check your URL'}), 404
 
     if type == "formula":
 
@@ -43,14 +51,16 @@ def search():
         if name.find('*') != -1 or name.find('_') != -1:
             name = name.replace("*", "[1-9]+")
             name = name.replace("_", "[a-zA-Z1-9]*")
-            s = s.query({"query_string": {"query": '/' + name + '/',"default_field": "molecule.formula"}})
+            s = s.query({"query_string": {"query": '/' + name + \
+                        '/', "default_field": "molecule.formula"}})
 
         else:
-            s = s.query({"query_string": {"query": '*' + name + '*',"default_field": "molecule.formula"}})
+            s = s.query({"query_string": {"query": '*' + name + \
+                        '*', "default_field": "molecule.formula"}})
     else:
         s = s.query({"match_phrase": {"molecule." + type: name}})
 
-    s=s[0:100]
+    s = s[0:100]
     liste = []
     data = {}
 
@@ -77,34 +87,37 @@ def search():
             "multiplicity": molecules.molecule.multiplicity,
         }
 
-        if(hasattr(molecules.comp_details.general,'basis_set_name')):
-            basis_set_name=molecules.comp_details.general.basis_set_name
+        if(hasattr(molecules.comp_details.general, 'basis_set_name')):
+            basis_set_name = molecules.comp_details.general.basis_set_name
             dict["basis_set_name"] = basis_set_name
 
-        if(hasattr(molecules.comp_details.general,'job_type')):
-            job_type = json.dumps(list(molecules.comp_details.general.job_type))
+        if(hasattr(molecules.comp_details.general, 'job_type')):
+            job_type = json.dumps(
+                list(molecules.comp_details.general.job_type))
             dict["job_type"] = job_type
 
-        if(hasattr(molecules.comp_details.general,'solvent')):
-            solvent=molecules.comp_details.general.solvent
+        if(hasattr(molecules.comp_details.general, 'solvent')):
+            solvent = molecules.comp_details.general.solvent
             dict["solvent"] = solvent
 
-        if(hasattr(molecules.comp_details.general,'list_theory')):
-            list_theory = json.dumps(list(molecules.comp_details.general.list_theory))
+        if(hasattr(molecules.comp_details.general, 'list_theory')):
+            list_theory = json.dumps(
+                list(molecules.comp_details.general.list_theory))
             dict["list_theory"] = list_theory
 
-        if(hasattr(molecules.comp_details.general,'total_molecular_energy')):
-            total_molecular_energy = json.dumps(list(molecules.comp_details.general.total_molecular_energy))
+        if(hasattr(molecules.comp_details.general, 'total_molecular_energy')):
+            total_molecular_energy = json.dumps(
+                list(molecules.comp_details.general.total_molecular_energy))
             dict["total_molecular_energy"] = total_molecular_energy
 
         liste.append(dict)
 
-    first = result *(page - 1)
-    if first >= mol.hits.total.value :
+    first = result * (page - 1)
+    if first >= mol.hits.total.value:
         return jsonify({'Error': 'Sorry there is no more molecule !!'}), 404
-    if mol.hits.total.value < (first + result -1) :
-        last =  mol.hits.total.value
-    else :
+    if mol.hits.total.value < (first + result - 1):
+        last = mol.hits.total.value
+    else:
         last = first + result
     liste = sorted(liste, key=lambda x: len(x[type]))
     data["data"] = liste[first:last]
@@ -158,12 +171,15 @@ def details(id):
 
 
 # Error 404 handler.
+
 @app.errorhandler(werkzeug.exceptions.NotFound)
 def not_found(e):
     """ Page not found."""
     return jsonify({'Error': 'Resource not found please check your url!'}), 404
 
 # Error 400 handler.
+
+
 @app.errorhandler(werkzeug.exceptions.BadRequest)
 def bad_request():
     """ Bad request. """
@@ -171,6 +187,8 @@ def bad_request():
         {'Error': 'Sorry, the server cannot handle your request'}), 400
 
 # Error 500 handler.
+
+
 @app.errorhandler(werkzeug.exceptions.InternalServerError)
 def server_error():
     """ Internal server error. """
