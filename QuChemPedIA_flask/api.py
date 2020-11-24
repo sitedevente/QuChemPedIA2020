@@ -15,23 +15,24 @@ client = Elasticsearch(
 
 app = Flask(__name__)
 
-
 #  Route to look for a molecule with its formula and its name in Elasticsearch.
-@app.route('/api/search/<type>/<name>')
-def search(type, name):
+@app.route('/api/search')
+def search():
 
-    # Check if a type and a name were provided in the URL
+    # Check if a type , name ,page number and results number were provided in the URL
     # If it's the case , assign them to the variables type and name
     # if not , deisplay an error
-
-    if(not (type and type.strip()) or not (name and name.strip())):
+    if(request.args.get('q')==None or request.args.get('type')==None or request.args.get('page')==None or request.args.get('showresult')==None) :
 
         # Display the error message. status code = 404.
         return jsonify(
-            {'Error': 'Something is missing please check your URL'}), 404
+        {'Error': 'Something is missing please check your URL'}), 404
+
     else:
-        type = type
-        name = unquote(name)
+        name   = request.args.get('q')
+        type   = request.args.get('type')
+        page   = int(request.args.get('page'))
+        result = int(request.args.get('showresult'))
         s = Search(using=client, index="molecules", doc_type="molecule")
 
     if type == "formula":
@@ -42,14 +43,14 @@ def search(type, name):
         if name.find('*') != -1 or name.find('_') != -1:
             name = name.replace("*", "[1-9]+")
             name = name.replace("_", "[a-zA-Z1-9]*")
-            s = s.query({"regexp": {"molecule.formula": name}})
+            s = s.query({"query_string": {"query": '/' + name + '/',"default_field": "molecule.formula"}})
 
         else:
-            s = s.query(
-                {"regexp": {"molecule.formula": '[a-zA-Z0-9]*' + name + '[a-zA-Z0-9]*'}})
+            s = s.query({"query_string": {"query": '*' + name + '*',"default_field": "molecule.formula"}})
     else:
         s = s.query({"match_phrase": {"molecule." + type: name}})
 
+    s=s[0:100]
     liste = []
     data = {}
 
@@ -92,15 +93,27 @@ def search(type, name):
             list_theory = json.dumps(list(molecules.comp_details.general.list_theory))
             dict["list_theory"] = list_theory
 
+        if(hasattr(molecules.comp_details.general,'total_molecular_energy')):
+            total_molecular_energy = json.dumps(list(molecules.comp_details.general.total_molecular_energy))
+            dict["total_molecular_energy"] = total_molecular_energy
+
         liste.append(dict)
+
+    first = result *(page - 1)
+    if first >= mol.hits.total.value :
+        return jsonify({'Error': 'Sorry there is no more molecule !!'}), 404
+    if mol.hits.total.value < (first + result -1) :
+        last =  mol.hits.total.value
+    else :
+        last = first + result
     liste = sorted(liste, key=lambda x: len(x[type]))
-    data["data"] = liste
+    data["data"] = liste[first:last]
     response = app.response_class(
         response=json.dumps(data, indent=4),
         mimetype='application/json'
     )
-    return response, 200
 
+    return response, 200
 # Route to retrieve a molecule with its ID in Elasticsearch.
 
 
