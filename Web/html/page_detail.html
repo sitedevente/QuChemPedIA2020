@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>QuChemPedIA</title>
     <link rel="icon" type="image/png" href="../img/logo.png" />
-    <!--Bootstrap datatable et css-->
+    <!--Bootstrap, datatable, icons et css-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/detail.css">
 </head>
 
@@ -61,8 +62,19 @@
     </div>
 </nav>
 
-<div class="container mt-4">
-    <div class="card text-center">
+<!-- Partie qui s'affiche sous la forme d'onglets-->
+<div class="container mt-4" id="diplay-tab">
+    <!--Faire un bouton retour aux resultats et affichage de l'id de la molécule-->
+    <div class="row">
+        <div class="col text-left">
+            <a class="text-secondary ml-2" href="page_accueil.html" onclick="if(history.length > 1) { history.back(); return false; }">Retour aux résultats</a>
+        </div>
+        <div class="col text-right">
+            <p id="mol_id" class="text-secondary"></p>
+        </div>
+    </div>
+
+    <div class="card text-center mb-4">
         <div class="card-header">
             <ul class="nav nav-pills text-primary">
                 <li class="nav-item">
@@ -99,7 +111,7 @@
                             <div class="col-lg">
                                 <div class="card bg-light" style="width: 100%">
                                     <div class="card-header">
-                                        <h1 class="display-1 mb-4" id="titre_card"></h1>
+                                        <h1 class="display-1 mb-4 text-primary" id="titre_card"></h1>
                                     </div>
                                     <div class="card-body">
                                         <div class="container">
@@ -182,7 +194,7 @@
                                                         </div>
 
                                                         <div class="row">
-                                                            <div class="col-10">
+                                                            <div class="col-9">
                                                                 <p id="convergence" class="text-secondary"></p>
                                                             </div>
                                                             <div class="col text-right">
@@ -304,22 +316,19 @@
                                                         <div class="h3 my-4">Calculated energies for the frontier molecular orbitals</div>
                                                     </div>
                                                 </div>
-                                                <div class="row justify-content-around text-center ">
-                                                    <div class="col">
-                                                        <p id="homo-1" class="font-weight-bold">Homo-1</p>
-                                                        <p id="homo-1bis"></p>
-                                                    </div>
-                                                    <div class="col">
-                                                        <p id="homo0" class="font-weight-bold">Homo</p>
-                                                        <p id="homo0bis"></p>
-                                                    </div>
-                                                    <div class="col">
-                                                        <p id="lumo0" class="font-weight-bold">Lumo</p>
-                                                        <p id="lumo0bis"></p>
-                                                    </div>
-                                                    <div class="col">
-                                                        <p id="lumo+1" class="font-weight-bold">Lumo+1</p>
-                                                        <p id="lumo+1bis"></p>
+                                                <div class="row" id="tableau_calc_energies_tab">
+                                                    <div class="col text-center">
+                                                        <table id="calc_id_tab" class="display">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Homo-1</th>
+                                                                <th>Homo</th>
+                                                                <th>Lumo</th>
+                                                                <th>Lumo+1</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody id="calc_table_tab"></tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
 
@@ -430,7 +439,300 @@
     </div>
 </div>
 
+<!--Partie qui s'affiche sous la forme de carte pour l'impression-->
+<div class="container mt-4 mb-4" id="diplay-card" style="display: none">
+    <!--Faire un bouton retour aux resultats et affichage de l'id de la molécule-->
+    <div class="row">
+        <div class="col text-left">
+            <a class="text-secondary ml-2" href="page_accueil.html" onclick="if(history.length > 1) { history.back(); return false; }">Retour aux résultats</a>
+        </div>
+        <div class="col text-right">
+            <p id="mol_id_card" class="text-secondary"></p>
+        </div>
+    </div>
 
+    <!--Affichage des informations en mode carte-->
+    <div class="container">
+        <div class="row mb-6">
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header h3">Molecule</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <p id="formule_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="formulebis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="charge_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="chargebis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="spin_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="spinbis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="monoisotopic_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="monoisotopicbis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="inchi_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="inchibis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="smiles_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="smilesbis_card"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h1 class="display-1 text-primary text-center" style="padding-top: 17.7%; padding-bottom: 17.7%" id="titre_cardbis"></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col text-left">
+                <div class="card">
+                    <div class="card-header h3">Computation details</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <p id="software_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="softwarebis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="computational_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="computationalbis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="functional_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="functionalbis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="basis_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="basisbis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-8">
+                                <p id="number_basis_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="number_basisbis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="shell_calc_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="shell_calcbis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="integration_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="integrationbis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="solvent_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="solventbis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-10">
+                                <p id="convergence_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="convergencebis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="nb_excited_state_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="nb_excited_statebis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="logfile_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <a id="logfilebis_card"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Carte avec les résultats-->
+        <div class="row mt-4">
+            <div class="col text-left">
+                <div class="card">
+                    <div class="card-header h3">Results</div>
+                    <div class="card-body">
+                        <div class="card-title text-center h3">Wavefunction</div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="energy_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="energybis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p id="homo_card" class="text-secondary"></p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="homobis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="h3 my-4">Calculated energies for the frontier molecular orbitals</div>
+                            </div>
+                        </div>
+                        <div class="row" id="tableau_calc_energies">
+                            <div class="col text-center">
+                                <table id="calc_id_card" class="display">
+                                    <thead>
+                                    <tr>
+                                        <th>Homo-1</th>
+                                        <th>Homo</th>
+                                        <th>Lumo</th>
+                                        <th>Lumo+1</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="calc_table_card"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="h3 my-4">Most intense Mulliken atomic charges</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <p id="mulliken_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="tableau_atomes_card">
+                            <div class="col text-center">
+                                <table id="mull_id_card" class="display">
+                                    <thead>
+                                    <tr>
+                                        <th>Atom</th>
+                                        <th>Number</th>
+                                        <th>Mulliken partial charges</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="mulliken_table_card"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-center">
+                                <p class="text-center text-secondary">Coordinates are shown in Angstroms</p>
+                                <table id="cartesian_id_card" class="display">
+                                    <thead>
+                                    <tr>
+                                        <th>Atom</th>
+                                        <th>X</th>
+                                        <th>Y</th>
+                                        <th>Z</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="cartesian_table_card"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <button style="position:fixed; bottom:1%; right:1%;z-index:9999;" class="btn btn-primary" type="button" id="switchDiplay"><i class="fas fa-th-large"></i></button>
+</footer>
 
 <!--Bootstrap datatable et js-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

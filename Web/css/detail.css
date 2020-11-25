@@ -1,0 +1,10 @@
+#switchDiplay {
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+#switchDiplay:hover {opacity: 1}
