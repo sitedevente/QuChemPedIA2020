@@ -32,7 +32,7 @@ def pretty_print_response(response):
 # Test the creation of a new molecule with a right body,
 # verify that the response code is 201 and the
 # response body contains the new molecule ID.
-def test_add_molecule():
+def test_add_molecule_with_log_file():
 
     # Define url for the API call.
     url = base_url + 'add'
@@ -40,14 +40,68 @@ def test_add_molecule():
     # Define the body
     body = {'molecule': {'formula': 'test'}}
 
+    # Define the Json and Log file.
+    files = {'mol_json': open('test_files/freq.json'),
+             'mol_log': open('test_files/OPT_1559031618483.log')}
+
     # Call the API with POST method
-    resp = requests.post(url, json=body)
+    resp = requests.post(url, files=files)
 
     # Validate response headers and body contents and status code.
     assert resp.status_code == 201
     resp_body = resp.json()
     assert resp_body['_id'] is not None
     assert resp_body['result'] == 'created'
+
+    # Define the log file path.
+    log_path = ''
+    for char in resp_body['_id']:
+        log_path += char
+        log_path += '/'
+
+    # Validate if the log file has been created.
+    path = root_path + log_path + 'OPT_1559031618483.log'
+
+    assert os.path.isfile(path)
+
+    # Print full request and response
+    pretty_print_request(resp.request)
+    pretty_print_response(resp)
+
+
+# Test the creation of a new molecule with a right body,
+# verify that the response code is 201 and the
+# response body contains the new molecule ID.
+def test_add_molecule_without_log_file():
+
+    # Define url for the API call.
+    url = base_url + 'add'
+
+    # Define the body
+    body = {'molecule': {'formula': 'test'}}
+
+    # Define the Json and Log file.
+    files = {'mol_json': open('test_files/freq.json')}
+
+    # Call the API with POST method
+    resp = requests.post(url, files=files)
+
+    # Validate response headers and body contents and status code.
+    assert resp.status_code == 201
+    resp_body = resp.json()
+    assert resp_body['_id'] is not None
+    assert resp_body['result'] == 'created'
+
+    # Define the log file path.
+    log_path = ''
+    for char in resp_body['_id']:
+        log_path += char
+        log_path += '/'
+
+    # Validate if the log file has been created.
+    path = root_path + log_path + 'OPT_1559031618483.log'
+
+    assert os.path.isfile(path)
 
     # Print full request and response
     pretty_print_request(resp.request)
@@ -57,7 +111,7 @@ def test_add_molecule():
 # Test the creation of a new molecule without body,
 # verify that the response code is 400 and the
 # response body correspond to the right error message.
-def test_add_molecule_error():
+def test_add_molecule_error_without_json():
 
     # Define url for the API call.
     url = base_url + 'add'
@@ -83,9 +137,7 @@ def test_delete_molecule():
     # Create and get a new molecule id
     new_mol = requests.post(
         base_url + 'add',
-        json={
-            'molecule': {
-                'formula': 'test'}})
+        files={'mol_json': open('test_files/freq.json')})
     id_mol = new_mol.json()['_id']
 
     # Define url for the API call.
@@ -99,6 +151,17 @@ def test_delete_molecule():
     resp_body = resp.json()
     assert resp_body['_id'] == id_mol
     assert resp_body['result'] == 'deleted'
+
+    # Define the log file path.
+    log_path = ''
+    for char in resp_body['_id']:
+        log_path += char
+        log_path += '/'
+
+    path = root_path + log_path + 'OPT_1559031618483.log'
+
+    # Validate if the log file has been removed.
+    assert not os.path.isfile(path)
 
     # Print full request and response
     pretty_print_request(resp.request)
@@ -127,19 +190,16 @@ def test_delete_molecule_error():
     pretty_print_request(resp.request)
     pretty_print_response(resp)
 
+
 # Test the consultation of molecule's details with an existing ID,
 # verify that the response code is 200 and the
 # response body contains the right body and the right ID.
-
-
 def test_details_molecule():
 
     # Create and get a new molecule id
     new_mol = requests.post(
         base_url + 'add',
-        json={
-            'molecule': {
-                'formula': 'test'}})
+        files={'mol_json': open('test_files/freq.json')})
     id_mol = new_mol.json()['_id']
 
     # Define url for the API call.
@@ -222,33 +282,35 @@ def test_wrong_route():
     pretty_print_response(resp)
 
 
-# Test the creation of a log file with the add_log_file function
-# and check is a file has been created in the right directory.
-def test_add_log_file():
+# # Old tests
 
-    # Define a fake molecule id and its associate path.
-    fake_id_mol = 'thisIsAFakeIdMol'
-    path_to_fake_file = root_path + 't/h/i/s/I/s/A/F/a/k/e/I/d/M/o/l/data.log'
+# # Test the creation of a log file with the add_log_file function
+# # and check is a file has been created in the right directory.
+# def test_add_log_file():
 
-    # Run the function for create the log file.
-    api.add_log_file(fake_id_mol)
+#     # Define a fake molecule id and its associate path.
+#     fake_id_mol = 'thisIsAFakeIdMol'
+#     path_to_fake_file = root_path + 't/h/i/s/I/s/A/F/a/k/e/I/d/M/o/l/data.log'
 
-    # Validate the log file creation.
-    assert os.path.isfile(path_to_fake_file)
+#     # Run the function for create the log file.
+#     api.add_log_file(fake_id_mol)
+
+#     # Validate the log file creation.
+#     assert os.path.isfile(path_to_fake_file)
 
 
-# Test the suppression of a log file with the delete_log_file function
-# and check if the path to the ancient file doesn't exists anymore.
-def test_delete_log_file():
+# # Test the suppression of a log file with the delete_log_file function
+# # and check if the path to the ancient file doesn't exists anymore.
+# def test_delete_log_file():
 
-    # Define a fake molecule id and its associate path.
-    fake_id_mol = 'thisIsAFakeIdMol'
-    path_to_fake_file = root_path + 't/h/i/s/I/s/A/F/a/k/e/I/d/M/o/l/data.log'
+#     # Define a fake molecule id and its associate path.
+#     fake_id_mol = 'thisIsAFakeIdMol'
+#     path_to_fake_file = root_path + 't/h/i/s/I/s/A/F/a/k/e/I/d/M/o/l/data.log'
 
-    # Verify the log file exists before deletion.
-    assert os.path.isfile(path_to_fake_file)
+#     # Verify the log file exists before deletion.
+#     assert os.path.isfile(path_to_fake_file)
 
-    # Run the function for delete the log file.
-    api.delete_log_file(fake_id_mol)
+#     # Run the function for delete the log file.
+#     api.delete_log_file(fake_id_mol)
 
-    assert os.path.isfile(path_to_fake_file) == False
+#     assert os.path.isfile(path_to_fake_file) == False
