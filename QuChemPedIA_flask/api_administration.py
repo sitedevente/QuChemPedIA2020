@@ -132,13 +132,20 @@ def add_molecule():
 def delete_molecule(id_mol):
 
     try:
+        # Try the GET request on the Elasticsearch client.
+        # index and doc_type are specific at the molecules documents.
+        results = elasticClient.get(
+            index='molecules', doc_type='molecule', id=id_mol)
+
+        log_file_name = results['_source']['metadata']['log_file']
+
         # Try the DELETE request on the Elasticsearch client.
         # index and doc_type are specific at the molecules documents.
         results = elasticClient.delete(
             index='molecules', doc_type='molecule', id=id_mol)
 
         # Call the function to delete the molecule log file.
-        delete_log_file(id_mol)
+        delete_log_file(id_mol, log_file_name)
 
         # Return the results formatted in Json, e.g. status code = 200.
         return jsonify(results), 200
@@ -213,7 +220,7 @@ def add_log_file_from_json(id_mol, log_file_src):
 
 # Function for the suppression of the log file when a molecule
 # is deleted from the database.
-def delete_log_file(id_mol):
+def delete_log_file(id_mol, log_file_name):
 
     # Define the root path for log files.
     log_path = ''
@@ -224,7 +231,7 @@ def delete_log_file(id_mol):
         log_path += '/'
 
     path = root_path_log_files + log_path
-    log_file_path = path + 'data.log'
+    log_file_path = path + log_file_name
 
     # Delete the existing log file and empty directories.
     if os.path.exists(log_file_path):
