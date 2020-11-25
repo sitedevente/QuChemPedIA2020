@@ -1,4 +1,6 @@
-import os, shutil, json
+import os
+import shutil
+import json
 
 import flask
 from flask import Flask, jsonify, request
@@ -86,7 +88,7 @@ def add_molecule():
     if 'mol_log' not in files:
         body_json = json.loads(body)
 
-        # Reverse split on the right Json line in order 
+        # Reverse split on the right Json line in order
         # to get the source path and the file name.
         log_file_path = body_json['metadata']['log_file'].rsplit("/", 1)
 
@@ -107,13 +109,15 @@ def add_molecule():
             log_file_name = files["mol_log"].filename
 
             # Call the function for the log file creation with log file.
-            add_log_file_from_param(results["_id"], 
-                log_file_name, log_file_data)
+            add_log_file_from_param(results["_id"],
+                                    log_file_name, log_file_data)
         else:
-            # Call the function for the log file creation with log file source path.
+            # Call the function for the log file creation with log file source
+            # path.
             add_log_file_from_json(results["_id"], log_file_path)
     except Exception as err:
-        # If an error is raised, we delete the molecule and print the error message, e.g. status code 500.
+        # If an error is raised, we delete the molecule and print the error
+        # message, e.g. status code 500.
         elasticClient.delete(
             index='molecules', doc_type='molecule', id=results["_id"])
         return jsonify(
@@ -193,7 +197,12 @@ def add_log_file_from_json(id_mol, log_file_src):
     # Create the log file.
     try:
         log_file = open(path + log_file_src[1], "x")
-        shutil.copyfile(log_file_src[0] + '/' + log_file_src[1], path + log_file_src[1])
+        shutil.copyfile(
+            log_file_src[0] +
+            '/' +
+            log_file_src[1],
+            path +
+            log_file_src[1])
     except OSError as err:
         # Delete the file and path created just before and raise an error if
         # the file creation or the file copy failed.
