@@ -51,27 +51,27 @@ def search():
         if name.find('*') != -1 or name.find('_') != -1:
             second_name = name.replace("*", "[1-9]+")
             second_name = name.replace("_", "[a-zA-Z1-9]*")
-            name = name.replace("_","")
-            name = name.replace("*","")
+            name = name.replace("_", "")
+            name = name.replace("*", "")
             s = s.query({
                 "bool": {
-                  "should": [
-                    {
-                        "match_phrase": {
-                            "molecule.formula": {
-                                "query": name,
-                                "boost": 100
+                    "should": [
+                        {
+                            "match_phrase": {
+                                "molecule.formula": {
+                                    "query": name,
+                                    "boost": 100
+                                }
+                            }
+                        },
+                        {
+                            "query_string": {
+                                "query": '/' + second_name + '/',
+                                "default_field": "molecule.formula",
+                                "boost": 10
                             }
                         }
-                    },
-                    {
-                        "query_string": {
-                            "query": '/' + second_name + '/' ,
-                            "default_field": "molecule.formula",
-                            "boost": 10
-                        }
-                    }
-                  ]
+                    ]
                 }
             })
         else:
