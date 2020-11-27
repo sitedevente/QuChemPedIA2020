@@ -49,16 +49,35 @@ def search():
         # if it's the case ,replace them and create a normal query
         # if not create a query using regular expression
         if name.find('*') != -1 or name.find('_') != -1:
-            name = name.replace("*", "[1-9]+")
-            name = name.replace("_", "[a-zA-Z1-9]*")
-            s = s.query({"query_string": {"query": '/' + name + \
-                        '/', "default_field": "molecule.formula"}})
-
+            second_name = name.replace("*", "[1-9]+")
+            second_name = name.replace("_", "[a-zA-Z1-9]*")
+            name = name.replace("_","")
+            name = name.replace("*","")
+            s = s.query({
+                "bool": {
+                  "should": [
+                    {
+                        "match_phrase": {
+                            "molecule.formula": {
+                                "query": name,
+                                "boost": 100
+                            }
+                        }
+                    },
+                    {
+                        "query_string": {
+                            "query": '/' + second_name + '/' ,
+                            "default_field": "molecule.formula",
+                            "boost": 10
+                        }
+                    }
+                  ]
+                }
+            })
         else:
             s = s.query({"query_string": {"query": '*' + name + \
                         '*', "default_field": "molecule.formula"}})
     else:
-
         s = s.query({"match_phrase": {"molecule." + type: name}})
 
     mol = s.execute()
@@ -93,7 +112,6 @@ def search():
             "smi": molecules.molecule.smi,
             "nb_heavy_atoms": molecules.molecule.nb_heavy_atoms,
             "charge": molecules.molecule.charge,
-            "total_molecular_energy": molecules.results.wavefunction.total_molecular_energy,
             "multiplicity": molecules.molecule.multiplicity,
         }
 
@@ -122,7 +140,7 @@ def search():
 
         liste.append(dict)
 
-    # liste = sorted(liste, key=lambda x: len(x[type]))
+    liste = sorted(liste, key=lambda x: len(x[type]))
     data["data"] = liste
     data["total"] = mol.hits.total.value
     response = app.response_class(
