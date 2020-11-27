@@ -58,21 +58,31 @@ def search():
             s = s.query({"query_string": {"query": '*' + name + \
                         '*', "default_field": "molecule.formula"}})
     else:
+
         s = s.query({"match_phrase": {"molecule." + type: name}})
 
-    s = s[0:100]
-    liste = []
-    data = {}
+    mol = s.execute()
 
     # Check if the molecule with the the provided name and type exists
     # If it's the case , return the results converted to Json format for later use
     # if not , deisplay an error
 
-    mol = s.execute()
     if mol.hits.total.value <= 0:
 
         # Display the error message. status code = 404.
         return jsonify({'Error': 'Molecule does not exist'}), 404
+
+    first = result * (page - 1)
+    if first >= mol.hits.total.value:
+        return jsonify({'Error': 'Sorry there is no more molecule !!'}), 404
+    if mol.hits.total.value < (first + result - 1):
+        last = mol.hits.total.value
+    else:
+        last = first + result
+
+    s = s[first:last]
+    liste = []
+    data = {}
 
     # Execute the query then loop through the result to get only what we need
     for molecules in s.execute():
@@ -112,21 +122,16 @@ def search():
 
         liste.append(dict)
 
-    first = result * (page - 1)
-    if first >= mol.hits.total.value:
-        return jsonify({'Error': 'Sorry there is no more molecule !!'}), 404
-    if mol.hits.total.value < (first + result - 1):
-        last = mol.hits.total.value
-    else:
-        last = first + result
-    liste = sorted(liste, key=lambda x: len(x[type]))
-    data["data"] = liste[first:last]
+    # liste = sorted(liste, key=lambda x: len(x[type]))
+    data["data"] = liste
+    data["total"] = mol.hits.total.value
     response = app.response_class(
         response=json.dumps(data, indent=4),
         mimetype='application/json'
     )
 
     return response, 200
+
 # Route to retrieve a molecule with its ID in Elasticsearch.
 
 
@@ -152,17 +157,24 @@ def details(id):
         s = Search(using=client, index="molecules", doc_type="molecule")
 
         # Create the query
-        s = s.query('match', _id=identifiant)
+        s = s.query('match_phrase', _id=identifiant)
 
         # Execute the query to get the data we need
-        mol = s.execute()[0].to_dict()
-        response = app.response_class(
-            response=json.dumps(mol, indent=4),
-            mimetype='application/json'
-        )
+        mol = s.execute()["hits"].to_dict()
 
-        # Return a dictionary converted into Json format. status code = 200.
-        return response, 200
+        if (mol["total"]["value"] > 0):
+
+            response = app.response_class(
+                response=json.dumps(mol, indent=4),
+                mimetype='application/json'
+            )
+
+            # Return a dict converted into Json format. status code = 200.
+            return response, 200
+
+        else:
+            raise Exception
+
     except Exception as e:
 
         # Return an error message. status code = 404.
