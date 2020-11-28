@@ -203,7 +203,7 @@ def test_details_molecule():
         # Validate response headers and body contents and status code.
         assert resp.status_code == 200
         resp_body = resp.json()
-        assert resp_body['hits'][0]['_id'] == id
+        assert resp_body['id'] == id
         # assert resp_body['found']
 
     # Print full request and response
