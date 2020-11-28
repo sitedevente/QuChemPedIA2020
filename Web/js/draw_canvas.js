@@ -1,14 +1,13 @@
 //DRAW CANVAS
 
-// Draw_canvas -> BESOIN DU SMILE JSON pour dessiner le canvas
 // Initialize the drawer to draw to canvas
-function draw_canvas() {
+function drawCanvas() {
   var array_canvas = document.querySelectorAll("canvas");
 
   array_canvas.forEach(function (element) {
     let smileDrawer = new SmilesDrawer.Drawer({
-      width: 250,
-      height: 250,
+      width: 150,
+      height: 150,
     });
 
     // Smile value is display in hidden div : '"smi_value"_smile' and as html :"smi_value"

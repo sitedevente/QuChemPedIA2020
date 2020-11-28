@@ -5,29 +5,22 @@
 
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
 
     <script src="../js/jQuery-3.5.1.js"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../js/DataTables/datatables.min.css"
-    />
+    
 
-    <script
-      type="text/javascript"
-      src="../js/DataTables/datatables.min.js"
-    ></script>
+    <link href="../js/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-    <link
-      href="../js/DataTables/google_font_datatable.css"
-      rel="stylesheet"
-    />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+ 
+ 
   </head>
-  <body>
+  <body >
     <div class="container" id="div_container_home">
       <div
         class="row justify-center w-100 align-content-center"
@@ -35,62 +28,58 @@
         id="div_accueil"
       >
         <div class="col">
-          <h1 class="text-center" style="color: #095680;">QuChemPedIA</h1>
+          <h1 class="text-center" style="color: #095680">QuChemPedIA</h1>
           <h2 id="subtitle" class="diplay-2 text-center">
             Quantum Chemistry Collaborative EncyclopedIA
           </h2>
           <br />
           <div class="row justify-content-center">
             <!-- Search Form -->
-              <div class="row" id="search_form">
-                <input
-                  type="text"
-                  name="search_text"
-                  id="query"
-                  class="mr-1 col-12 col-lg-6 form-control"
-                  maxlength="500"
-                />
-                <select
-                  name="typeQuery"
-                  id="id_typeQuery"
-                  class="form-control col-12 col-lg-3"
-                  style="width: 15%"
-                >
-                  <option value="formule">Formula</option>
+            <form class="row w-100 justify-content-center" id="search_form">
+              <input
+                type="text"
+                name="search_text"
+                id="query"
+                class="mr-1 col-12 col-lg-6 form-control"
+                maxlength="500"
+              />
+              <select
+                name="typeQuery"
+                id="id_typeQuery"
+                class="custom-select col-12 col-lg-3"
+                style="width: 15%"
+              >
+                <option value="formula">Formula</option>
 
-                  <option value="inchi">InChi</option>
+                <option value="inchi">InChi</option>
 
-                  <option value="iupac">IUPAC name</option>
+                <option value="smi">SMILES</option>
+              </select>
+              <button
+                id="submit_search"
+                type="submit"
+                class="btn btn-outline-success"
+                onclick="search(1,25);blockSearch();return false"
+              >
+                Search <i class="fa fa-search"></i>
+              </button>
+            </form>
 
-                  <option value="cid">CID PubChem</option>
-
-                  <option value="smiles">SMILES</option>
-
-                  <option value="id_log">id_log</option>
-                </select>
-                <button
-                  id="submit_search"
-                  type="submit"
-                  class="mt-1 mb-1 mt-lg-0 btn btn-info default-primary-color col-12 col-lg-2"
-                  style="background-color: #095680;"
-                  onclick="search()"
-                  >
-                  Search
-                  <i
-                    class="fa fa-search"
-                    style="font-size: 0.73em"
-                    aria-hidden="trues"
-                  ></i>
-                </button>
-              </div>
             <!-- </form> -->
           </div>
         </div>
       </div>
     </div>
 
-    <script src="../js/smiles-drawer.min.js" async=false defer=false></script>
+    <script
+      src="../js/smiles-drawer.min.js"
+      async="false"
+      defer="false"
+    ></script>
+    <script src="../js/pagination.js"></script>
     <script src="../js/draw_canvas.js"></script>
+    <script src="../js/ajax_request.js"></script>
     <script src="../js/home-search.js"></script>
+    
   </body>
 </html>
