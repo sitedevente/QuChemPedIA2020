@@ -9,7 +9,8 @@
     <!--Bootstrap, datatable, icons et css-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
     <link href='https://css.gg/view-split.css' rel='stylesheet'>
     <link href='https://css.gg/display-grid.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/detail.css">
@@ -24,7 +25,7 @@
     </button>
 
     <!-- Logo et nom du site pour retour accueil -->
-    <a class="navbar-brand mb-0 h1 mr-0 mw-10" href="#">
+    <a class="navbar-brand mb-0 h1 mr-0 mw-10" href="index.html">
         <img src="../img/logo.png" class="img-fluid rounded" width="4%" alt="Logo"> uChemPedIA
     </a>
 
@@ -69,7 +70,7 @@
     <!--Bouton retour aux resultats et affichage de l'id de la molécule-->
     <div class="row">
         <div class="col text-left">
-            <a class="text-secondary ml-2" href="page_accueil.html" onclick="if(history.length > 1) { history.back(); return false; }">Retour aux résultats</a>
+            <a class="text-secondary ml-2" href="page_accueil.html" onclick="if(history.length > 1) { history.back(); return false; }">Back to results</a>
         </div>
         <div class="col text-right" id="id_molecule2">
             <p id="mol_id" class="text-secondary"></p>
@@ -381,7 +382,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="mulliken_charges">
+                                                <div id="mulliken_charges">
                                                     <div class="row">
                                                         <div class="col text-center">
                                                             <div class="h3 my-4">Most intense Mulliken atomic charges</div>
@@ -423,7 +424,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="geometry_opti">
+                                                <div id="geometry_opti">
                                                     <div class="row">
                                                         <div class="col text-center">
                                                             <div class="h3 my-4">Geometry optimization convergence criteria</div>
@@ -571,7 +572,7 @@
 
                                         <!--Sous onglet excited States-->
                                         <div class="tab-pane fade" id="v-pills-states" role="tabpanel" aria-labelledby="v-pills-states-tab">
-                                            <div class="col text-left">
+                                            <div class="col text-center">
                                                 <div id="excitation_display">
                                                     <div class="row">
                                                         <div class="col text-center">
@@ -615,7 +616,7 @@
     <!--Faire un bouton retour aux resultats et affichage de l'id de la molécule-->
     <div class="row">
         <div class="col text-left">
-            <a class="text-secondary ml-2" onclick="if(history.length > 1) { history.back(); return false; }">Retour aux résultats</a>
+            <a class="text-secondary ml-2" onclick="if(history.length > 1) { history.back(); return false; }">Back to results</a>
         </div>
         <div class="col text-right" id="id_molecule">
             <p id="mol_id_card" class="text-secondary"></p>
@@ -934,7 +935,7 @@
                             <div class="dropdown-divider mt-4"></div>
                             <div class="card-title text-center h3 mt-4">Geometry</div>
 
-                            <div class="geometry_opti_card">
+                            <div id="geometry_opti_card">
                                 <div class="row mb-4">
                                     <div class="col text-center">
                                         <div class="h3 my-4">Geometry optimization convergence criteria</div>
@@ -1082,7 +1083,7 @@
 
                                 <div class="row">
                                     <div class="col text-center">
-                                        <table id="excitation_id_card" class="display" style="width: 100%">
+                                        <table id="excitation_id_card" class="display">
                                             <thead>
                                             <tr>
                                                 <th>Number</th>
@@ -1131,7 +1132,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-<script src="https://unpkg.com/smiles-drawer@1.0.10/dist/smiles-drawer.min.js"></script><script src="../js/smiles-drawer.min.js"></script>
+<script src="https://unpkg.com/smiles-drawer@1.0.10/dist/smiles-drawer.min.js"></script>
+<script src="../js/smiles-drawer.min.js"></script>
 <script src="../js/detail.js"></script>
 </body>
 </html>

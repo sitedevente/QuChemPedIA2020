@@ -2,107 +2,116 @@
 //Initialisation pour les datatables//
 //////////////////////////////////////
 
-//Tableaux pour : Calculated energies for the frontier molecular orbitals
-$(document).ready(function() {
-    $('#calc_id_card').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
+//Fonction qui initialise les tables apres le chargement du script
+function chargeTable(){
+    //Tableaux pour : Calculated energies for the frontier molecular orbitals
+    $(document).ready(function() {
+        $('#calc_id_card').DataTable( {
+            "paging":   false,
+            "info":     false,
+            "searching":   false,
+            "ordering": false,
+        } );
     } );
-} );
 
-$(document).ready(function() {
-    $('#calc_id_tab').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
+    $(document).ready(function() {
+        $('#calc_id_tab').DataTable( {
+            "paging":   false,
+            "info":     false,
+            "searching":   false,
+            "ordering": false,
+        } );
     } );
-} );
 
-//Tableaux pour : Most intense Mulliken atomic charges
-$(document).ready(function() {
-    $('#mull_id').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
+    //Tableaux pour : Most intense Mulliken atomic charges
+    $(document).ready(function() {
+        $('#mull_id').DataTable( {
+            "paging":   false,
+            "info":     false,
+            "searching":   false,
+            "ordering": false,
+        } );
     } );
-} );
 
-$(document).ready(function() {
-    $('#mull_id_card').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
+    $(document).ready(function() {
+        $('#mull_id_card').DataTable( {
+            "paging":   false,
+            "info":     false,
+            "searching":   false,
+            "ordering": false,
+        } );
     } );
-} );
 
-//Tableaux pour : Geometry optimization convergence criteria
-$(document).ready(function() {
-    $('#opti_id').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
+    //Tableaux pour : Geometry optimization convergence criteria
+    $(document).ready(function() {
+        $('#opti_id').DataTable( {
+            "paging":   false,
+            "info":     false,
+            "searching":   false,
+            "ordering": false,
+        } );
     } );
-} );
 
-$(document).ready(function() {
-    $('#opti_id_card').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
+    $(document).ready(function() {
+        $('#opti_id_card').DataTable( {
+            "paging":   false,
+            "info":     false,
+            "searching":   false,
+            "ordering": false,
+        } );
     } );
-} );
 
-//Tableaux pour : Cartesian atomic coordinates
-$(document).ready(function() {
-    $('#cartesian_id').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
+    //Tableaux pour : Cartesian atomic coordinates
+    $(document).ready(function() {
+        $('#cartesian_id').DataTable( {
+            "paging":   false,
+            "info":     false,
+            "searching":   false,
+            "ordering": false,
+        } );
     } );
-} );
 
-$(document).ready(function() {
-    $('#cartesian_id_table').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
+    $(document).ready(function() {
+        $('#cartesian_id_card').DataTable( {
+            "paging":   false,
+            "info":     false,
+            "searching":   false,
+            "ordering": false,
+        } );
     } );
-} );
 
-//Tableaux pour : Table of the most intense molecular vibrations
-$(document).ready(function() {
-    $('#vibration_id').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
+    //Tableaux pour : Table of the most intense molecular vibrations
+    $(document).ready(function() {
+        $('#vibration_id').DataTable( {
+            "paging":   false,
+            "info":     false,
+            "searching":   false,
+            "ordering": false,
+        } );
     } );
-} );
 
-$(document).ready(function() {
-    $('#vibration_id_table').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
+    $(document).ready(function() {
+        $('#vibration_id_table').DataTable( {
+            "paging":   false,
+            "info":     false,
+            "searching":   false,
+            "ordering": false,
+        } );
     } );
-} );
 
-//Tableaux pour : Calculated mono-electronic excitations
-$(document).ready(function() {
-    $('#excitation_id').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
+    //Tableaux pour : Calculated mono-electronic excitations
+    $(document).ready(function() {
+        $('#excitation_id_card').DataTable( {
+            "paging":   false,
+            "info":     false,
+            "searching":   false,
+            "ordering": false,
+        } );
     } );
-} );
+}
 
-$(document).ready(function() {
-    $('#excitation_id_card').DataTable( {
-        "paging":   false,
-        "info":     false,
-        "searching":   false
-    } );
-} );
+//Une fois les scripts chargés on initialise les tables
+window.onload = chargeTable();
 
 /////////////////////////////////////////////////////////
 //Fonctions utiles pour le traitement du Json et autres//
@@ -548,7 +557,9 @@ request.onreadystatechange = function() {
                 if (homo_indexes[j] <= 0) {
                     ligne += createLigne(createCol(N/A) + createCol(MO_energies[j][homo_indexes[j]].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j]+1].toFixed(2)) + createCol(N/A));
                 } else {
-                    ligne += createLigne(createCol(MO_energies[j][homo_indexes[j] - 1].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j]].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j] + 1].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j] + 2].toFixed(2)));
+                    //ligne += createLigne(createCol(MO_energies[j][homo_indexes[j] - 1].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j]].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j] + 1].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j] + 2].toFixed(2)));
+                    ligne += createLigne(createCol(MO_energies[j][3].toFixed(2)) + createCol(MO_energies[j][4].toFixed(2)) + createCol(MO_energies[j][5].toFixed(2)) + createCol(MO_energies[j][6].toFixed(2)));
+
                 }
             }
             document.getElementById("calc_table_tab").innerHTML = ligne;
@@ -669,11 +680,12 @@ request.onreadystatechange = function() {
                 document.getElementById("opti_table").innerHTML = html;
                 document.getElementById("opti_table_card").innerHTML = html;
             }
+            else{
+                document.getElementById("geometry_opti").style.display = "none";
+                document.getElementById("geometry_opti_card").style.display = "none";
+            }
         }
-        else{
-            document.getElementById("geometry_opti").style.display = "none";
-            document.getElementById("geometry_opti_card").style.display = "none";
-        }
+
 
         //Coordonnées cartésiennes
         if(response.data.results.geometry.elements_3D_coords_converged){
@@ -694,7 +706,7 @@ request.onreadystatechange = function() {
         }
 
         //Partie THERMOCHEMISTRY
-        if(!response.data.results.freq){
+        if(!response.data.results.freq || response.data.results.freq.length == undefined){
             document.getElementById("v-pills-thermochemistry").style.display = "none";
             document.getElementById("v-pills-thermochemistry-tab").style.display = "none";
             document.getElementById("thermochemistry_display").style.display = "none";
