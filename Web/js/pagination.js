@@ -1,6 +1,13 @@
+//PAGINATION
+//We had event.preventDefault() for the history functionnality on evry click function, 
+//to prevent reload page from ajax request
+//
 function pagination(entrie_page, result_length, page_number) {
   //To get number page needed
   var numPages = Math.ceil(result_length / entrie_page);
+
+  $("#display_pagination").empty();
+  $("#on_top").remove();
 
   //minusTen button
   var div_minus = document.createElement("li");
@@ -29,12 +36,13 @@ function pagination(entrie_page, result_length, page_number) {
       $(div_page).addClass("page-item");
       $(div_page).attr("id", "page" + i);
       $(div_page).append('<a class="page-link" href="#">' + i + "</a>");
-      $(div_page).click(function () {
+      $(div_page).click(function (event) {
+        event.preventDefault();
         search(i, entrie_page);
       });
       $("#display_pagination").append(div_page);
     }
-  } 
+  }
   //Else for first pages, we only show the begin and the end
   else if (page_number < 5 && page_number != 4) {
     for (let i = 1; i < 5; ++i) {
@@ -42,7 +50,8 @@ function pagination(entrie_page, result_length, page_number) {
       $(div_page).addClass("page-item");
       $(div_page).attr("id", "page" + i);
       $(div_page).append('<a class="page-link" href="#">' + i + "</a>");
-      $(div_page).click(function () {
+      $(div_page).click(function (event) {
+        event.preventDefault();
         search(i, entrie_page);
       });
       $("#display_pagination").append(div_page);
@@ -59,7 +68,8 @@ function pagination(entrie_page, result_length, page_number) {
       $(div_page).addClass("page-item");
       $(div_page).attr("id", "page" + i);
       $(div_page).append('<a class="page-link" href="#">' + i + "</a>");
-      $(div_page).click(function () {
+      $(div_page).click(function (event) {
+        event.preventDefault();
         search(i, entrie_page);
       });
       $("#display_pagination").append(div_page);
@@ -76,7 +86,8 @@ function pagination(entrie_page, result_length, page_number) {
       $(div_page).addClass("page-item");
       $(div_page).attr("id", "page" + i);
       $(div_page).append('<a class="page-link" href="#">' + i + "</a>");
-      $(div_page).click(function () {
+      $(div_page).click(function (event) {
+        event.preventDefault();
         search(i, entrie_page);
       });
       $("#display_pagination").append(div_page);
@@ -93,20 +104,22 @@ function pagination(entrie_page, result_length, page_number) {
       $(div_page).addClass("page-item");
       $(div_page).attr("id", "page" + i);
       $(div_page).append('<a class="page-link" href="#">' + i + "</a>");
-      $(div_page).click(function () {
+      $(div_page).click(function (event) {
+        event.preventDefault();
         search(i, entrie_page);
       });
       $("#display_pagination").append(div_page);
     }
   }
   //For first value limit/last value limit
-   else {
+  else {
     if (page_number != 4) {
       var div_page = document.createElement("li");
       $(div_page).addClass("page-item");
       $(div_page).attr("id", "page" + 1);
       $(div_page).append('<a class="page-link" href="#">' + 1 + "</a>");
-      $(div_page).click(function () {
+      $(div_page).click(function (event) {
+        event.preventDefault();
         search(1, entrie_page);
       });
       $("#display_pagination").append(div_page);
@@ -125,7 +138,8 @@ function pagination(entrie_page, result_length, page_number) {
       $(div_page).addClass("page-item");
       $(div_page).attr("id", "page" + i);
       $(div_page).append('<a class="page-link" href="#">' + i + "</a>");
-      $(div_page).click(function () {
+      $(div_page).click(function (event) {
+        event.preventDefault();
         search(i, entrie_page);
       });
       $("#display_pagination").append(div_page);
@@ -143,7 +157,7 @@ function pagination(entrie_page, result_length, page_number) {
       $(div_page).addClass("page-item");
       $(div_page).attr("id", "page" + numPages);
       $(div_page).append('<a class="page-link" href="#">' + numPages + "</a>");
-      $(div_page).click(function () {
+      $(div_page).click(function (event) {
         search(numPages, entrie_page);
       });
       $("#display_pagination").append(div_page);
@@ -181,6 +195,7 @@ function pagination(entrie_page, result_length, page_number) {
     "id",
     "display_pagination_prime_container"
   );
+  // Just adding this div for a proper display
   $(display_pagination_prime_container).append(
     '<div class="p-2 visible" style="width: 50px;"></div>'
   );
@@ -236,7 +251,7 @@ function pagination(entrie_page, result_length, page_number) {
 
   $(display_pagination_prime_container).append($(display_pagination_prime));
 
-  // Adding on_top div
+  // Adding on_top button
   $(display_pagination_prime_container).append(
     '<button id="on_top" type="button" class="btn btn-primary btn-sm" style="height:30px;margin-top:8px;">Go top</button>'
   );
@@ -295,37 +310,64 @@ function pageSelect(pageid, pageid_clone, total_result, entrie_page) {
   }
 }
 
+//prevPage function -> go page -1
+function prevPage(current_page, entrie_page) {
+  search(parseInt(current_page, 10) - 1, entrie_page);
+}
+
+//nextPage function -> go page +1
+function nextPage(current_page, entrie_page) {
+  search(parseInt(current_page, 10) + 1, entrie_page);
+}
+
+//plusTen function -> go page+10
+function plusTen(current_page, entrie_page) {
+  search(current_page + 10, entrie_page);
+}
+//minusTen function -> go page-10
+function minusTen(current_page, entrie_page) {
+  search(current_page - 10, entrie_page);
+}
+
 //To add function for each button
 function addClicfunction(current_page, entrie_page) {
-  $("#next_button").click(function () {
+  $("#next_button").click(function (event) {
+    event.preventDefault();
     nextPage(current_page, entrie_page);
   });
 
-  $("#next_button_clone").click(function () {
+  $("#next_button_clone").click(function (event) {
+    event.preventDefault();
     nextPage(current_page, entrie_page);
   });
 
-  $("#prev_button").click(function () {
+  $("#prev_button").click(function (event) {
+    event.preventDefault();
     prevPage(current_page, entrie_page);
   });
 
-  $("#prev_button_clone").click(function () {
+  $("#prev_button_clone").click(function (event) {
+    event.preventDefault();
     prevPage(current_page, entrie_page);
   });
 
-  $("#plus_button").click(function () {
+  $("#plus_button").click(function (event) {
+    event.preventDefault();
     plusTen(current_page, entrie_page);
   });
 
-  $("#plus_button_clone").click(function () {
+  $("#plus_button_clone").click(function (event) {
+    event.preventDefault();
     plusTen(current_page, entrie_page);
   });
 
-  $("#minus_button").click(function () {
+  $("#minus_button").click(function (event) {
+    event.preventDefault();
     minusTen(current_page, entrie_page);
   });
 
-  $("#minus_button_clone").click(function () {
+  $("#minus_button_clone").click(function (event) {
+    event.preventDefault();
     minusTen(current_page, entrie_page);
   });
 }
@@ -370,23 +412,4 @@ function changePage(current_page, entrie_page) {
     $("#minus_button").hide();
     $("#minus_button_clone").hide();
   }
-}
-
-//prevPage function -> go page -1
-function prevPage(current_page, entrie_page) {
-  search(current_page - 1, entrie_page);
-}
-
-//nextPage function -> go page +1
-function nextPage(current_page, entrie_page) {
-  search(current_page + 1, entrie_page);
-}
-
-//plusTen function -> go page+10
-function plusTen(current_page, entrie_page) {
-  search(current_page + 10, entrie_page);
-}
-//minusTen function -> go page-10
-function minusTen(current_page, entrie_page) {
-  search(current_page - 10, entrie_page);
 }

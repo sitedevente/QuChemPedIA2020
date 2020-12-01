@@ -1,4 +1,4 @@
-function ajaxGet(page_number, entrie_page, query, query_type) {
+function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   //Show loading during request
   loading(true);
   $("#select_entrie").hide();
@@ -30,8 +30,9 @@ function ajaxGet(page_number, entrie_page, query, query_type) {
       );
       total_result=data.total;
 
-      // Add on_top function to scroll top
+      //Pagination
       pagination(entrie_page, data.total,page_number);
+      // Add on_top function to scroll top
       $("#on_top").click(function () {
         $("html, body").animate(
           {
@@ -88,7 +89,7 @@ function ajaxGet(page_number, entrie_page, query, query_type) {
         //---------------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------------
 
-        //Show Inchi, only if we search for it
+        //Show Inchi, only if we search for it -> Display on top
         if (query_type==="inchi") {
           $(div_row_result).css("height", "160px");
           var div_container_row = document.createElement("div");
@@ -290,10 +291,16 @@ function ajaxGet(page_number, entrie_page, query, query_type) {
       changePage(page_number, entrie_page);
       //Loading display hide
       loading(false);
+      //To keep history, we push state
+      if (!pop_state) {
+      window.history.pushState({url: "http://127.0.0.1/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/?type=" + $("#id_typeQuery").val() + "&q=" + $("#query").val() + "&page=" + page_number + "&showresult=" + entrie_page+"#" + "",accueil:false, id:id+1}, "search"+$("#id_typeQuery").val()+$("#query").val()+page_number, "/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/?type=" + $("#id_typeQuery").val() + "&q=" + $("#query").val() + "&page=" + page_number + "&showresult=" + entrie_page+"#");
+      id++;
+      }
+      
     },
     //When error 404 -> no result or error in search
     error: function (xhr, ajaxOptions, thrownError) {
-      if (xhr.status == 404) {
+      if (xhr.status == 404 ) {
         var no_result = document.createElement("img");
         $(no_result).attr("src", "../img/confused_scientist.png");
         $(no_result).attr("alt", "No result");
@@ -314,3 +321,4 @@ function ajaxGet(page_number, entrie_page, query, query_type) {
     },
   });
 }
+

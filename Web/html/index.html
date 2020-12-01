@@ -23,53 +23,56 @@
   <body >
     <div class="container" id="div_container_home">
       <div
-        class="row justify-center w-100 align-content-center"
-        style="height: 100vh"
-        id="div_accueil"
+              class="row justify-center w-100 align-content-center"
+              style="height: 100vh"
+              id="div_accueil"
       >
-        <div class="col">
-          <h1 class="text-center" style="color: #095680">QuChemPedIA</h1>
-          <h2 id="subtitle" class="diplay-2 text-center">
-            Quantum Chemistry Collaborative EncyclopedIA
-          </h2>
-          <br />
-          <div class="row justify-content-center">
-            <!-- Search Form -->
-            <form class="row w-100 justify-content-center" id="search_form">
-              <input
-                type="text"
-                name="search_text"
-                id="query"
-                class="mr-1 col-12 col-lg-6 form-control"
-                maxlength="500"
-              />
-              <select
-                name="typeQuery"
-                id="id_typeQuery"
-                class="custom-select col-12 col-lg-3"
-                style="width: 15%"
-              >
-                <option value="formula">Formula</option>
-
-                <option value="inchi">InChi</option>
-
-                <option value="smi">SMILES</option>
-              </select>
-              <button
-                id="submit_search"
-                type="submit"
-                class="btn btn-outline-success"
-                onclick="search(1,25);blockSearch();return false"
-              >
-                Search <i class="fa fa-search"></i>
-              </button>
-            </form>
-
-            <!-- </form> -->
+          <div class="col">
+              <!-- Logo et nom du site -->
+              <h1 class="diplay-2 text-center mb-0 mr-0 mw-10" href="index.html">
+                  <img src="../img/logo.png" class="img-fluid rounded" width="10%" alt="Logo"> uChemPedIA
+              </h1>
+              <h2 id="subtitle" class="diplay-2 text-center">
+                  Quantum Chemistry Collaborative EncyclopedIA
+              </h2>
+              <br />
+              <div class="row justify-content-center">
+                  <!-- Search Form -->
+                  <form class="row w-100 justify-content-center" id="search_form">
+                      <input
+                              type="text"
+                              name="search_text"
+                              id="query"
+                              class="mr-1 col-12 col-lg-6 form-control"
+                              maxlength="500"
+                      />
+                      <select
+                              name="typeQuery"
+                              id="id_typeQuery"
+                              class="custom-select col-12 col-lg-3"
+                              style="width: 15%"
+                      >
+                          <option value="formula">Formula</option>
+  
+                          <option value="inchi">InChi</option>
+  
+                          <option value="smi">SMILES</option>
+                      </select>
+                      <button
+                              id="submit_search"
+                              type="submit"
+                              class="btn btn-outline-success ml-1"
+                              onclick="search(1,25);blockSearch();return false"
+                      >
+                          Search <i class="fa fa-search"></i>
+                      </button>
+                  </form>
+  
+                  <!-- </form> -->
+              </div>
           </div>
-        </div>
       </div>
-    </div>
+  </div>
 
     <script
       src="../js/smiles-drawer.min.js"
@@ -80,6 +83,9 @@
     <script src="../js/draw_canvas.js"></script>
     <script src="../js/ajax_request.js"></script>
     <script src="../js/home-search.js"></script>
+    <script src="../js/keep_history.js"></script>
+
+
     
   </body>
 </html>

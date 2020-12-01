@@ -1,3 +1,6 @@
+// ID for history, may be useless
+var id = 0;
+
 // To display a loader during the init of datatable
 function loading(isTrue) {
   if (isTrue) {
@@ -26,13 +29,32 @@ function loading(isTrue) {
 }
 //---------------------------------------
 
-// To add a click to /details/id
+// Function to prevent click, when user want to highlight 
+function getSelected() {
+  if (window.getSelection) {
+      return window.getSelection().toString();
+  } else if (document.getSelection) {
+      return document.getSelection().toString();
+  } else {
+      var selection = document.selection && document.selection.createRange();
+      if (selection.text) {
+          return selection.text.toString();
+      }
+      return "";
+  }
+  return "";
+}
+// To add a href click to /details/id
 function addClick() {
   var all_li = document.querySelectorAll("#display_result > li");
   for (let i = 0; i < all_li.length; ++i) {
     all_li[i].style.cursor = "pointer";
     all_li[i].addEventListener("click", function () {
-      location.href = "/details/" + all_li[i].id;
+      var selection = getSelected().toString();
+      //When user highlight, if nothing highlight -> go to detail page
+      if (selection === "") {
+      location.href = "/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/details?id=" + all_li[i].id;
+      }
     });
   }
 }
@@ -43,17 +65,25 @@ function blockSearch() {
   $("#submit_search").prop("disabled", true);
   setTimeout(function () {
     $("#submit_search").prop("disabled", false);
-  }, 2000); // 2 second delay
+  }, 800); // 0.5 second delay
 }
 //---------------------------------------
 
 // Search function called after each submit
 function search(page_number, entrie_page) {
+  
   if ($("#query").val() != "") {
     // First submit, we create navbar
     if ($("#navbar_top").length === 0) {
-      //init value for entrie_page -> default 25 entries per page
+      test=true;
+      //init value for entrie_page -> default 25 entries per page or other value if we dont search by URL
+      let url = new URL(document.location.href);
+      let entrie= url.searchParams.get("showresult");
+      console.log(entrie)
+      if (entrie === null) {
       entrie_page = 25;
+      }
+      else entrie_page=entrie;
 
       var navbar = document.createElement("nav");
       $(navbar).attr("id", "navbar_top");
@@ -62,7 +92,7 @@ function search(page_number, entrie_page) {
       var logo = document.createElement("a");
       $(logo).attr("id", "home_button");
       $(logo).attr("href", "index.html");
-      $(logo).html("QuChemPedIA");
+      $(logo).html('<img src="../img/logo.png" class="img-fluid rounded" width="4%" alt="Logo"> uChemPedIA');
       $(logo).addClass("navbar-brand primary");
       $(navbar).append(logo);
 
@@ -138,22 +168,18 @@ function search(page_number, entrie_page) {
 
       $(".container").css({ width: "auto", height: "auto", display: "table" });
 
-      // To keep an history -> Only for test
-      // window.history.pushState(
-      //   "object or string",
-      //   "Title",
-      //   "/?=" + String(id_typeQuery) + "?=" + String(query)
-      // );
-
       // To remove the index page after first submit
       var elem = document.getElementById("div_container_home");
       if (elem !== null) {
         document.getElementById("div_container_home").remove();
       }
+
+      
     } else {
       // To remove last result after a new submit
       $("#display_result").empty();
       $("#display_pagination").empty();
+      $("#div_pagination_container").remove();
       $("#display_pagination_prime_container").remove();
       $("#display_pagination2").empty();
       $("#result_number").empty();
@@ -162,11 +188,27 @@ function search(page_number, entrie_page) {
         $("#select_entrie").children("option:selected").val()
       );
     }
-
     // Sent parameter to ajax request
     query = $("#query").val();
     query_type = $("#id_typeQuery").val();
-    ajaxGet(page_number, entrie_page, query, query_type);
-    
+    ajaxGet(page_number, entrie_page, query, query_type, false);
   }
 }
+
+//to read paramater in URL for window.onload -> keep_history.js
+function searchURL() 
+{
+let url = new URL(document.location.href);
+let type = url.searchParams.get("type");
+let q = url.searchParams.get("q");
+let page = parseInt(url.searchParams.get("page"),10);
+let entrie= parseInt(url.searchParams.get("showresult"),10);
+
+
+if (type != null && q != null && page!= null && entrie!= null) {
+  $("#query").val(q);
+  $("#id_typeQuery").val(type).change();
+  search(page,entrie);
+}
+}
+

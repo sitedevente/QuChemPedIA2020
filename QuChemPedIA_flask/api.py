@@ -183,9 +183,11 @@ def details(id):
         mol = s.execute()["hits"].to_dict()
 
         if (mol["total"]["value"] > 0):
-
+            result ={}
+            result["id"] = mol["hits"][0]["_id"]
+            result["data"] = mol["hits"][0]["_source"]
             response = app.response_class(
-                response=json.dumps(mol, indent=4),
+                response=json.dumps(result, indent=4),
                 mimetype='application/json'
             )
 
