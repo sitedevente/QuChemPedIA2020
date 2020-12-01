@@ -53,7 +53,7 @@ function addClick() {
       var selection = getSelected().toString();
       //When user highlight, if nothing highlight -> go to detail page
       if (selection === "") {
-      location.href = "/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/details?id=" + all_li[i].id;
+      location.href = "/details?id=" + all_li[i].id;
       }
     });
   }
