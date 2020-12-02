@@ -7,6 +7,8 @@ try:
     from urllib.parse import unquote  # PY3
 except ImportError:
     from urllib import unquote  # PY2
+from flask_cors import CORS
+
 
 #es = Elasticsearch(['https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net:433'])
 # Connexion au client Elasticsearch
@@ -14,7 +16,7 @@ client = Elasticsearch(
     'https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net')
 
 app = Flask(__name__)
-
+CORS(app)
 #  Route to look for a molecule with its formula and its name in Elasticsearch.
 
 
@@ -25,7 +27,9 @@ def search():
     # If it's the case , assign them to the variables type and name
     # if not , deisplay an error
 
-    if('q' in request.args and request.args.get('q').split() and 'type' in request.args and request.args.get('type').split() and 'page' in request.args and 'showresult' in request.args):
+    if('q' in request.args and request.args.get('q').split() and
+        'type' in request.args and request.args.get('type').split() and
+            'page' in request.args and 'showresult' in request.args):
 
         # Display the error message. status code = 404.
         name = request.args.get('q')
@@ -48,6 +52,7 @@ def search():
         # Check if the name provided contains special characters
         # if it's the case ,replace them and create a normal query
         # if not create a query using regular expression
+
         if name.find('*') != -1 or name.find('_') != -1:
             second_name = name.replace("*", "[1-9]+")
             second_name = name.replace("_", "[a-zA-Z1-9]*")
@@ -181,7 +186,7 @@ def details(id):
         mol = s.execute()["hits"].to_dict()
 
         if (mol["total"]["value"] > 0):
-            result ={}
+            result = {}
             result["id"] = mol["hits"][0]["_id"]
             result["data"] = mol["hits"][0]["_source"]
             response = app.response_class(
