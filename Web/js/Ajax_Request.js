@@ -1,3 +1,33 @@
+  //////////////////////////////////////////////////////////////////////////
+//            Function to execute ajax request on search API                //
+//  We give 5 parameters :                                                  //
+//  page_number : page number to display                                    //
+//  entrie_page : entrie per page                                           //
+//  query : user input                                                      //
+//  query_type : Formula/Inchi/smile                                        //
+//  pop_state : If we get the request from history (Keep_History.js)        //
+//                                                                          //
+//  We first display a loading (Search.js)                                  //
+//  and hide the select entrie div                                          //
+//  We keep the total result in a variable to use with pageSelect function  //
+//  Then the ajax request is send -> SUCCESS :                              //
+//  We first call our pagination function (Pagination.js)                   //
+//  Then for each element we found with the request on the API -> display   //
+//  and add css style                                                       //
+//                                                                          //
+//  At the end of the request, function to draw smile (Draw_Canvas.js)      //
+//  on each canvas present on the page, function to add href                //
+//  for details page, call pageSelect                                       //
+//  and changePage function (Pagination.js)                                 //
+//  end of loading display                                                  //
+//  if pop_state is true we push state to keep history                      //
+//                                                                          //
+//  Ajax request -> ERROR :                                                 //
+//  Display an arror message, with img                                      //
+//                                                                          //
+  //////////////////////////////////////////////////////////////////////////
+
+
 function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   //Show loading during request
   loading(true);
@@ -299,7 +329,8 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
         window.history.pushState(
           {
             url:
-              "http://127.0.0.1/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/?type=" +
+              "http://127.0.0.1/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/"+
+              "?type=" +
               $("#id_typeQuery").val() +
               "&q=" +
               $("#query").val() +

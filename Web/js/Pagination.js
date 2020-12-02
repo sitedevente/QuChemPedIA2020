@@ -1,7 +1,33 @@
-//PAGINATION
-//We had event.preventDefault() for the history functionnality on evry click function,
-//to prevent reload page from ajax request
-//
+  //////////////////////////////////////////////////////////////////////////
+//            Function to set a pagination for the search function          //
+//  We give 3 parameters :                                                  //
+//  entrie_page : entrie per page                                           //
+//  result_length : total result of request                                 //
+//  page_number : page user want to display                                 //
+//                                                                          //
+//  First we get into numPages the total page we need                       //
+//  We empty our last pagination then we remove the on_top button           //
+//                                                                          //
+//  [*]-> active page                                                       //
+//  if numPages < 10                                                        //
+//  [*][2][3][4][5][6][7][8][9][10]                                         //
+//                                                                          //
+//  else for first page only display start/end (ex:14 pages)                //
+//  [*][2][3][4]...[11][12[13][14][NEXT][+10]                               //
+//                                                                          //
+//  else for all pages between, only show start/end and around              //
+//  [PREVIOUS][1]...[3][4][5][*][7][8][9]...[14][NEXT]                      //
+//                                                                          //
+//  else same as first page but for last page                               //
+//                                                                          //
+//  --------------------------------------------------                      //
+//  Then clone this pagination for the bottom                               //
+//                                                                          //
+//  Declaration of function use in Ajax_Request at the end of this file     //
+//                                                                          //
+  //////////////////////////////////////////////////////////////////////////
+
+
 function pagination(entrie_page, result_length, page_number) {
   //To get number page needed
   var numPages = Math.ceil(result_length / entrie_page);
@@ -267,20 +293,19 @@ function pageSelect(pageid, pageid_clone, total_result, entrie_page) {
   for (let i = 0; i < all_li.length; ++i) {
     $(all_li[i]).removeClass("active");
   }
-  $(all_li);
   $("#" + String(pageid)).addClass("active");
   $("#" + String(pageid_clone)).addClass("active");
   var page = pageid.replace("page", "");
   page = parseInt(page, 10);
   var total_page = Math.ceil(total_result / entrie_page);
 
-  if (page == 1 && total_result > 25) {
+  if (page == 1 && total_result > entrie_page) {
     $("#display_pagination li:nth-child(2)").addClass("disabled");
     $("#display_pagination li:nth-last-child(2)").removeClass("disabled");
 
     $("#display_pagination2 li:nth-child(2)").addClass("disabled");
     $("#display_pagination2 li:nth-last-child(2)").removeClass("disabled");
-  } else if (page == 1 && total_result < 25) {
+  } else if (page == 1 && total_result < entrie_page) {
     $("#display_pagination li:nth-child(2)").addClass("disabled");
     $("#display_pagination li:nth-last-child(2)").addClass("disabled");
 
@@ -309,6 +334,10 @@ function pageSelect(pageid, pageid_clone, total_result, entrie_page) {
     $("#display_pagination2 li:first").removeClass("disabled");
   }
 }
+
+//
+// Function for each button
+//
 
 //prevPage function -> go page -1
 function prevPage(current_page, entrie_page) {
@@ -374,7 +403,7 @@ function addClicfunction(current_page, entrie_page) {
 
 //When we change page -> to check if a buton is disabled or not
 // if disabled -> no_function
-// else -> add next/prevPage function
+// else -> add next/prev/plus/minus function
 function changePage(current_page, entrie_page) {
   addClicfunction(current_page, entrie_page);
   if ($("#next_button").attr("class") != "page-item disabled") {

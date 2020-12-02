@@ -1,11 +1,13 @@
 // When user want to use URL to display the result on onload
+// searchURL() at the end of Search.js file
+
 window.onload = function () {
   searchURL();
 };
 
 //Add listener when user click on back/forward button of nav
-//We push state in ajax_request line 302
-// !! If the URL change, change it line 302 !!
+//We push state in Ajax_request line 332
+// !! If the URL change, change it line 332 !!
 window.addEventListener("popstate", function (e) {
   e.preventDefault();
   if (e.state != null) {

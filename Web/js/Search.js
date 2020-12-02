@@ -69,7 +69,19 @@ function blockSearch() {
 }
 //---------------------------------------
 
-// Search function called after each submit
+  //////////////////////////////////////////////////////////////////////////
+//            Search function call after each click on submit button        //
+//  We give 2 paramaters :                                                  //
+//  page_number : page number to display                                    //
+//  entrie_page : entrie per page                                           //
+//                                                                          //
+//  First we check if it's the first request make from index.html           //
+//  YES -> Creation of navbar, and each div use to display result,          //
+//  pagination                                                              //
+//  NO -> We clear the area to display the new request                      //
+//                                                                          //
+  //////////////////////////////////////////////////////////////////////////
+
 function search(page_number, entrie_page) {
   if ($("#query").val() != "") {
     // First submit, we create navbar
@@ -191,7 +203,9 @@ function search(page_number, entrie_page) {
   }
 }
 
+// Function use to search when user access the website by url with information
 //to read paramater in URL for window.onload -> keep_history.js
+
 function searchURL() {
   let url = new URL(document.location.href);
   let type = url.searchParams.get("type");
