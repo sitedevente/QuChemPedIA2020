@@ -158,8 +158,8 @@ def test_search_molecule_wrong_page_showresult_error():
 # response body contains the right error message.
 def test_search_molecule_empty_param_error():
 
-    type = ""
-    name = "c2"
+    type = " "
+    name = "co2"
     page = ""
     showresult = "3"
     # Define url for the API call.
@@ -214,7 +214,7 @@ def test_details_molecule():
 # Test the consultation of molecule's details with an inexisting ID,
 # verify that the response code is 404 and the
 # response body contains the right error message.
-def test_details_molecule_error():
+def test_details_molecule_wrong_id_error():
 
     # Define url for the API call.
     id_mol = 'fake_id_mol'
@@ -228,6 +228,27 @@ def test_details_molecule_error():
     resp_body = resp.json()
     assert resp_body['Error'] == 'Molecule with id = \'' + \
         id_mol + '\' does not exists!'
+
+    # Print full request and response
+    pretty_print_request(resp.request)
+    pretty_print_response(resp)
+
+# Test the consultation of molecule's details with an empty ID,
+# verify that the response code is 404 and the
+# response body contains the right error message.
+def test_details_molecule_empty_id_error():
+
+    # Define url for the API call.
+    id_mol = ""
+    url = base_url + 'details/' + id_mol
+
+    # Call the API with GET method.
+    resp = requests.get(url)
+
+    # Validate response headers and body contents and status code.
+    assert resp.status_code == 404
+    resp_body = resp.json()
+    assert resp_body['Error'] == "Please specify an id" or resp_body['Error'] == "Resource not found please check your url!"
 
     # Print full request and response
     pretty_print_request(resp.request)

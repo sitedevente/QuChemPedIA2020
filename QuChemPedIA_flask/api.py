@@ -9,7 +9,6 @@ except ImportError:
     from urllib import unquote  # PY2
 from flask_cors import CORS
 
-
 #es = Elasticsearch(['https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net:433'])
 # Connexion au client Elasticsearch
 client = Elasticsearch(
@@ -27,8 +26,8 @@ def search():
     # If it's the case , assign them to the variables type and name
     # if not , deisplay an error
 
-    if('q' in request.args and request.args.get('q').split() and
-        'type' in request.args and request.args.get('type').split() and
+    if('q' in request.args and request.args.get('q').strip() and
+        'type' in request.args and request.args.get('type').strip() and
             'page' in request.args and 'showresult' in request.args):
 
         # Display the error message. status code = 404.
@@ -164,10 +163,11 @@ def details(id):
     # Check if an id was provided in the URL
     # If it's the case , assign it to the variable identifiant
     # if not , display an error
-    if(not (id and not id.isspace())):
+
+    if not(id and id.strip()):
 
         # Display the error message. status code = 404.
-        return jsonify({'Error': 'Please specify an id '}), 404
+        return jsonify({'Error': 'Please specify an id'}), 404
     else:
         identifiant = id
 
