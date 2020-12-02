@@ -117,7 +117,7 @@ window.onload = chargeTable();
 //Fonctions utiles pour le traitement du Json et autres//
 /////////////////////////////////////////////////////////
 
-//Bouton pour switch de vue Card/Tab
+//Bouton pour changer d'affichage Card/Tab
 let btn = document.getElementById("switchDiplay");
 btn.onclick = function() {
     let icone = document.getElementById("icone");
@@ -188,6 +188,10 @@ function exposant(chaine){
     }
 }
 
+///////////////////////////////////////////////////////////////////////////
+//Creation de la requête et traitement de la réponse pour remplir la page//
+///////////////////////////////////////////////////////////////////////////
+
 //Récupération de l'url, l'id et construction de l'url de requete
 let url = new URL(document.location.href);
 let id = url.searchParams.get("id");
@@ -208,9 +212,12 @@ request.onreadystatechange = function() {
         document.getElementById("diplay-card").style.display = "none";
     }
 
+    //Si la réponse es OK (200) et l'état de la requête a DONE on remplit la page web
     if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
         //On parse la réponse du serveur en JSON
         let response = JSON.parse(this.responseText);
+
+        //Liste des Molécules pour l'affichage dans les Tableaux
         let Symbol = ["H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca","Sc",
                       "Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr","Rb","Sr","Y","Zr","Nb",
                       "Mo","Tc","Ru","Rh","Pd","Ag","Cd","In","Sn","Sb","Te","I","Xe","Cs","Ba","La","Ce","Pr","Nd","Pm",
@@ -241,6 +248,7 @@ request.onreadystatechange = function() {
                 smilesDrawer.draw(tree, "smile", "light", false);
                 }
             );
+            //Bug d'affichage dans le mode impression
             /*SmilesDrawer.parse(input, function(tree) {
                     smilesDrawer2.draw(tree, "smile_card", "light", false);
                 },function(err){
@@ -265,12 +273,14 @@ request.onreadystatechange = function() {
             document.getElementById("mol_id_card").innerHTML = "Molecule Id : "+ response.id;
         }
 
+        //Champ Formule
         if (response.data.molecule.formula){
             //On remplit le titre
             document.getElementById("titre").innerHTML = "Formule : "+mol_sub(response.data.molecule.formula);
             document.getElementById("titre_card").innerHTML  = mol_sub(response.data.molecule.formula);
         }
 
+        //Champ IUPAC
         if(response.data.molecule.iupac){
             document.getElementById("iupac").innerHTML = "<acronym title='International Union of Pure and Applied Chemistry' style='text-decoration: none'>IUPAC :</acronym>" + " "+ response.data.molecule.iupac;
             document.getElementById("iupac_card").innerHTML = response.data.molecule.iupac;
@@ -280,231 +290,224 @@ request.onreadystatechange = function() {
             document.getElementById("iupac_display2").style.display = "none";
         }
 
+        //Champ INCHI
         if (response.data.molecule.inchi){
             //Substring pour ne pas prendre le début avec "INCHI="
             document.getElementById("inchi").innerHTML = "<acronym title='International Chemical Identifier' style='text-decoration: none'>Inchi :</acronym>" + " " + response.data.molecule.inchi.substring(6);
-            document.getElementById("inchi_card").innerHTML = "<acronym title='International Chemical Identifier' style='text-decoration: none'>Inchi :</acronym>";
-            document.getElementById("inchibis_card").innerHTML = response.data.molecule.inchi.substring(6);
+            document.getElementById("inchi_card").innerHTML = response.data.molecule.inchi.substring(6);
         }
         else{
             document.getElementById("inchi_display").style.display = "none";
             document.getElementById("inchi_display2").style.display = "none";
         }
 
+        //Champ SMILES
         if (response.data.molecule.smi){
             document.getElementById("smiles").innerHTML = "<acronym title='Simplified Molecular-Input Line-Entry System' style='text-decoration: none'>SMILES :</acronym>" + " " + response.data.molecule.smi;
-            document.getElementById("smiles_card").innerHTML = "<acronym title='Simplified Molecular-Input Line-Entry System' style='text-decoration: none'>SMILES :</acronym>";
-            document.getElementById("smilesbis_card").innerHTML = response.data.molecule.smi;
+            document.getElementById("smiles_card").innerHTML = response.data.molecule.smi;
         }
         else{
             document.getElementById("smiles_display").style.display = "none";
             document.getElementById("smiles_display2").style.display = "none";
         }
 
-        //Partie plus détaillée pour les caractéristiques de la molécule (partie détail de calcul)
+        //Partie Computation Detail pour les caractéristiques de la molécule (partie détail de calcul)
         if (!response.data.comp_details.general){
             document.getElementById("display-comp-detail").style.display = "none";
         }
 
+        //Champ Software
         if (response.data.comp_details.general.package && response.data.comp_details.general.package_version){
-            document.getElementById("software").innerHTML = "Software";
-            document.getElementById("softwarebis").innerHTML = response.data.comp_details.general.package +" ("+response.data.comp_details.general.package_version+")";
-            document.getElementById("software_card").innerHTML = "Software";
-            document.getElementById("softwarebis_card").innerHTML = response.data.comp_details.general.package +" ("+response.data.comp_details.general.package_version+")";
+            document.getElementById("software").innerHTML = response.data.comp_details.general.package +" ("+response.data.comp_details.general.package_version+")";
+            document.getElementById("software_card").innerHTML = response.data.comp_details.general.package +" ("+response.data.comp_details.general.package_version+")";
         }
         else{
             document.getElementById("diplay_software").style.display = "none";
             document.getElementById("diplay_software2").style.display = "none";
         }
 
+        //Champ Computational method
         if (response.data.comp_details.general.last_theory){
-            document.getElementById("computational").innerHTML = "Computational method";
-            document.getElementById("computationalbis").innerHTML = response.data.comp_details.general.last_theory;
-            document.getElementById("computational_card").innerHTML = "Computational method";
-            document.getElementById("computationalbis_card").innerHTML = response.data.comp_details.general.last_theory;
+            document.getElementById("computational").innerHTML = response.data.comp_details.general.last_theory;
+            document.getElementById("computational_card").innerHTML = response.data.comp_details.general.last_theory;
         }
         else{
             document.getElementById("comp_display").style.display = "none";
             document.getElementById("comp_display2").style.display = "none";
         }
 
+        //Champ Functional
         if (response.data.comp_details.general.functional){
-            document.getElementById("functional").innerHTML = "Functional";
-            document.getElementById("functionalbis").innerHTML = response.data.comp_details.general.functional;
-            document.getElementById("functional_card").innerHTML = "Functional";
-            document.getElementById("functionalbis_card").innerHTML = response.data.comp_details.general.functional;
+            document.getElementById("functional").innerHTML = response.data.comp_details.general.functional;
+            document.getElementById("functional_card").innerHTML = response.data.comp_details.general.functional;
         }
         else{
             document.getElementById("func_display").style.display = "none";
             document.getElementById("func_display2").style.display = "none";
         }
 
+        //Champ Basis set name
         if (response.data.comp_details.general.basis_set_name){
-            document.getElementById("basis").innerHTML = "Basis Set Name";
-            document.getElementById("basisbis").innerHTML = response.data.comp_details.general.basis_set_name;
-            document.getElementById("basis_card").innerHTML = "Basis Set Name";
-            document.getElementById("basisbis_card").innerHTML = response.data.comp_details.general.basis_set_name;
+            document.getElementById("basis").innerHTML = response.data.comp_details.general.basis_set_name;
+            document.getElementById("basis_card").innerHTML = response.data.comp_details.general.basis_set_name;
         }
         else{
             document.getElementById("basis_display").style.display = "none";
             document.getElementById("basis_display2").style.display = "none";
         }
 
+        //Champ Number of basis set functions
         if (response.data.comp_details.general.basis_set_size || response.data.comp_details.general.basis_set_size == 0){
-            document.getElementById("number_basis").innerHTML = "Number of basis set functions";
-            document.getElementById("number_basisbis").innerHTML = response.data.comp_details.general.basis_set_size;
-            document.getElementById("number_basis_card").innerHTML = "Number of basis set functions";
-            document.getElementById("number_basisbis_card").innerHTML = response.data.comp_details.general.basis_set_size;
+            document.getElementById("number_basis").innerHTML = response.data.comp_details.general.basis_set_size;
+            document.getElementById("number_basis_card").innerHTML = response.data.comp_details.general.basis_set_size;
         }
         else{
             document.getElementById("nb_basis_display").style.display = "none";
             document.getElementById("nb_basis_display2").style.display = "none";
         }
 
+        //Champ Closed shell calculation
         if (response.data.comp_details.general.is_closed_shell){
-            document.getElementById("shell_calc").innerHTML = "Closed shell calculation";
-            document.getElementById("shell_calcbis").innerHTML = response.data.comp_details.general.is_closed_shell;
-            document.getElementById("shell_calc_card").innerHTML = "Closed shell calculation";
-            document.getElementById("shell_calcbis_card").innerHTML = response.data.comp_details.general.is_closed_shell;
+            document.getElementById("shell_calc").innerHTML = response.data.comp_details.general.is_closed_shell;
+            document.getElementById("shell_calc_card").innerHTML = response.data.comp_details.general.is_closed_shell;
         }
         else{
             document.getElementById("shell_display").style.display = "none";
             document.getElementById("shell_display2").style.display = "none";
         }
 
+        //Champ Integration grid
         if (response.data.comp_details.general.integration_grid){
-            document.getElementById("integration").innerHTML = "Integration grid";
-            document.getElementById("integrationbis").innerHTML = response.data.comp_details.general.integration_grid;
-            document.getElementById("integration_card").innerHTML = "Integration grid";
-            document.getElementById("integrationbis_card").innerHTML = response.data.comp_details.general.integration_grid;
+            document.getElementById("integration").innerHTML = response.data.comp_details.general.integration_grid;
+            document.getElementById("integration_card").innerHTML = response.data.comp_details.general.integration_grid;
         }
         else{
             document.getElementById("integration_display").style.display = "none";
             document.getElementById("integration_display2").style.display = "none";
         }
 
+        //Champ Solvent
         if (response.data.comp_details.general.solvent){
-            document.getElementById("solvent").innerHTML = "Solvent";
-            document.getElementById("solventbis").innerHTML = response.data.comp_details.general.solvent;
-            document.getElementById("solvent_card").innerHTML = "Solvent";
-            document.getElementById("solventbis_card").innerHTML = response.data.comp_details.general.solvent;
+            document.getElementById("solvent").innerHTML = response.data.comp_details.general.solvent;
+            document.getElementById("solvent_card").innerHTML = response.data.comp_details.general.solvent;
         }
         else{
             document.getElementById("solvent_display").style.display = "none";
             document.getElementById("solvent_display2").style.display = "none";
         }
 
+        //Champs Request SCF Convergence
         if (response.data.comp_details.general.scf_targets || response.data.comp_details.general.scf_targets.length == 0){
             let val = response.data.comp_details.general.scf_targets[response.data.comp_details.general.scf_targets.length-1];
-            document.getElementById("convergence").innerHTML = "Requested SCF convergence on RMS density";
-            document.getElementById("convergencebis").innerHTML = exposant(val[0]);
-            document.getElementById("convergence_max").innerHTML = "Requested SCF convergence on MAX density";
-            document.getElementById("convergence_max_bis").innerHTML = val[1];
-            document.getElementById("convergence_energie").innerHTML = "Requested SCF convergence on energy";
-            document.getElementById("convergence_energie_bis").innerHTML = val[2];
-            document.getElementById("convergence_card").innerHTML = "Requested SCF convergence on RMS density";
-            document.getElementById("convergencebis_card").innerHTML = exposant(val[0]);
-            document.getElementById("convergence_max_card").innerHTML = "Requested SCF convergence on MAX density";
-            document.getElementById("convergencebis_max_card").innerHTML = val[1];
-            document.getElementById("convergence_energie_card").innerHTML = "Requested SCF convergence on energy";
-            document.getElementById("convergence_energie_bis_card").innerHTML = val[2];
+            document.getElementById("convergence").innerHTML = exposant(val[0]);
+            document.getElementById("convergence_card").innerHTML = exposant(val[0]);
+
+            document.getElementById("convergence_max").innerHTML = val[1];
+            document.getElementById("convergence_max_card").innerHTML = val[1];
+
+            document.getElementById("convergence_energie").innerHTML = val[2];
+            document.getElementById("convergence_energie_card").innerHTML = val[2];
         }
         else{
             document.getElementById("convergence_display").style.display = "none";
             document.getElementById("convergence_display2").style.display = "none";
+
             document.getElementById("convergence_max_display").style.display = "none";
             document.getElementById("convergence_max_display2").style.display = "none";
+
             document.getElementById("convergence_energie_display").style.display = "none";
             document.getElementById("convergence_energie_display2").style.display = "none";
         }
 
+        //Champ Temperature
         if(response.data.comp_details.freq.temperature || response.data.comp_details.freq.temperature  == 0){
-            document.getElementById("temperature").innerHTML = "Temperature";
-            document.getElementById("temperaturebis").innerHTML = response.data.comp_details.freq.temperature ;
-            document.getElementById("temperature_card").innerHTML = "Temperature";
-            document.getElementById("temperaturebis_card").innerHTML = response.data.comp_details.freq.temperature ;
+            document.getElementById("temperature").innerHTML = response.data.comp_details.freq.temperature ;
+            document.getElementById("temperature_card").innerHTML = response.data.comp_details.freq.temperature ;
         }
         else{
             document.getElementById("temperature_display").style.display = "none";
             document.getElementById("temperature_display2").style.display = "none";
         }
 
+        //Champ Anaharmonicity
         if(response.data.comp_details.freq.anharmonicity != null){
-            document.getElementById("anharmonicity").innerHTML = "Anharmonic effects";
-            document.getElementById("anharmonicitybis").innerHTML = response.data.comp_details.freq.anharmonicity;
-            document.getElementById("anharmonicity_card").innerHTML = "Anharmonic effects";
-            document.getElementById("anharmonicity_bis_card").innerHTML = response.data.comp_details.freq.anharmonicity;
+            document.getElementById("anharmonicity").innerHTML = response.data.comp_details.freq.anharmonicity;
+            document.getElementById("anharmonicity_card").innerHTML = response.data.comp_details.freq.anharmonicity;
         }
         else{
             document.getElementById("anharmonicity_display").style.display = "none";
             document.getElementById("anharmonicity_display2").style.display = "none";
         }
 
+        //Champ Number of excited states
         if (response.data.comp_details.excited_states.nb_et_states || response.data.comp_details.excited_states.nb_et_states  == 0){
-            document.getElementById("nb_excited_state").innerHTML = "Number of excited states";
-            document.getElementById("nb_excited_statebis").innerHTML = response.data.comp_details.excited_states.nb_et_states;
-            document.getElementById("nb_excited_state_card").innerHTML = "Number of excited states";
-            document.getElementById("nb_excited_statebis_card").innerHTML = response.data.comp_details.excited_states.nb_et_states;
+            document.getElementById("nb_excited_state").innerHTML = response.data.comp_details.excited_states.nb_et_states;
+            document.getElementById("nb_excited_state_card").innerHTML = response.data.comp_details.excited_states.nb_et_states;
         }
         else{
             document.getElementById("nb_excited_display").style.display = "none";
             document.getElementById("nb_excited_display2").style.display = "none";
         }
 
-        //Partie plus détaillée pour les caractéristiques de la molécule (partie détail de la molécule)
+        //Partie plus détaillée pour les caractéristiques de la molécule (partie détail de la molécule en affichage normal)
         if (response.data.molecule.formula){
-            document.getElementById("formule").innerHTML = "Formule";
-            document.getElementById("formulebis").innerHTML = mol_sub(response.data.molecule.formula);
-            document.getElementById("formule_card").innerHTML = "Formule";
-            document.getElementById("formulebis_card").innerHTML = mol_sub(response.data.molecule.formula);
+            document.getElementById("formule").innerHTML = mol_sub(response.data.molecule.formula);
+            document.getElementById("formule_card").innerHTML = mol_sub(response.data.molecule.formula);
         }
 
+        //Champ Charge
         if (response.data.molecule.charge || response.data.molecule.charge == 0){
-            document.getElementById("charge").innerHTML = "Charge";
-            document.getElementById("chargebis").innerHTML = response.data.molecule.charge;
-            document.getElementById("charge_card").innerHTML = "Charge";
-            document.getElementById("chargebis_card").innerHTML = response.data.molecule.charge;
+            document.getElementById("charge").innerHTML = response.data.molecule.charge;
+            document.getElementById("charge_card").innerHTML = response.data.molecule.charge;
         }
         else{
             document.getElementById("charge_display").style.display = "none";
             document.getElementById("charge_display2").style.display = "none";
         }
 
+        //Champ Spin multiplicity
         if (response.data.molecule.multiplicity || response.data.molecule.multiplicity == 0){
-            document.getElementById("spin").innerHTML = "Spin multiplicity";
-            document.getElementById("spinbis").innerHTML = response.data.molecule.multiplicity;
-            document.getElementById("spin_card").innerHTML = "Spin multiplicity";
-            document.getElementById("spinbis_card").innerHTML = response.data.molecule.multiplicity;
+            document.getElementById("spin").innerHTML = response.data.molecule.multiplicity;
+            document.getElementById("spin_card").innerHTML = response.data.molecule.multiplicity;
+        }
+        else{
+            document.getElementById("spin_display").style.display = "none";
+            document.getElementById("spin_display2").style.display = "none";
         }
 
+        //Champ Monoisotopic mass
         if (response.data.molecule.monoisotopic_mass || response.data.molecule.monoisotopic_mass == 0){
-            document.getElementById("monoisotopic").innerHTML = "Monoisotopic mass";
-            document.getElementById("monoisotopicbis").innerHTML = response.data.molecule.monoisotopic_mass;
-            document.getElementById("monoisotopic_card").innerHTML = "Monoisotopic mass";
-            document.getElementById("monoisotopicbis_card").innerHTML = response.data.molecule.monoisotopic_mass;
+            document.getElementById("monoisotopic").innerHTML = response.data.molecule.monoisotopic_mass;
+            document.getElementById("monoisotopic_card").innerHTML = response.data.molecule.monoisotopic_mass;
+        }
+        else{
+            document.getElementById("monoisotopic_display").style.display = "none";
+            document.getElementById("monoisotopic_display2").style.display = "none";
         }
 
-        //Possibilité de télécharger les informations de la molécule
+        //Bouton pour de télécharger les informations de la molécule
         if (response.data.metadata.log_file){
-            document.getElementById("logfile").innerHTML = "Original log file";
-            let logbtn = document.getElementById("logfilebis");
-            logbtn.innerHTML = "Download";
-
+            //récupération de l'id et du nom du fichier de log
             let id = response.id;
             let path = id.split('');
             let name = response.data.metadata.log_file;
             let lien = "";
+
+            //On sépare chaque lettre de l'id par un / pour obtenir le path ou se trouve le logfile
             for(let i = 0;i<path.length;i++){
                 lien += path[i]+"/";
             }
             lien += name;
 
+            let logbtn = document.getElementById("logfile");
             logbtn.setAttribute("href",lien);
 
-            document.getElementById("logfile_card").innerHTML = "Original log file";
-            let logbtn2 = document.getElementById("logfilebis_card");
-            logbtn2.innerHTML = "Download";
+            let logbtn2 = document.getElementById("logfile_card");
             logbtn2.setAttribute("href",lien);
+        }
+        else{
+            document.getElementById("log_display").style.display = "none";
+            document.getElementById("log_display2").style.display = "none";
         }
 
         ////////////////////////////////////////////////////
@@ -518,17 +521,17 @@ request.onreadystatechange = function() {
             document.getElementById("wavefunction_display").style.display = "none";
         }
 
+        //Champ Total Molecular energy
         if (response.data.results.wavefunction.total_molecular_energy || response.data.results.wavefunction.total_molecular_energy == 0){
-            document.getElementById("energy").innerHTML = "Total molecular energy";
-            document.getElementById("energybis").innerHTML = response.data.results.wavefunction.total_molecular_energy;
-            document.getElementById("energy_card").innerHTML = "Total molecular energy";
-            document.getElementById("energybis_card").innerHTML = response.data.results.wavefunction.total_molecular_energy;
+            document.getElementById("energy").innerHTML = response.data.results.wavefunction.total_molecular_energy;
+            document.getElementById("energy_card").innerHTML = response.data.results.wavefunction.total_molecular_energy;
         }
         else{
             document.getElementById("energy_display").style.display = "none";
             document.getElementById("energy_display2").style.display = "none";
         }
 
+        //Champ HOMO number
         //Si plusieurs Homos dans l'index on les liste et les affiche
         if (response.data.results.wavefunction.homo_indexes || response.data.results.wavefunction.homo_indexes == 0){
             let homo_indexes = response.data.results.wavefunction.homo_indexes;
@@ -538,10 +541,8 @@ request.onreadystatechange = function() {
                 if(j!=(homo_indexes.length-1))
                     homos +=", ";
             }
-            document.getElementById("homo").innerHTML = "HOMO number";
-            document.getElementById("homobis").innerHTML = homos;
-            document.getElementById("homo_card").innerHTML = "HOMO number";
-            document.getElementById("homobis_card").innerHTML = homos;
+            document.getElementById("homo").innerHTML = homos;
+            document.getElementById("homo_card").innerHTML = homos;
         }
         else {
             document.getElementById("homo_display").style.display = "none";
@@ -556,10 +557,10 @@ request.onreadystatechange = function() {
             for(let j=0;j<homo_indexes.length;j++){
                 if (homo_indexes[j] <= 0) {
                     ligne += createLigne(createCol(N/A) + createCol(MO_energies[j][homo_indexes[j]].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j]+1].toFixed(2)) + createCol(N/A));
-                } else {
+                }
+                else {
                     //ligne += createLigne(createCol(MO_energies[j][homo_indexes[j] - 1].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j]].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j] + 1].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j] + 2].toFixed(2)));
                     ligne += createLigne(createCol(MO_energies[j][3].toFixed(2)) + createCol(MO_energies[j][4].toFixed(2)) + createCol(MO_energies[j][5].toFixed(2)) + createCol(MO_energies[j][6].toFixed(2)));
-
                 }
             }
             document.getElementById("calc_table_tab").innerHTML = ligne;
@@ -657,21 +658,23 @@ request.onreadystatechange = function() {
             document.getElementById("geometry_display").style.display = "none";
         }
 
-        if (response.data.results.geometry.nuclear_repulsion_energy_from_xyz || response.data.results.geometry.nuclear_repulsion_energy_from_xyz == 0){
-            document.getElementById("nuclear").innerHTML = "Nuclear repulsion energy in atomic units";
-            document.getElementById("nuclearbis").innerHTML = response.data.results.geometry.nuclear_repulsion_energy_from_xyz;
+        //Champ Nuclear repulsion energy in atomic units
+        if (response.data.results.geometry.nuclear_repulsion_energy_from_xyz){
+            document.getElementById("nuclear").innerHTML = response.data.results.geometry.nuclear_repulsion_energy_from_xyz;
+            document.getElementById("nuclear_card").innerHTML = response.data.results.geometry.nuclear_repulsion_energy_from_xyz;
         }
         else{
             document.getElementById("nuclear_display").style.display = "none";
+            document.getElementById("nuclear_display2").style.display = "none";
         }
 
-        //si le logiciel utilisé est gaussian on affiche les cibles géométriques dans la partie geometry
+        //Si le logiciel utilisé est Gaussian on affiche les cibles géométriques dans la partie GEOMETRY
         if(response.data.comp_details.general.package && (response.data.comp_details.general.package=="Gaussian")){
             if(response.data.comp_details.geometry.geometric_targets){
-                let html = "";
                 let geometric_targets = response.data.comp_details.geometry.geometric_targets;
                 let geometric_values = response.data.results.geometry.geometric_values[response.data.results.geometry.geometric_values.length -1 ];
                 let titreCols = ["Maximum Force","RMS Force","Maximum Displacement","RMS Displacement"];
+                let html = "";
 
                 for(let i=0;i<geometric_targets.length && i< titreCols.length;i++){
                     html += createLigne(createCol(titreCols[i]) + createCol(geometric_values[i].toFixed(6)) + createCol(geometric_targets[i].toFixed(6)));
@@ -687,7 +690,7 @@ request.onreadystatechange = function() {
         }
 
 
-        //Coordonnées cartésiennes
+        //Remplissage du tableau de coordonnées cartésiennes
         if(response.data.results.geometry.elements_3D_coords_converged){
             let elements_3D_coords_converged = response.data.results.geometry.elements_3D_coords_converged;
             let atoms_Z = response.data.molecule.atoms_Z;
@@ -712,6 +715,7 @@ request.onreadystatechange = function() {
             document.getElementById("thermochemistry_display").style.display = "none";
         }
 
+        //Champ Sum of electronic and zero-point energy
         if(response.data.results.freq.zero_point_energy){
             document.getElementById("zero_point_value").innerHTML = response.data.results.freq.zero_point_energy;
             document.getElementById("zero_point_value_card").innerHTML = response.data.results.freq.zero_point_energy;
@@ -721,6 +725,7 @@ request.onreadystatechange = function() {
             document.getElementById("zero_point_card").style.display = "none";
         }
 
+        //Champ Sum of electronic and thermal
         if(response.data.results.freq.electronic_thermal_energy){
             document.getElementById("elec_energie_value").innerHTML = response.data.results.freq.electronic_thermal_energy;
             document.getElementById("elec_energie_value_card").innerHTML = response.data.results.freq.electronic_thermal_energy;
@@ -730,6 +735,7 @@ request.onreadystatechange = function() {
             document.getElementById("elec_energie_card").style.display = "none";
         }
 
+        //Champ Entropy
         if(response.data.results.freq.entropy){
             document.getElementById("entropy_value").innerHTML = response.data.results.freq.entropy;
             document.getElementById("entropy_value_card").innerHTML = response.data.results.freq.entropy;
@@ -739,6 +745,7 @@ request.onreadystatechange = function() {
             document.getElementById("entropy_card").style.display = "none";
         }
 
+        //Champ Enthalpy
         if(response.data.results.freq.enthalpy){
             document.getElementById("enthalpy_value").innerHTML = response.data.results.freq.enthalpy;
             document.getElementById("enthalpy_value_card").innerHTML = response.data.results.freq.enthalpy;
@@ -748,6 +755,7 @@ request.onreadystatechange = function() {
             document.getElementById("enthalpy_card").style.display = "none";
         }
 
+        //Champ Gibbs free energy
         if(response.data.results.freq.free_energy){
             document.getElementById("free_energy_value").innerHTML = response.data.results.freq.free_energy;
             document.getElementById("free_energy_value_card").innerHTML = response.data.results.freq.free_energy;
@@ -789,6 +797,7 @@ request.onreadystatechange = function() {
             document.getElementById("excitation_card").style.display = "none";
         }
 
+        //Remplissage du tableau des états excités
         if(response.data.results.excited_states.et_energies) {
             let et_energies = response.data.results.excited_states.et_energies;
             let inde = new Array();
@@ -821,5 +830,6 @@ request.onreadystatechange = function() {
     }
 };
 
+//Envoi de la requête avec la méthode GET
 request.open('GET', requestURL);
 request.send();

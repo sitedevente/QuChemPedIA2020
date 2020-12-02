@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Titre et Icone du Site-->
     <title>QuChemPedIA</title>
     <link rel="icon" type="image/png" href="../img/logo.png" />
+
     <!--Bootstrap, datatable, icons et css-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -17,6 +20,7 @@
 </head>
 
 <body>
+
 <!-- Barre de navigation en heading -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light py-2">
     <!-- Bouton pour réduire le menu de recherche en responsive -->
@@ -80,7 +84,7 @@
     <!--Corps de la page-->
     <div class="card text-center mb-4">
         <div class="card-header">
-            <!--Barre en header de carte avec les différents onglets-->
+            <!--Barre en header de carte avec les onglets description et results-->
             <ul class="nav nav-pills text-primary">
                 <li class="nav-item">
                     <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
@@ -97,6 +101,7 @@
                 <!-- Onglet description avec les informations principales-->
                 <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                     <div class="container">
+                        <!--Formule de la molécule et informations sommaires-->
                         <div class="row-justify-content-around">
                             <div class="col-auto d-inline text-primary">
                                 <h2 id="titre"></h2>
@@ -134,127 +139,127 @@
                                                     <div class="container">
                                                         <div class="row" id="diplay_software">
                                                             <div class="col">
-                                                                <p id="software" class="text-secondary"></p>
+                                                                <p class="text-secondary">Software</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="softwarebis"></p>
+                                                                <p id="software"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="comp_display">
                                                             <div class="col">
-                                                                <p id="computational" class="text-secondary"></p>
+                                                                <p class="text-secondary">Computational method</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="computationalbis"></p>
+                                                                <p id="computational"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="func_display">
                                                             <div class="col">
-                                                                <p id="functional" class="text-secondary"></p>
+                                                                <p class="text-secondary">Functional</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="functionalbis"></p>
+                                                                <p id="functional"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="basis_display">
                                                             <div class="col">
-                                                                <p id="basis" class="text-secondary"></p>
+                                                                <p class="text-secondary">Basis Set Name</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="basisbis"></p>
+                                                                <p id="basis"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="nb_basis_display">
                                                             <div class="col-8">
-                                                                <p id="number_basis" class="text-secondary"></p>
+                                                                <p class="text-secondary">Number of basis set functions</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="number_basisbis"></p>
+                                                                <p id="number_basis"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="shell_display">
                                                             <div class="col">
-                                                                <p id="shell_calc" class="text-secondary"></p>
+                                                                <p class="text-secondary">Closed shell calculation</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="shell_calcbis"></p>
+                                                                <p id="shell_calc"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="integration_display">
                                                             <div class="col">
-                                                                <p id="integration" class="text-secondary"></p>
+                                                                <p class="text-secondary">Integration grid</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="integrationbis"></p>
+                                                                <p id="integration"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="solvent_display">
                                                             <div class="col">
-                                                                <p id="solvent" class="text-secondary"></p>
+                                                                <p class="text-secondary">Solvent</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="solventbis"></p>
+                                                                <p id="solvent"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="convergence_display">
                                                             <div class="col-9">
-                                                                <p id="convergence" class="text-secondary"></p>
+                                                                <p class="text-secondary">Requested SCF convergence on RMS density</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="convergencebis"></p>
+                                                                <p id="convergence"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="convergence_max_display">
                                                             <div class="col-9">
-                                                                <p id="convergence_max" class="text-secondary"></p>
+                                                                <p class="text-secondary">Requested SCF convergence on MAX density</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="convergence_max_bis"></p>
+                                                                <p id="convergence_max"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="convergence_energie_display">
                                                             <div class="col-9">
-                                                                <p id="convergence_energie" class="text-secondary"></p>
+                                                                <p class="text-secondary">Requested SCF convergence on energy</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="convergence_energie_bis"></p>
+                                                                <p id="convergence_energie"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="temperature_display">
                                                             <div class="col-9">
-                                                                <p id="temperature" class="text-secondary"></p>
+                                                                <p class="text-secondary">Temperature</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="temperaturebis"></p>
+                                                                <p id="temperature"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="anharmonicity_display">
                                                             <div class="col-9">
-                                                                <p id="anharmonicity" class="text-secondary"></p>
+                                                                <p class="text-secondary">Anharmonic effects</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="anharmonicitybis"></p>
+                                                                <p id="anharmonicity"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="nb_excited_display">
                                                             <div class="col">
-                                                                <p id="nb_excited_state" class="text-secondary"></p>
+                                                                <p class="text-secondary">Number of excited states</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="nb_excited_statebis"></p>
+                                                                <p id="nb_excited_state"></p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -267,46 +272,46 @@
                                                     <div class="container">
                                                         <div class="row">
                                                             <div class="col">
-                                                                <p id="formule" class="text-secondary"></p>
+                                                                <p class="text-secondary">Formule</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="formulebis"></p>
+                                                                <p id="formule"></p>
                                                             </div>
                                                         </div>
 
                                                         <div class="row" id="charge_display">
                                                             <div class="col">
-                                                                <p id="charge" class="text-secondary"></p>
+                                                                <p class="text-secondary">Charge</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="chargebis"></p>
+                                                                <p id="charge"></p>
                                                             </div>
                                                         </div>
 
-                                                        <div class="row">
+                                                        <div class="row" id="spin_display">
                                                             <div class="col">
-                                                                <p id="spin" class="text-secondary"></p>
+                                                                <p class="text-secondary">Spin multiplicity</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="spinbis"></p>
+                                                                <p id="spin"></p>
                                                             </div>
                                                         </div>
 
-                                                        <div class="row">
+                                                        <div class="row" id="monoisotopic_display">
                                                             <div class="col">
-                                                                <p id="monoisotopic" class="text-secondary"></p>
+                                                                <p class="text-secondary">Monoisotopic mass</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <p id="monoisotopicbis"></p>
+                                                                <p id="monoisotopic"></p>
                                                             </div>
                                                         </div>
 
-                                                        <div class="row">
+                                                        <div class="row" id="log_display">
                                                             <div class="col">
-                                                                <p id="logfile" class="text-secondary"></p>
+                                                                <p class="text-secondary">Original log file</p>
                                                             </div>
                                                             <div class="col text-right">
-                                                                <a type="button" class="btn btn-primary btn-lg" id="logfilebis">Download</a>
+                                                                <a type="button" class="btn btn-primary btn-lg" id="logfile">Download</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -320,12 +325,13 @@
                     </div>
                 </div>
 
-                <!-- Onglet avec les résultats détaillés avec 3 sous onglets-->
+                <!-- Onglet Results avec les résultats détaillés avec 4 sous onglets-->
                 <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
                     <div class="card border-light">
                         <div class="row no-gutters">
                             <div class="col-2 card-header">
                                 <div class="col">
+                                    <!--Différents onglets pour la partie Results-->
                                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                         <a class="nav-link active" id="v-pills-wavefunction-tab" data-toggle="pill" href="#v-pills-wavefunction" role="tab" aria-controls="v-pills-wavefunction" aria-selected="true">Wavefunction</a>
                                         <a class="nav-link" id="v-pills-geometry-tab" data-toggle="pill" href="#v-pills-geometry" role="tab" aria-controls="v-pills-geometry" aria-selected="false">Geometry</a>
@@ -337,28 +343,28 @@
                             <div class="card-body">
                                 <div class="col">
                                     <div class="tab-content" id="v-pills-tabContent">
-
-                                        <!--Sous onglet Wavefunction-->
+                                        <!--Sous onglet WAVEFUNCTION-->
                                         <div class="tab-pane fade show active" id="v-pills-wavefunction" role="tabpanel" aria-labelledby="v-pills-wavefunction-tab">
                                             <div class="col text-left">
                                                 <div class="row" id="energy_display">
                                                     <div class="col">
-                                                        <p id="energy" class="text-secondary"></p>
+                                                        <p class="text-secondary">Total molecular energy</p>
                                                     </div>
                                                     <div class="col text-right">
-                                                        <p id="energybis"></p>
+                                                        <p id="energy"></p>
                                                     </div>
                                                 </div>
 
                                                 <div class="row" id="homo_display">
                                                     <div class="col">
-                                                        <p id="homo" class="text-secondary"></p>
+                                                        <p class="text-secondary">HOMO number</p>
                                                     </div>
                                                     <div class="col text-right">
-                                                        <p id="homobis"></p>
+                                                        <p id="homo"></p>
                                                     </div>
                                                 </div>
 
+                                                <!--Tableau des calculated energies-->
                                                 <div class="calculated_energies">
                                                     <div class="row">
                                                         <div class="col text-center">
@@ -382,6 +388,7 @@
                                                     </div>
                                                 </div>
 
+                                                <!-- Tableau des mulliken charges-->
                                                 <div id="mulliken_charges">
                                                     <div class="row">
                                                         <div class="col text-center">
@@ -412,15 +419,15 @@
                                             </div>
                                         </div>
 
-                                        <!--Sous onglet geometry-->
+                                        <!--Sous onglet GEOMETRY-->
                                         <div class="tab-pane fade" id="v-pills-geometry" role="tabpanel" aria-labelledby="v-pills-geometry-tab">
                                             <div class="col text-left">
                                                 <div class="row" id="nuclear_display">
                                                     <div class="col">
-                                                        <p id="nuclear" class="text-secondary"></p>
+                                                        <p class="text-secondary">Nuclear repulsion energy in atomic units</p>
                                                     </div>
                                                     <div class="col text-right">
-                                                        <p id="nuclearbis"></p>
+                                                        <p id="nuclear"></p>
                                                     </div>
                                                 </div>
 
@@ -452,6 +459,7 @@
                                                     </div>
                                                 </div>
 
+                                                <!--Tableau des Cartesian atomic coordinate-->
                                                 <div id="cartesian_tab">
                                                     <div class="row my-4">
                                                         <div class="col text-center">
@@ -485,7 +493,7 @@
                                             </div>
                                         </div>
 
-                                        <!--Sous onglet thermochemistry-->
+                                        <!--Sous onglet THERMOCHEMISTRY-->
                                         <div class="tab-pane fade" id="v-pills-thermochemistry" role="tabpanel" aria-labelledby="v-pills-thermochemistry-tab">
                                             <div class="col text-left">
                                                 <div class="row my-4">
@@ -545,6 +553,7 @@
                                                     </div>
                                                 </div>
 
+                                                <!-- tableau des vibrations-->
                                                 <div id="vibration_tab">
                                                     <div class="row my-4">
                                                         <div class="col text-center">
@@ -570,7 +579,7 @@
                                             </div>
                                         </div>
 
-                                        <!--Sous onglet excited States-->
+                                        <!--Sous onglet EXCITED STATES-->
                                         <div class="tab-pane fade" id="v-pills-states" role="tabpanel" aria-labelledby="v-pills-states-tab">
                                             <div class="col text-center">
                                                 <div id="excitation_display">
@@ -611,9 +620,9 @@
     </div>
 </div>
 
-<!--Partie qui s'affiche sous la forme de carte pour l'impression-->
+<!--Partie qui s'affiche sous la forme de cartes pour l'impression-->
 <div class="container mt-4 mb-4" id="diplay-card" style="display: none">
-    <!--Faire un bouton retour aux resultats et affichage de l'id de la molécule-->
+    <!--Bouton retour aux resultats et affichage de l'id de la molécule-->
     <div class="row">
         <div class="col text-left">
             <a class="text-secondary ml-2" onclick="if(history.length > 1) { history.back(); return false; }">Back to results</a>
@@ -627,21 +636,24 @@
     <div class="container">
         <div class="row mb-6">
             <div class="col">
+                <!--Carte avec les informations principales-->
                 <div class="card mb-3">
                     <div class="card-header h3">Molecule</div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <p id="formule_card" class="text-secondary"></p>
+                                <p class="text-secondary">Formule</p>
                             </div>
                             <div class="col text-right">
-                                <p id="formulebis_card"></p>
+                                <p id="formule_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="iupac_display2">
                             <div class="col">
-                                <p class="text-secondary"><acronym title='International Union of Pure and Applied Chemistry' style='text-decoration: none'>IUPAC :</acronym> </p>
+                                <p class="text-secondary">
+                                    <acronym title='International Union of Pure and Applied Chemistry' style='text-decoration: none'>IUPAC :</acronym>
+                                </p>
                             </div>
                             <div class="col text-right">
                                 <p id="iupac_card"></p>
@@ -650,52 +662,57 @@
 
                         <div class="row" id="charge_display2">
                             <div class="col">
-                                <p id="charge_card" class="text-secondary"></p>
+                                <p class="text-secondary">Charge</p>
                             </div>
                             <div class="col text-right">
-                                <p id="chargebis_card"></p>
+                                <p id="charge_card"></p>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" id="spin_display2">
                             <div class="col">
-                                <p id="spin_card" class="text-secondary"></p>
+                                <p class="text-secondary">Spin multiplicity</p>
                             </div>
                             <div class="col text-right">
-                                <p id="spinbis_card"></p>
+                                <p id="spin_card"></p>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" id="monoisotopic_display2">
                             <div class="col">
-                                <p id="monoisotopic_card" class="text-secondary"></p>
+                                <p class="text-secondary">Monoisotopic mass</p>
                             </div>
                             <div class="col text-right">
-                                <p id="monoisotopicbis_card"></p>
+                                <p id="monoisotopic_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="inchi_display2">
                             <div class="col">
-                                <p id="inchi_card" class="text-secondary"></p>
+                                <p class="text-secondary">
+                                    <acronym title='International Chemical Identifier' style='text-decoration: none'>Inchi :</acronym>
+                                </p>
                             </div>
                             <div class="col text-right">
-                                <p id="inchibis_card"></p>
+                                <p id="inchi_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="smiles_display2">
                             <div class="col">
-                                <p id="smiles_card" class="text-secondary"></p>
+                                <p class="text-secondary">
+                                    <acronym title='Simplified Molecular-Input Line-Entry System' style='text-decoration: none'>SMILES :</acronym>
+                                </p>
                             </div>
                             <div class="col text-right">
-                                <p id="smilesbis_card"></p>
+                                <p id="smiles_card"></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!--Titre en gros de la molécule un canvas devait remplacer cette partie pour le dessin du smiles-->
             <div class="col">
                 <div class="card" style="height: 100%">
                     <div class="card-body text-center">
@@ -705,6 +722,7 @@
             </div>
         </div>
 
+        <!--Carte sur les détails des calculs-->
         <div class="row mt-4">
             <div class="col text-left">
                 <div class="card">
@@ -712,136 +730,136 @@
                     <div class="card-body">
                         <div class="row" id="diplay_software2">
                             <div class="col">
-                                <p id="software_card" class="text-secondary"></p>
+                                <p class="text-secondary">Software</p>
                             </div>
                             <div class="col text-right">
-                                <p id="softwarebis_card"></p>
+                                <p id="software_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="comp_display2">
                             <div class="col">
-                                <p id="computational_card" class="text-secondary"></p>
+                                <p class="text-secondary">Computational method</p>
                             </div>
                             <div class="col text-right">
-                                <p id="computationalbis_card"></p>
+                                <p id="computational_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="func_display2">
                             <div class="col">
-                                <p id="functional_card" class="text-secondary"></p>
+                                <p class="text-secondary">Functional</p>
                             </div>
                             <div class="col text-right">
-                                <p id="functionalbis_card"></p>
+                                <p id="functional_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="basis_display2">
                             <div class="col">
-                                <p id="basis_card" class="text-secondary"></p>
+                                <p class="text-secondary">Basis Set Name</p>
                             </div>
                             <div class="col text-right">
-                                <p id="basisbis_card"></p>
+                                <p id="basis_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="nb_basis_display2">
                             <div class="col-8">
-                                <p id="number_basis_card" class="text-secondary"></p>
+                                <p class="text-secondary">Number of basis set functions</p>
                             </div>
                             <div class="col text-right">
-                                <p id="number_basisbis_card"></p>
+                                <p id="number_basis_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="shell_display2">
                             <div class="col">
-                                <p id="shell_calc_card" class="text-secondary"></p>
+                                <p class="text-secondary">Closed shell calculation</p>
                             </div>
                             <div class="col text-right">
-                                <p id="shell_calcbis_card"></p>
+                                <p id="shell_calc_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="integration_display2">
                             <div class="col">
-                                <p id="integration_card" class="text-secondary"></p>
+                                <p class="text-secondary">Integration grid</p>
                             </div>
                             <div class="col text-right">
-                                <p id="integrationbis_card"></p>
+                                <p id="integration_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="solvent_display2">
                             <div class="col">
-                                <p id="solvent_card" class="text-secondary"></p>
+                                <p class="text-secondary">Solvent</p>
                             </div>
                             <div class="col text-right">
-                                <p id="solventbis_card"></p>
+                                <p id="solvent_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="convergence_display2">
                             <div class="col-10">
-                                <p id="convergence_card" class="text-secondary"></p>
+                                <p class="text-secondary">Requested SCF convergence on RMS density</p>
                             </div>
                             <div class="col text-right">
-                                <p id="convergencebis_card"></p>
+                                <p id="convergence_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="convergence_max_display2">
                             <div class="col-10">
-                                <p id="convergence_max_card" class="text-secondary"></p>
+                                <p class="text-secondary">Requested SCF convergence on MAX density</p>
                             </div>
                             <div class="col text-right">
-                                <p id="convergencebis_max_card"></p>
+                                <p id="convergence_max_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="convergence_energie_display2">
                             <div class="col-10">
-                                <p id="convergence_energie_card" class="text-secondary"></p>
+                                <p class="text-secondary">Requested SCF convergence on energy</p>
                             </div>
                             <div class="col text-right">
-                                <p id="convergence_energie_bis_card"></p>
+                                <p id="convergence_energie_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="temperature_display2">
                             <div class="col-10">
-                                <p id="temperature_card" class="text-secondary"></p>
+                                <p class="text-secondary">Temperature</p>
                             </div>
                             <div class="col text-right">
-                                <p id="temperaturebis_card"></p>
+                                <p id="temperature_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="anharmonicity_display2">
                             <div class="col-10">
-                                <p id="anharmonicity_card" class="text-secondary"></p>
+                                <p class="text-secondary">Anharmonic effects</p>
                             </div>
                             <div class="col text-right">
-                                <p id="anharmonicity_bis_card"></p>
+                                <p id="anharmonicity_card"></p>
                             </div>
                         </div>
 
                         <div class="row" id="nb_excited_display2">
                             <div class="col">
-                                <p id="nb_excited_state_card" class="text-secondary"></p>
+                                <p class="text-secondary">Number of excited states</p>
                             </div>
                             <div class="col text-right">
-                                <p id="nb_excited_statebis_card"></p>
+                                <p id="nb_excited_state_card"></p>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" id="log_display2">
                             <div class="col">
-                                <p id="logfile_card" class="text-secondary"></p>
+                                <p class="text-secondary">Original log file</p>
                             </div>
                             <div class="col text-right">
-                                <a id="logfilebis_card"></a>
+                                <a type="button" class="btn btn-primary btn-lg" id="logfile_card">Download</a>
                             </div>
                         </div>
                     </div>
@@ -862,19 +880,19 @@
 
                             <div class="row" id="energy_display2">
                                 <div class="col">
-                                    <p id="energy_card" class="text-secondary"></p>
+                                    <p class="text-secondary">Total molecular energy</p>
                                 </div>
                                 <div class="col text-right">
-                                    <p id="energybis_card"></p>
+                                    <p id="energy_card"></p>
                                 </div>
                             </div>
 
                             <div class="row" id="homo_display2">
                                 <div class="col">
-                                    <p id="homo_card" class="text-secondary"></p>
+                                    <p class="text-secondary">HOMO number</p>
                                 </div>
                                 <div class="col text-right">
-                                    <p id="homobis_card"></p>
+                                    <p id="homo_card"></p>
                                 </div>
                             </div>
 
@@ -934,6 +952,15 @@
                         <div id="geometry_display">
                             <div class="dropdown-divider mt-4"></div>
                             <div class="card-title text-center h3 mt-4">Geometry</div>
+
+                            <div class="row my-4" id="nuclear_display2">
+                                <div class="col">
+                                    <p class="text-secondary">Nuclear repulsion energy in atomic units</p>
+                                </div>
+                                <div class="col text-right">
+                                    <p id="nuclear_card"></p>
+                                </div>
+                            </div>
 
                             <div id="geometry_opti_card">
                                 <div class="row mb-4">
@@ -1107,6 +1134,7 @@
     </div>
 </div>
 
+<!--Affichage de la page d'erreur en cas de code 404 sur la réponse de l'api sur la requête-->
 <div class='container' style='margin-top:50px; display: none' id="display-404">
     <div class="row row404">
         <div class="col text-center">
@@ -1120,6 +1148,7 @@
     </div>
 </div>
 
+<!-- Bouton permettant de cahnger d'affichage (onglets/cartes)-->
 <footer>
     <button style="position:fixed; bottom:1%; right:1%;z-index:9999;" class="btn btn-primary" type="button" id="switchDiplay">
         <i class="gg-display-grid" id="icone"></i>
