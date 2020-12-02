@@ -29,18 +29,18 @@ function loading(isTrue) {
 }
 //---------------------------------------
 
-// Function to prevent click, when user want to highlight 
+// Function to prevent click, when user want to highlight
 function getSelected() {
   if (window.getSelection) {
-      return window.getSelection().toString();
+    return window.getSelection().toString();
   } else if (document.getSelection) {
-      return document.getSelection().toString();
+    return document.getSelection().toString();
   } else {
-      var selection = document.selection && document.selection.createRange();
-      if (selection.text) {
-          return selection.text.toString();
-      }
-      return "";
+    var selection = document.selection && document.selection.createRange();
+    if (selection.text) {
+      return selection.text.toString();
+    }
+    return "";
   }
   return "";
 }
@@ -53,7 +53,7 @@ function addClick() {
       var selection = getSelected().toString();
       //When user highlight, if nothing highlight -> go to detail page
       if (selection === "") {
-      location.href = "/details?id=" + all_li[i].id;
+        location.href = "/details?id=" + all_li[i].id;
       }
     });
   }
@@ -71,19 +71,15 @@ function blockSearch() {
 
 // Search function called after each submit
 function search(page_number, entrie_page) {
-  
   if ($("#query").val() != "") {
     // First submit, we create navbar
     if ($("#navbar_top").length === 0) {
-      test=true;
       //init value for entrie_page -> default 25 entries per page or other value if we dont search by URL
       let url = new URL(document.location.href);
-      let entrie= url.searchParams.get("showresult");
-      console.log(entrie)
+      let entrie = url.searchParams.get("showresult");
       if (entrie === null) {
-      entrie_page = 25;
-      }
-      else entrie_page=entrie;
+        entrie_page = 25;
+      } else entrie_page = entrie;
 
       var navbar = document.createElement("nav");
       $(navbar).attr("id", "navbar_top");
@@ -92,7 +88,9 @@ function search(page_number, entrie_page) {
       var logo = document.createElement("a");
       $(logo).attr("id", "home_button");
       $(logo).attr("href", "index.html");
-      $(logo).html('<img src="../img/logo.png" class="img-fluid rounded" width="4%" alt="Logo"> uChemPedIA');
+      $(logo).html(
+        '<img src="../img/logo.png" class="img-fluid rounded" width="4%" alt="Logo"> uChemPedIA'
+      );
       $(logo).addClass("navbar-brand primary");
       $(navbar).append(logo);
 
@@ -173,8 +171,6 @@ function search(page_number, entrie_page) {
       if (elem !== null) {
         document.getElementById("div_container_home").remove();
       }
-
-      
     } else {
       // To remove last result after a new submit
       $("#display_result").empty();
@@ -196,19 +192,16 @@ function search(page_number, entrie_page) {
 }
 
 //to read paramater in URL for window.onload -> keep_history.js
-function searchURL() 
-{
-let url = new URL(document.location.href);
-let type = url.searchParams.get("type");
-let q = url.searchParams.get("q");
-let page = parseInt(url.searchParams.get("page"),10);
-let entrie= parseInt(url.searchParams.get("showresult"),10);
+function searchURL() {
+  let url = new URL(document.location.href);
+  let type = url.searchParams.get("type");
+  let q = url.searchParams.get("q");
+  let page = parseInt(url.searchParams.get("page"), 10);
+  let entrie = parseInt(url.searchParams.get("showresult"), 10);
 
-
-if (type != null && q != null && page!= null && entrie!= null) {
-  $("#query").val(q);
-  $("#id_typeQuery").val(type).change();
-  search(page,entrie);
+  if (type != null && q != null && page != null && entrie != null) {
+    $("#query").val(q);
+    $("#id_typeQuery").val(type).change();
+    search(page, entrie);
+  }
 }
-}
-

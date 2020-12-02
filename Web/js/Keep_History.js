@@ -4,8 +4,8 @@ window.onload = function () {
 };
 
 //Add listener when user click on back/forward button of nav
-//We push state in ajax_request line 297
-// !! If the URL change, change it line 297 !!
+//We push state in ajax_request line 302
+// !! If the URL change, change it line 302 !!
 window.addEventListener("popstate", function (e) {
   e.preventDefault();
   if (e.state != null) {

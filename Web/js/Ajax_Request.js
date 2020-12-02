@@ -3,7 +3,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   loading(true);
   $("#select_entrie").hide();
   // To keep the information about how much result we have for pageSelect function
-  var total_result=0;
+  var total_result = 0;
 
   //Ajax request on
   // Query -> input value
@@ -28,10 +28,10 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
           query_type +
           ")</h1><br></br>"
       );
-      total_result=data.total;
+      total_result = data.total;
 
       //Pagination
-      pagination(entrie_page, data.total,page_number);
+      pagination(entrie_page, data.total, page_number);
       // Add on_top function to scroll top
       $("#on_top").click(function () {
         $("html, body").animate(
@@ -90,7 +90,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
         //---------------------------------------------------------------------------------------------
 
         //Show Inchi, only if we search for it -> Display on top
-        if (query_type==="inchi") {
+        if (query_type === "inchi") {
           $(div_row_result).css("height", "160px");
           var div_container_row = document.createElement("div");
           $(div_container_row).addClass("container row");
@@ -108,9 +108,9 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
             );
           $(div_container_row).append(div_col);
           $(div_col_infos).append(div_container_row);
-            }
-          //---------------------------------------------------------------------------------------------
-          //---------------------------------------------------------------------------------------------
+        }
+        //---------------------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------------------
 
         //Formula
         var div_container_row = document.createElement("div");
@@ -273,8 +273,6 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
         //---------------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------------
 
-        
-
         $(div_row_result).append($(div_col_smile));
         $(div_row_result).append($(div_col_infos));
         $("#display_result").append($(div_row_result));
@@ -286,21 +284,51 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
       //Show entrie select, hide durring request execution
       $("#select_entrie").show();
       //Adding to 2 pagination -> active page
-      pageSelect("page" + page_number, "page_clone" + page_number,total_result,entrie_page);
+      pageSelect(
+        "page" + page_number,
+        "page_clone" + page_number,
+        total_result,
+        entrie_page
+      );
       //When we change page
       changePage(page_number, entrie_page);
       //Loading display hide
       loading(false);
       //To keep history, we push state
       if (!pop_state) {
-      window.history.pushState({url: "http://127.0.0.1/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/?type=" + $("#id_typeQuery").val() + "&q=" + $("#query").val() + "&page=" + page_number + "&showresult=" + entrie_page+"#" + "",accueil:false, id:id+1}, "search"+$("#id_typeQuery").val()+$("#query").val()+page_number, "/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/?type=" + $("#id_typeQuery").val() + "&q=" + $("#query").val() + "&page=" + page_number + "&showresult=" + entrie_page+"#");
-      id++;
+        window.history.pushState(
+          {
+            url:
+              "http://127.0.0.1/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/?type=" +
+              $("#id_typeQuery").val() +
+              "&q=" +
+              $("#query").val() +
+              "&page=" +
+              page_number +
+              "&showresult=" +
+              entrie_page +
+              "#" +
+              "",
+            accueil: false,
+            id: id + 1,
+          },
+          "search" + $("#id_typeQuery").val() + $("#query").val() + page_number,
+          "/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/?type=" +
+            $("#id_typeQuery").val() +
+            "&q=" +
+            $("#query").val() +
+            "&page=" +
+            page_number +
+            "&showresult=" +
+            entrie_page +
+            "#"
+        );
+        id++;
       }
-      
     },
     //When error 404 -> no result or error in search
     error: function (xhr, ajaxOptions, thrownError) {
-      if (xhr.status == 404 ) {
+      if (xhr.status == 404) {
         var no_result = document.createElement("img");
         $(no_result).attr("src", "../img/confused_scientist.png");
         $(no_result).attr("alt", "No result");
@@ -321,4 +349,3 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
     },
   });
 }
-

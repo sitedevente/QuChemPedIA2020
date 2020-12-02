@@ -1,5 +1,5 @@
 //PAGINATION
-//We had event.preventDefault() for the history functionnality on evry click function, 
+//We had event.preventDefault() for the history functionnality on evry click function,
 //to prevent reload page from ajax request
 //
 function pagination(entrie_page, result_length, page_number) {
