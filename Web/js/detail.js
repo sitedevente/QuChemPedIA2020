@@ -117,25 +117,6 @@ window.onload = chargeTable();
 //Fonctions utiles pour le traitement du Json et autres//
 /////////////////////////////////////////////////////////
 
-//Bouton pour changer d'affichage Card/Tab
-let btn = document.getElementById("switchDiplay");
-btn.onclick = function() {
-    let icone = document.getElementById("icone");
-    let icone2 = document.getElementById("icone2");
-    if (document.getElementById("diplay-tab").style.display != "none" && document.getElementById("display-404").style.display == "none"){
-        icone.style.display = "none";
-        icone2.style.display = "block";
-        document.getElementById("diplay-tab").style.display = "none";
-        document.getElementById("diplay-card").style.display = "block";
-    }
-    else if (document.getElementById("display-404").style.display == "none") {
-        icone.style.display = "block";
-        icone2.style.display = "none";
-        document.getElementById("diplay-card").style.display = "none";
-        document.getElementById("diplay-tab").style.display = "block";
-    }
-}
-
 //Fonction pour créer une ligne a partir de toutes les colonnes dans un tableau datatable
 function createLigne(colonnes){
     let tableau = "<tr>" + colonnes +"</tr>";
@@ -228,38 +209,58 @@ request.onreadystatechange = function() {
         /////////////////////////////////////////////
         //Fonction pour draw sur le canvas le smile//
         /////////////////////////////////////////////
-        function draw_canvas() {
-            let input = response.data.molecule.can;
-            let options = {
-                width: 250,
-                height: 250,
-            };
-            let options2 = {
-                width: 282,
-                height: 282,
-            };
+        //Génération du dessin du smile
+        //Une fois le script pour dessiner les smiles chargé on exécute la fonction pour draw
+        function draw_canvas(opt, id) {
+            if (response.data.molecule.smi) {
+                let input = response.data.molecule.can;
+                let options = opt;
 
-            // Initialize the drawer to draw to canvas
-            let smilesDrawer = new SmilesDrawer.Drawer(options);
-            let smilesDrawer2 = new SmilesDrawer.Drawer(options2);
+                // Initialize the drawer to draw to canvas
+                let smilesDrawer = new SmilesDrawer.Drawer(options);
 
-            //Affiche des dessins des smiles dans les 2 affichages
-            SmilesDrawer.parse(input, function(tree) {
-                smilesDrawer.draw(tree, "smile", "light", false);
-                }
-            );
-            //Bug d'affichage dans le mode impression
-            /*SmilesDrawer.parse(input, function(tree) {
-                    smilesDrawer2.draw(tree, "smile_card", "light", false);
-                },function(err){
-                    console.log(err);
-                }
-            );*/
+                //Bug d'affichage dans le mode impression
+                SmilesDrawer.parse(input, function (tree) {
+                        smilesDrawer.draw(tree, id, "light", false);
+                    }, function (err) {
+                        console.log(err);
+                    }
+                );
+            }
         }
 
-        //Une fois le script pour dessiner les smiles chargé on exécute la fonction pour draw
-        if (response.data.molecule.smi){
-            window.onload = draw_canvas();
+        //Dessin sur le premier canvas
+        let options = {
+            width: 282,
+            height: 282,
+        };
+        window.onload = draw_canvas(options,"smile");
+
+        //Bouton pour changer d'affichage Card/Tab
+        let btn = document.getElementById("switchDiplay");
+        btn.onclick = function() {
+            let icon = document.getElementById("icone");
+            let icon2 = document.getElementById("icone2");
+            if (document.getElementById("diplay-tab").style.display != "none" && document.getElementById("display-404").style.display == "none"){
+                icon.style.display = "none";
+                icon2.style.display = "block";
+
+                document.getElementById("diplay-tab").style.display = "none";
+                document.getElementById("diplay-card").style.display = "block";
+            }
+            else if (document.getElementById("display-404").style.display == "none") {
+                icone.style.display = "block";
+                icone2.style.display = "none";
+
+                let options = {
+                    width: 250,
+                    height: 250,
+                };
+                window.onload = draw_canvas(options,"smile_card");
+
+                document.getElementById("diplay-card").style.display = "none";
+                document.getElementById("diplay-tab").style.display = "block";
+            }
         }
 
         ////////////////////////////////////////////////////////
@@ -277,7 +278,6 @@ request.onreadystatechange = function() {
         if (response.data.molecule.formula){
             //On remplit le titre
             document.getElementById("titre").innerHTML = "Formule : "+mol_sub(response.data.molecule.formula);
-            document.getElementById("titre_card").innerHTML  = mol_sub(response.data.molecule.formula);
         }
 
         //Champ IUPAC

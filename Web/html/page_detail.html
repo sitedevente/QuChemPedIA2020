@@ -52,10 +52,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item active" id="type_formula">Formula</a>
                             <a class="dropdown-item" id="type_inchi">InChi</a>
-                            <a class="dropdown-item" id="type_iupac">IUPAC name</a>
-                            <a class="dropdown-item" id="type_cid">CID PubChem</a>
                             <a class="dropdown-item" id="type_smiles">SMILES</a>
-                            <a class="dropdown-item" id="type_idlog">id_log</a>
                         </div>
                     </div>
                 </div>
@@ -715,8 +712,10 @@
             <!--Titre en gros de la molécule un canvas devait remplacer cette partie pour le dessin du smiles-->
             <div class="col">
                 <div class="card" style="height: 100%">
-                    <div class="card-body text-center">
-                        <div class="card-title display-1 text-center text-primary" style="margin-top: 20%"  id="titre_card"></div>
+                    <div class="card-body">
+                        <div class="card-title text-center">
+                            <canvas id="smile_card"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
