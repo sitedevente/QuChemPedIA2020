@@ -247,16 +247,16 @@ request.onreadystatechange = function() {
 
                 document.getElementById("diplay-tab").style.display = "none";
                 document.getElementById("diplay-card").style.display = "block";
-            }
-            else if (document.getElementById("display-404").style.display == "none") {
-                icone.style.display = "block";
-                icone2.style.display = "none";
 
                 let options = {
                     width: 250,
                     height: 250,
                 };
                 window.onload = draw_canvas(options,"smile_card");
+            }
+            else if (document.getElementById("display-404").style.display == "none") {
+                icone.style.display = "block";
+                icone2.style.display = "none";
 
                 document.getElementById("diplay-card").style.display = "none";
                 document.getElementById("diplay-tab").style.display = "block";
