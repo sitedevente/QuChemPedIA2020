@@ -79,8 +79,28 @@ def search():
                 }
             })
         else:
-            s = s.query({"query_string": {"query": '*' + name + \
-                        '*', "default_field": "molecule.formula"}})
+            s = s.query({
+                "bool": {
+                    "should": [
+                        {
+                            "match_phrase": {
+                                "molecule.formula": {
+                                    "query": name,
+                                    "boost": 100
+                                }
+                            }
+                        },
+                        {
+                            "query_string": {
+                                "query": '*' + name + '*',
+                                "default_field": "molecule.formula",
+                                "boost": 10
+                            }
+                        }
+                    ]
+                }
+            })
+
     else:
         s = s.query({"match_phrase": {"molecule." + type: name}})
 
