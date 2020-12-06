@@ -54,7 +54,7 @@ def search():
 
         if name.find('*') != -1 or name.find('_') != -1:
             second_name = name.replace("*", "[1-9]+")
-            second_name = name.replace("_", "[a-zA-Z1-9]*")
+            second_name = second_name.replace("_", "[a-zA-Z1-9]*")
             name = name.replace("_", "")
             name = name.replace("*", "")
             s = s.query({

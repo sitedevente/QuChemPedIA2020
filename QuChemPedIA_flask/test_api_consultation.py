@@ -62,6 +62,38 @@ def test_search_molecule():
     pretty_print_request(resp.request)
     pretty_print_response(resp)
 
+# Test a research of molecules with a test type and name
+# verify that the response code is 200.
+# And the number of existing molecules is greater than 0
+
+
+def test_search_molecule_using_special_characters():
+
+    # Make a list of possible names
+    list = {"H*","CH_","H*_","H_*"}
+
+    # Loop through all the possibilities to check if it's working or not
+    for l in list:
+        name = l
+        page = "1"
+        showresult = "5"
+    # Define url for the API call.
+        url = base_url + 'search?type=formula&q=' + \
+            name + '&page=' + page + '&showresult=' + showresult
+
+    # Call the API with GET method.
+        resp = requests.get(url)
+
+    # Validate response headers and body contents and status code.
+        assert resp.status_code == 200
+        resp_body = resp.json()
+        assert resp_body['total'] > 0
+
+    # Print full request and response
+    pretty_print_request(resp.request)
+    pretty_print_response(resp)
+
+
 # Test a research of molecules with a wrong query,
 # verify that the response code is 404 and the
 # response body contains the right error message.
