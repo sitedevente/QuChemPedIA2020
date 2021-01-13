@@ -349,7 +349,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
         window.history.pushState(
           {
             url:
-              "http://127.0.0.1/Web/html/"+
+              "http://127.0.0.1/QuChemPedIA/html/"+
               "?type=" +
               $("#id_typeQuery").val() +
               "&q=" +
@@ -364,7 +364,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
             id: id + 1,
           },
           "search" + $("#id_typeQuery").val() + $("#query").val() + page_number,
-          "/Web/html/?type=" +
+          "/QuChemPedIA/html/?type=" +
             $("#id_typeQuery").val() +
             "&q=" +
             $("#query").val() +
