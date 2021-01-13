@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from flask import Flask, json, request, render_template, jsonify
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
@@ -7,7 +8,6 @@ try:
     from urllib.parse import unquote  # PY3
 except ImportError:
     from urllib import unquote  # PY2
-from flask_cors import CORS
 
 #es = Elasticsearch(['https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net:433'])
 # Connexion au client Elasticsearch
