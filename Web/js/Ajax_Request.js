@@ -139,6 +139,26 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
           $(div_container_row).append(div_col);
           $(div_col_infos).append(div_container_row);
         }
+
+		if (query_type === "smi") {
+          $(div_row_result).css("height", "160px");
+          var div_container_row = document.createElement("div");
+          $(div_container_row).addClass("container row");
+          var div_col = document.createElement("div");
+          $(div_col).addClass("col-lg-6");
+          if (data.data[i].solvent != undefined) {
+            $(div_col).append(
+              "<span class='text-primary'>Smile : </span>" +
+                data.data[i].smi +
+                "<br>"
+            );
+          } else
+            $(div_col).append(
+              "<span class='text-muted'>Inchi : </span> No Smile<br>"
+            );
+          $(div_container_row).append(div_col);
+          $(div_col_infos).append(div_container_row);
+        }
         //---------------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------------
 
@@ -329,7 +349,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
         window.history.pushState(
           {
             url:
-              "http://127.0.0.1/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/"+
+              "http://127.0.0.1/Web/html/"+
               "?type=" +
               $("#id_typeQuery").val() +
               "&q=" +
@@ -344,7 +364,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
             id: id + 1,
           },
           "search" + $("#id_typeQuery").val() + $("#query").val() + page_number,
-          "/ProjetM1M2/Quchempedia/QuChemPedIA2020/Web/html/?type=" +
+          "/Web/html/?type=" +
             $("#id_typeQuery").val() +
             "&q=" +
             $("#query").val() +
