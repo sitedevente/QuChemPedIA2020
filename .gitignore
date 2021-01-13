@@ -121,6 +121,7 @@ celerybeat.pid
 .venv
 env/
 venv/
+quchempedia-env/
 ENV/
 env.bak/
 venv.bak/
@@ -145,6 +146,8 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
+
+.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
 
