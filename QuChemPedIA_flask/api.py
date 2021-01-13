@@ -16,8 +16,8 @@ client = Elasticsearch(
 
 app = Flask(__name__)
 CORS(app)
-#  Route to look for a molecule with its formula and its name in Elasticsearch.
 
+#  Route to look for a molecule with its formula and its name in Elasticsearch.
 
 @app.route('/api/search')
 def search():
