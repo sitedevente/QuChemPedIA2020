@@ -267,12 +267,7 @@ request.onreadystatechange = function() {
         //Onglet Description avec les informations principales//
         ////////////////////////////////////////////////////////
 
-        //Affichage de l'id de la molécule
-        if (response.id){
-            //On remplit l'id de la molécule
-            document.getElementById("mol_id").innerHTML = "Molecule Id : "+ response.id;
-            document.getElementById("mol_id_card").innerHTML = "Molecule Id : "+ response.id;
-        }
+        
 
         //Champ Formule
         if (response.data.molecule.formula){
