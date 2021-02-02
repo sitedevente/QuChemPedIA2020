@@ -17,29 +17,29 @@
     <link href='https://css.gg/view-split.css' rel='stylesheet'>
     <link href='https://css.gg/display-grid.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/detail.css">
+    <script src="https://kit.fontawesome.com/3f608ed93f.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    
+    <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light"><a id="home_button" href="index.html" class="navbar-brand primary">QuChemPedIA</a><div class="collapse navbar-collapse"></div><form class="row justify-content-center" id="search_form">
+        <input type="text" name="search_text" id="query" class="mr-1 col-12 col-lg-6 form-control" maxlength="500">
+        <select name="typeQuery" id="id_typeQuery" class="custom-select col-12 col-lg-3" style="width: 15%">
+            <option value="formula">Formula</option>
 
-<!-- Barre de navigation en heading -->
-<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light"><a id="home_button" href="index.html" class="navbar-brand primary"><img src="../img/logo.png" class="img-fluid rounded" alt="Logo" width="4%"> uChemPedIA</a><div class="collapse navbar-collapse"></div><form class="row justify-content-center" id="search_form">
-    <input type="text" name="search_text" id="query" class="mr-1 col-12 col-lg-6 form-control" maxlength="500">
-    <select name="typeQuery" id="id_typeQuery" class="custom-select col-12 col-lg-3" style="width: 15%">
-      <option value="formula">Formula</option>
+            <option value="inchi">InChi</option>
 
-      <option value="inchi">InChi</option>
-
-      <option value="smi">SMILES</option>
-    </select>
-    <button id="submit_search" type="submit" class="btn bluecolorbtn ml-1" onclick="search(1,25);blockSearch();return false">
-      Search
-      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
-        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
-      </svg>
-    </button>
-  </form>
-</nav>
+            <option value="smi">SMILES</option>
+        </select>
+        <button id="submit_search" type="submit" class="btn bluecolorbtn ml-1" onclick="searchnavbar();return false">
+            Search
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+            </svg>
+        </button>
+        </form>
+    </nav>
 
 <!-- Partie qui s'affiche sous la forme d'onglets-->
 <div class="container mt-4" id="diplay-tab">
@@ -1106,15 +1106,16 @@
     </div>
 </div>
 
-<!-- Bouton permettant de cahnger d'affichage (onglets/cartes)-->
+<!-- Bouton permettant de changer d'affichage (onglets/cartes)-->
 <footer>
     <button style="position:fixed; bottom:1%; right:1%;z-index:9999;" class="btn btn-primary" type="button" id="switchDiplay">
-        <i class="gg-display-grid" id="icone"></i>
-        <i class="gg-view-split" id="icone2" style="display: none"></i>
+        <i class="fas fa-print fa-3x" id="icone"></i>
+        <i class="far fa-window-restore fa-3x" id="icone2" style="display: none"></i>
     </button>
 </footer>
 
 <!--Bootstrap datatable et js-->
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -1122,5 +1123,8 @@
 <script src="https://unpkg.com/smiles-drawer@1.0.10/dist/smiles-drawer.min.js"></script>
 <script src="../js/smiles-drawer.min.js"></script>
 <script src="../js/detail.js"></script>
+<script src="../js/NavBar.js"></script>
+
+
 </body>
 </html>

@@ -101,7 +101,7 @@ function search(page_number, entrie_page) {
       $(logo).attr("id", "home_button");
       $(logo).attr("href", "index.html");
       $(logo).html(
-        '<img src="../img/logo.png" class="img-fluid rounded" width="4%" alt="Logo"> uChemPedIA'
+        'QuChemPedIA'
       );
       $(logo).addClass("navbar-brand primary");
       $(navbar).append(logo);
