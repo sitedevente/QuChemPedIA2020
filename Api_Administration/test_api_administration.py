@@ -1,11 +1,12 @@
+from flask import Flask
 import requests
 import json
 import os
 
-import api_administration as api
+app = Flask(__name__)
+app.config.from_pyfile(os.path.join(".", "config/app.conf"), silent=False)
+base_url = app.config.get("BASE_URL")
 
-
-base_url = 'http://127.0.0.1:5000/api/'
 root_path = 'data_dir/'
 
 
