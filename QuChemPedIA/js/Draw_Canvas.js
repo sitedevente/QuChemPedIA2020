@@ -1,6 +1,8 @@
 //DRAW CANVAS
 
-// Initialize the drawer to draw to canvas
+/**
+ * Initialize the drawer to draw to canvas
+ */
 function drawCanvas() {
   var array_canvas = document.querySelectorAll("canvas");
 
