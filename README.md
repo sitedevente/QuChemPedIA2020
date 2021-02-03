@@ -29,7 +29,7 @@ Il ne vous reste plus qu'a installer les prérequis pour l'application, contenus
 Une fois l'environnement virtuel créé et les dépendances installées, il faut exporter la variable d'environnement FLASK_APP, afin d'indiquer à Flask où se trouve l'application.
 Ici, l'application s'appelle api_consultation qui se situe dans le dossier Api_Consultation :
 
-    export FLASK_APP=api_administration
+    export FLASK_APP=api_consultation
 
 Et enfin définir que l'on va lancer le serveur en mode développement :
 
@@ -59,3 +59,17 @@ Afin d'avoir accès aux pages Web de QuChemPedIA, il faut exécuter le fichier d
 Le site est donc accessible via :
 
     http://127.0.0.1/QuChemPedIA/html
+
+
+## Génération et accès à la documentation du code
+
+Afin de générer la documentation du code, il faut effectuer la commande suivante à la racine du projet : 
+
+    ./generateDoc.sh
+
+Vous trouverez toute la documentation générée dans le dossier Documentation puis dans les dossiers JSDoc pour les fichiers JavaScript et pyDoc pour les fichiers python.
+
+
+
+
+

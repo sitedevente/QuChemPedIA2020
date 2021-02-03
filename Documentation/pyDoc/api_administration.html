@@ -1,0 +1,57 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module api_administration</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>api_administration</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/etudiant/Documents/M2/QuChemPedIA2020/Api_Administration/api_administration.py">/home/etudiant/Documents/M2/QuChemPedIA2020/Api_Administration/api_administration.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="elasticsearch.html">elasticsearch</a><br>
+<a href="flask.html">flask</a><br>
+</td><td width="25%" valign=top><a href="json.html">json</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="shutil.html">shutil</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-add_log_file_from_json"><strong>add_log_file_from_json</strong></a>(id_mol, log_file_src)</dt><dd><tt>Function&nbsp;for&nbsp;the&nbsp;creation&nbsp;of&nbsp;the&nbsp;log&nbsp;file&nbsp;when&nbsp;a&nbsp;new&nbsp;molecule&nbsp;is&nbsp;added<br>
+to&nbsp;the&nbsp;database&nbsp;and&nbsp;when&nbsp;the&nbsp;log&nbsp;file&nbsp;is&nbsp;not&nbsp;given&nbsp;in&nbsp;the&nbsp;POST&nbsp;request.</tt></dd></dl>
+ <dl><dt><a name="-add_log_file_from_param"><strong>add_log_file_from_param</strong></a>(id_mol, log_file_name, log_file_data)</dt><dd><tt>Function&nbsp;for&nbsp;the&nbsp;creation&nbsp;of&nbsp;the&nbsp;log&nbsp;file&nbsp;when&nbsp;a&nbsp;new&nbsp;molecule&nbsp;is&nbsp;added<br>
+to&nbsp;the&nbsp;database&nbsp;and&nbsp;when&nbsp;the&nbsp;log&nbsp;file&nbsp;is&nbsp;given&nbsp;in&nbsp;the&nbsp;POST&nbsp;request.</tt></dd></dl>
+ <dl><dt><a name="-add_molecule"><strong>add_molecule</strong></a>()</dt><dd><tt>Route&nbsp;to&nbsp;add&nbsp;a&nbsp;new&nbsp;molecule&nbsp;in&nbsp;Elasticsearch.</tt></dd></dl>
+ <dl><dt><a name="-delete_empty_path"><strong>delete_empty_path</strong></a>(path)</dt><dd><tt>Function&nbsp;for&nbsp;the&nbsp;suppresion&nbsp;of&nbsp;empty&nbsp;folders.</tt></dd></dl>
+ <dl><dt><a name="-delete_log_file"><strong>delete_log_file</strong></a>(id_mol, log_file_name)</dt><dd><tt>Function&nbsp;for&nbsp;the&nbsp;suppression&nbsp;of&nbsp;the&nbsp;log&nbsp;file&nbsp;when&nbsp;a&nbsp;molecule<br>
+is&nbsp;deleted&nbsp;from&nbsp;the&nbsp;database.</tt></dd></dl>
+ <dl><dt><a name="-delete_molecule"><strong>delete_molecule</strong></a>(id_mol)</dt><dd><tt>Route&nbsp;to&nbsp;delete&nbsp;a&nbsp;molecule&nbsp;with&nbsp;its&nbsp;ID&nbsp;in&nbsp;Elasticsearch.</tt></dd></dl>
+ <dl><dt><a name="-details_molecule"><strong>details_molecule</strong></a>(id_mol)</dt><dd><tt>Route&nbsp;to&nbsp;retrieve&nbsp;a&nbsp;molecule&nbsp;with&nbsp;its&nbsp;ID&nbsp;in&nbsp;Elasticsearch.</tt></dd></dl>
+ <dl><dt><a name="-resource_not_found"><strong>resource_not_found</strong></a>(e)</dt><dd><tt>Error&nbsp;404&nbsp;handler.</tt></dd></dl>
+ <dl><dt><a name="-search_molecule"><strong>search_molecule</strong></a>(formula)</dt><dd><tt>Route&nbsp;to&nbsp;search&nbsp;a&nbsp;molecule&nbsp;with&nbsp;its&nbsp;formula&nbsp;in&nbsp;Elasticsearch.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>app</strong> = &lt;Flask 'api_administration'&gt;<br>
+<strong>connections</strong> = &lt;elasticsearch_dsl.connections.Connections object&gt;<br>
+<strong>elasticClient</strong> = &lt;Elasticsearch([{u'use_ssl': True, u'host': 'quc...auth': u'yvwwd7r6g7:lue555jb9h', u'port': 443}])&gt;<br>
+<strong>request</strong> = &lt;LocalProxy unbound&gt;<br>
+<strong>root_path_log_files</strong> = 'data_dir/'</td></tr></table>
+</body></html>

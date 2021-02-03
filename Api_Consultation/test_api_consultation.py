@@ -27,13 +27,13 @@ def pretty_print_response(response):
         response.text)
     )
 
-# Test a research of molecules with a test type and name
-# verify that the response code is 200.
-# And the number of existing molecules is greater than 0
+
 
 
 def test_search_molecule():
-
+    """ Test a search of molecules with a test type and name
+    Verify that the response code is 200
+    And the number of existing molecules is greater than 0 """
     # Make a list of possible type
     list = {}
     list["formula"] = "co2"
@@ -62,13 +62,13 @@ def test_search_molecule():
     pretty_print_request(resp.request)
     pretty_print_response(resp)
 
-# Test a research of molecules with a test type and name
-# verify that the response code is 200.
-# And the number of existing molecules is greater than 0
+
 
 
 def test_search_molecule_using_special_characters():
-
+    """ Test a search of molecules with a test type and name using special characters
+    Verify that the response code is 200
+    And the number of existing molecules is greater than 0 """
     # Make a list of possible names
     list = {"H*","CH_","H*_","H_*"}
 
@@ -94,13 +94,13 @@ def test_search_molecule_using_special_characters():
     pretty_print_response(resp)
 
 
-# Test a research of molecules with a wrong query,
-# verify that the response code is 404 and the
-# response body contains the right error message.
+
 
 
 def test_search_molecule_wrong_query_error():
-
+    """ Test a search of molecules with a wrong query,
+    verify that the response code is 404 
+    and that the response body contains the right error message. """
     # Make a list of inexisting type
     list = {}
     list["formula"] = "fake_formula"
@@ -129,13 +129,13 @@ def test_search_molecule_wrong_query_error():
     pretty_print_request(resp.request)
     pretty_print_response(resp)
 
-# Test a research of molecules with a wrong type,
-# verify that the response code is 404 and the
-# response body contains the right error message.
+
 
 
 def test_search_molecule_wrong_type_error():
-
+    """ Test a search of molecules with a wrong type,
+    verify that the response code is 404 
+    and that the response body contains the right error message. """
     type = "fake_type"
     name = "co2"
     page = "1"
@@ -157,13 +157,13 @@ def test_search_molecule_wrong_type_error():
     pretty_print_request(resp.request)
     pretty_print_response(resp)
 
-# Test a research of molecules with a wrong page and/or wrong showresult,
-# verify that the response code is 404 and the
-# response body contains the right error message.
+
 
 
 def test_search_molecule_wrong_page_showresult_error():
-
+    """ Test a search of molecules with a wrong page and/or wrong showresult,
+    verify that the response code is 404 
+    and that the response body contains the right error message."""
     type = "formula"
     name = "co2"
     page = "dd"
@@ -185,11 +185,11 @@ def test_search_molecule_wrong_page_showresult_error():
     pretty_print_response(resp)
 
 
-# Test a research of molecules with empty parameter(s),
-# verify that the response code is 404 and the
-# response body contains the right error message.
-def test_search_molecule_empty_param_error():
 
+def test_search_molecule_empty_param_error():
+    """ Test a search of molecules with empty parameter(s),
+    verify that the response code is 404 
+    and that the response body contains the right error message. """
     type = " "
     name = "co2"
     page = ""
@@ -211,11 +211,11 @@ def test_search_molecule_empty_param_error():
     pretty_print_response(resp)
 
 
-# Test the consultation of molecule's details with an existing IDs,
-# verify that the response code is 200 and the
-# response body contains the right body and the right ID.
-def test_details_molecule():
 
+def test_details_molecule():
+    """ Test the consultation of molecule's details with an existing IDs,
+    verify that the response code is 200 
+    and that the response body contains the right body and the right ID. """
     # Make a list of possible IDs
     list_id = [
         "NPFO7HUBkjVcihM6asbw",
@@ -243,11 +243,11 @@ def test_details_molecule():
     pretty_print_response(resp)
 
 
-# Test the consultation of molecule's details with an inexisting ID,
-# verify that the response code is 404 and the
-# response body contains the right error message.
-def test_details_molecule_wrong_id_error():
 
+def test_details_molecule_wrong_id_error():
+    """ Test the consultation of molecule's details with an inexisting ID,
+    verify that the response code is 404 
+    and that the response body contains the right error message. """
     # Define url for the API call.
     id_mol = 'fake_id_mol'
     url = base_url + 'details/' + id_mol
@@ -265,11 +265,11 @@ def test_details_molecule_wrong_id_error():
     pretty_print_request(resp.request)
     pretty_print_response(resp)
 
-# Test the consultation of molecule's details with an empty ID,
-# verify that the response code is 404 and the
-# response body contains the right error message.
-def test_details_molecule_empty_id_error():
 
+def test_details_molecule_empty_id_error():
+    """ Test the consultation of molecule's details with an empty ID,
+    verify that the response code is 404 
+    and that the response body contains the right error message."""
     # Define url for the API call.
     id_mol = ""
     url = base_url + 'details/' + id_mol
@@ -287,11 +287,11 @@ def test_details_molecule_empty_id_error():
     pretty_print_response(resp)
 
 
-# Test to call an inexisting route for the API,
-# verify that the response code is 404 and the
-# response body contains the right error message.
-def test_wrong_route():
 
+def test_wrong_route():
+    """ Test to call an inexisting route for the API,
+    verify that the response code is 404 
+    and that the response body contains the right error message."""
     # Define url for the API call.
     url = base_url + 'wrong_route'
 
