@@ -26,7 +26,7 @@
 //  Display an arror message, with img                                      //
 //                                                                          //
   //////////////////////////////////////////////////////////////////////////
-
+var CONFIG = require('../config/prod.json');
 
 function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   //Show loading during request
@@ -41,7 +41,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   // page, showresult -> Page and entrie on this page
   $.ajax({
     type: "GET",
-    url: "http://127.0.0.1:5000/api/search",
+    url: CONFIG.BASE_URL+"/api/search",
     data: {
       type: query_type,
       q: query,
@@ -349,7 +349,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
         window.history.pushState(
           {
             url:
-              "http://127.0.0.1/Web/html/"+
+              CONFIG.BASE_URL+"/Web/html/"+
               "?type=" +
               $("#id_typeQuery").val() +
               "&q=" +

@@ -2,6 +2,8 @@
 //Initialisation pour les datatables//
 //////////////////////////////////////
 
+var CONFIG = require('../config/prod.json');
+
 //Fonction qui initialise les tables apres le chargement du script
 function chargeTable(){
     //Tableaux pour : Calculated energies for the frontier molecular orbitals
@@ -176,7 +178,7 @@ function exposant(chaine){
 //Récupération de l'url, l'id et construction de l'url de requete
 let url = new URL(document.location.href);
 let id = url.searchParams.get("id");
-let url_api = 'http://127.0.0.1:5000/api/details/';
+let url_api = CONFIG.BASE_URL+'/api/details/';
 url_api += id;
 
 //Objet XHR ajax permettant de récupérer des données à partir d'une URL
