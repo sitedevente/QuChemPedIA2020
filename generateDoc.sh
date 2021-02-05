@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Generation de la documentation JS #
-cd ./QuChemPedIA/js/
+cd ./Web/js/
 ./generateDocJS.sh
 cd ../..
 
