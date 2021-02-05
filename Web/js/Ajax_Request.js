@@ -26,7 +26,7 @@
 //  Display an arror message, with img                                      //
 //                                                                          //
   //////////////////////////////////////////////////////////////////////////
-var CONFIG = require('../config/prod.json');
+var API_URL = "https://quchempedia.univ-angers.fr/api";
 
 function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   //Show loading during request
@@ -41,7 +41,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   // page, showresult -> Page and entrie on this page
   $.ajax({
     type: "GET",
-    url: CONFIG.API_URL+"/api/search",
+    url: API_URL+"/api/search",
     data: {
       type: query_type,
       q: query,
