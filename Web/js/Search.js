@@ -53,7 +53,7 @@ function addClick() {
       var selection = getSelected().toString();
       //When user highlight, if nothing highlight -> go to detail page
       if (selection === "") {
-        location.href = "/Web/html/page_detail.html?id=" + all_li[i].id;
+        location.href = "page_detail.html?id=" + all_li[i].id;
       }
     });
   }
