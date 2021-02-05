@@ -107,7 +107,7 @@ function search(page_number, entrie_page) {
 
       var logo = document.createElement("a");
       $(logo).attr("id", "home_button");
-      $(logo).attr("href", "index.html");
+      $(logo).attr("href", "/reboot/");
       $(logo).html(
         'QuChemPedIA'
       );
