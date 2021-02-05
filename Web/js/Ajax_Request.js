@@ -28,6 +28,14 @@
   //////////////////////////////////////////////////////////////////////////
 var API_URL = "https://quchempedia.univ-angers.fr/api";
 
+/**
+ * Function to execute ajax request on search API
+ * @param {int} page_number 
+ * @param {int} entrie_page 
+ * @param {string} query 
+ * @param {string} query_type 
+ * @param {*} pop_state 
+ */
 function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   //Show loading during request
   loading(true);

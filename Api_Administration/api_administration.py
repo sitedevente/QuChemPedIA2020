@@ -25,16 +25,17 @@ app.config.from_pyfile(os.path.join(".", "config/app.conf"), silent=False)
 elasticClient = Elasticsearch(app.config.get("ES_URL"))
 
 
-# Error 404 handler.
+
 @app.errorhandler(404)
 def resource_not_found(e):
+    """ Error 404 handler. """
     return jsonify({'error': 'Wrong url, resource not found!'}), 404
 
 
-#  Route to search a molecule with its formula in Elasticsearch.
+
 @app.route('/api/search/<formula>', methods=['GET'])
 def search_molecule(formula):
-
+    """ Route to search a molecule with its formula in Elasticsearch. """
     # Define the body for the request on the Elasticsearch client.
     body = {
         "query": {
@@ -52,10 +53,10 @@ def search_molecule(formula):
     return jsonify(results['hits']['hits']), 200
 
 
-# Route to retrieve a molecule with its ID in Elasticsearch.
+ 
 @app.route('/api/details/<id_mol>', methods=['GET'])
 def details_molecule(id_mol):
-
+    """ Route to retrieve a molecule with its ID in Elasticsearch. """
     try:
         # Try the GET request on the Elasticsearch client.
         # index and doc_type are specific at the molecules documents.
@@ -70,10 +71,10 @@ def details_molecule(id_mol):
                         id_mol + '\' does not exists!'}), 404
 
 
-# Route to add a new molecule in Elasticsearch.
+
 @app.route('/api/add', methods=['POST'])
 def add_molecule():
-
+    """ Route to add a new molecule in Elasticsearch. """
     # Define the files given in the POST request.
     files = request.files
 
@@ -128,10 +129,10 @@ def add_molecule():
     return jsonify(results), 201
 
 
-# Route to delete a molecule with its ID in Elasticsearch.
+
 @app.route('/api/delete/<id_mol>', methods=['DELETE'])
 def delete_molecule(id_mol):
-
+    """ Route to delete a molecule with its ID in Elasticsearch. """
     try:
         # Try the GET request on the Elasticsearch client.
         # index and doc_type are specific at the molecules documents.
@@ -156,10 +157,10 @@ def delete_molecule(id_mol):
                         id_mol + '\' does not exists!'}), 404
 
 
-# Function for the creation of the log file when a new molecule is added
-# to the database and when the log file is given in the POST request.
-def add_log_file_from_param(id_mol, log_file_name, log_file_data):
 
+def add_log_file_from_param(id_mol, log_file_name, log_file_data):
+    """ Function for the creation of the log file when a new molecule is added
+    to the database and when the log file is given in the POST request. """
     # Define the root path for log files.
     log_path = ''
 
@@ -185,10 +186,10 @@ def add_log_file_from_param(id_mol, log_file_name, log_file_data):
         raise err
 
 
-# Function for the creation of the log file when a new molecule is added
-# to the database and when the log file is not given in the POST request.
-def add_log_file_from_json(id_mol, log_file_src):
 
+def add_log_file_from_json(id_mol, log_file_src):
+    """ Function for the creation of the log file when a new molecule is added
+    to the database and when the log file is not given in the POST request. """
     # Define the root path for log files.
     log_path = ''
 
@@ -219,10 +220,10 @@ def add_log_file_from_json(id_mol, log_file_src):
         raise err
 
 
-# Function for the suppression of the log file when a molecule
-# is deleted from the database.
-def delete_log_file(id_mol, log_file_name):
 
+def delete_log_file(id_mol, log_file_name):
+    """ Function for the suppression of the log file when a molecule
+    is deleted from the database. """
     # Define the root path for log files.
     log_path = ''
 
@@ -240,9 +241,9 @@ def delete_log_file(id_mol, log_file_name):
         delete_empty_path(path[:-1])
 
 
-# Function for the suppresion of empty folders.
-def delete_empty_path(path):
 
+def delete_empty_path(path):
+    """ Function for the suppresion of empty folders. """
     # Delete the directory if is empty and call the function recursively.
     if len(os.listdir(path)) == 0:
         os.rmdir(path)

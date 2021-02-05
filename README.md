@@ -17,7 +17,7 @@ Après avoir cloner le projet Git, rendez vous dans le dossier du projet et cré
 
 Puis activez ce nouvel environnement en lançant la commande :
 
-    source env/bin/activate 
+    source env/bin/activate
 
 Normalement le command prompt de votre ligne de commande change pour vous afficher l'environnement virtuel que vous utilisez.
 Il ne vous reste plus qu'a installer les prérequis pour l'application, contenus dans le fichier requirement.txt. Pour cela, lancez la commande :
@@ -25,18 +25,16 @@ Il ne vous reste plus qu'a installer les prérequis pour l'application, contenus
     python3 -m pip install -r requirement.txt
 
 
-## Installation
-Une fois l'environnement virtuel créé et les dépendances installées, il faut exporter la variable d'environnement FLASK_APP, afin d'indiquer à Flask où se trouve l'application. 
-Ici, l'application s'appelle api_administration :
+## Démarrage du serveur Flask de consultation
+Une fois l'environnement virtuel créé et les dépendances installées, il faut exporter la variable d'environnement FLASK_APP, afin d'indiquer à Flask où se trouve l'application.
+Ici, l'application s'appelle api_consultation qui se situe dans le dossier Api_Consultation :
 
-    export FLASK_APP=api_administration
+    export FLASK_APP=api_consultation
 
 Et enfin définir que l'on va lancer le serveur en mode développement :
 
     export FLASK_ENV=development
 
-
-## Lancement du serveur
 Pour démarrer le serveur, il suffit tout simplement d'exécuter cette commande :
 
     flask run
@@ -44,7 +42,7 @@ Pour démarrer le serveur, il suffit tout simplement d'exécuter cette commande 
 
 Si le serveur a bien été lancé, on devrait obtenir ceci :
 
-    
+
      * Serving Flask app "api_administration" (lazy loading)
      * Environment: development
      * Debug mode: on
@@ -52,3 +50,26 @@ Si le serveur a bien été lancé, on devrait obtenir ceci :
      * Restarting with stat
      * Debugger is active!
      * Debugger PIN: 174-238-432
+
+
+## Déploiement des pages statiques sur le serveur local Apache
+Afin d'avoir accès aux pages Web de QuChemPedIA, il faut exécuter le fichier deploy.sh :
+
+    ./deploy.sh
+Le site est donc accessible via :
+
+    http://127.0.0.1/QuChemPedIA/html
+
+
+## Génération et accès à la documentation du code
+
+Afin de générer la documentation du code, il faut effectuer la commande suivante à la racine du projet : 
+
+    ./generateDoc.sh
+
+Vous trouverez toute la documentation générée dans le dossier Documentation puis dans les dossiers JSDoc pour les fichiers JavaScript et pyDoc pour les fichiers python.
+
+
+
+
+

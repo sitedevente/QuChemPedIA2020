@@ -23,10 +23,10 @@ client = Elasticsearch(app.config.get("ES_URL"))
 
 @app.route('/api/search')
 def search():
-
+    """Route to look for a molecule with its formula and its name in Elasticsearch."""
     # Check if a type , name ,page number and results number were provided in the URL
     # If it's the case , assign them to the variables type and name
-    # if not , deisplay an error
+    # if not , display an error
 
     if('q' in request.args and request.args.get('q').strip() and
         'type' in request.args and request.args.get('type').strip() and
@@ -131,6 +131,7 @@ def search():
 
     # Execute the query then loop through the result to get only what we need
     for molecules in s.execute():
+        
         dict = {
             "id": molecules.meta.id,
             "formula": molecules.molecule.formula,
@@ -176,11 +177,10 @@ def search():
 
     return response, 200
 
-# Route to retrieve a molecule with its ID in Elasticsearch.
-
 
 @app.route('/api/details/<id>')
 def details(id):
+    """ Route to retrieve a molecule with its ID in Elasticsearch."""
 
     # Check if an id was provided in the URL
     # If it's the case , assign it to the variable identifiant

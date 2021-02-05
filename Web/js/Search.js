@@ -1,7 +1,10 @@
 // ID for history, may be useless
 var id = 0;
 
-// To display a loader during the init of datatable
+/** 
+ * To display a loader during the initiation of datatable
+ * @param {boolean} isTrue - Is true if the user is in loading
+ */ 
 function loading(isTrue) {
   if (isTrue) {
     var div_flex = document.createElement("div");
@@ -29,7 +32,9 @@ function loading(isTrue) {
 }
 //---------------------------------------
 
-// Function to prevent click, when user want to highlight
+/** 
+ * Function to prevent click, when user want to highlight
+ */ 
 function getSelected() {
   if (window.getSelection) {
     return window.getSelection().toString();
@@ -44,7 +49,9 @@ function getSelected() {
   }
   return "";
 }
-// To add a href click to /details/id
+/**
+ * To add a href click to /details/id
+ */ 
 function addClick() {
   var all_li = document.querySelectorAll("#display_result > li");
   for (let i = 0; i < all_li.length; ++i) {
@@ -60,7 +67,9 @@ function addClick() {
 }
 //---------------------------------------
 
-// To block multiple enterkey on submit
+/**
+ * To block multiple enterkey on submit
+ */ 
 function blockSearch() {
   $("#submit_search").prop("disabled", true);
   setTimeout(function () {
@@ -69,19 +78,18 @@ function blockSearch() {
 }
 //---------------------------------------
 
-  //////////////////////////////////////////////////////////////////////////
-//            Search function call after each click on submit button        //
-//  We give 2 paramaters :                                                  //
-//  page_number : page number to display                                    //
-//  entrie_page : entrie per page                                           //
-//                                                                          //
-//  First we check if it's the first request make from index.html           //
-//  YES -> Creation of navbar, and each div use to display result,          //
-//  pagination                                                              //
-//  NO -> We clear the area to display the new request                      //
-//                                                                          //
-  //////////////////////////////////////////////////////////////////////////
 
+
+/**
+ *  Search function call after each click on submit button <br/>
+ *  First we check if it's the first request make from index.html <br/>
+ *  YES -> Creation of navbar, and each div use to display result,          
+ *  pagination                                         <br/>
+ *  NO -> We clear the area to display the new request <br/>                                                      
+ *  @param {int} page_number - page number to display                                    
+ *  @param {int} entrie_page - entries per page                                           
+ *                                                                         
+ */
 function search(page_number, entrie_page) {
   if ($("#query").val() != "") {
     // First submit, we create navbar
@@ -101,7 +109,7 @@ function search(page_number, entrie_page) {
       $(logo).attr("id", "home_button");
       $(logo).attr("href", "index.html");
       $(logo).html(
-        '<img src="img/logo.png" class="img-fluid rounded" width="4%" alt="Logo"> uChemPedIA'
+        'QuChemPedIA'
       );
       $(logo).addClass("navbar-brand primary");
       $(navbar).append(logo);
@@ -203,8 +211,12 @@ function search(page_number, entrie_page) {
   }
 }
 
-// Function use to search when user access the website by url with information
-//to read paramater in URL for window.onload -> keep_history.js
+// 
+
+/**
+ * Function use to search when user access the website by url with information <br/>
+ * to read parameter in URL for window.onload -> keep_history.js
+ */
 
 function searchURL() {
   let url = new URL(document.location.href);

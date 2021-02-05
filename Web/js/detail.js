@@ -5,6 +5,9 @@
 var API_URL = "https://quchempedia.univ-angers.fr/api";
 
 //Fonction qui initialise les tables apres le chargement du script
+/**
+ * Function that load the tables
+ */
 function chargeTable(){
     //Tableaux pour : Calculated energies for the frontier molecular orbitals
     $(document).ready(function() {
@@ -120,18 +123,30 @@ window.onload = chargeTable();
 /////////////////////////////////////////////////////////
 
 //Fonction pour créer une ligne a partir de toutes les colonnes dans un tableau datatable
+/**
+ * Function to create a line from all the columns in a datatable
+ * @param {string} colonnes 
+ */
 function createLigne(colonnes){
     let tableau = "<tr>" + colonnes +"</tr>";
     return tableau;
 }
 
 //Fonction pour créer une colonne dans un tableau datatable
+/**
+ * Function to create a line from all the columns in a datatable
+ * @param {string} colonne
+ */
 function createCol(colonne) {
     let col = "<td>" + colonne + "</td>";
     return col;
 }
 
 //Fonction pour mettre les indices en html aux formules moléculaires (C6H6)
+/**
+ * Function to put the index in html to formulas
+ * @param {*} molecule 
+ */
 function mol_sub(molecule){
     let tmp = "";
     for(let i = 0;i<molecule.length;i++){
@@ -147,6 +162,10 @@ function mol_sub(molecule){
 }
 
 //Fonction pour mettre les exposants en html sur une expression scientifique (10e-8)
+/**
+ * Function tu put the exponent in html on a scientific expression
+ * @param {*} chaine 
+ */
 function exposant(chaine){
     try {
         let index;
@@ -187,6 +206,9 @@ let request = new XMLHttpRequest();
 
 //Fonction pour lire l'état de la requête et si le serveur renvoie le statut 200 OK et l'état Done
 //On prends la réponse et on rempli l'HTML avec les informations du Json
+/**
+ * Function to read the request state and if the server returns the status 200 OK and state Done
+ */
 request.onreadystatechange = function() {
     //Si la réponse serveur n'est pas correcte on affiche une 404
     if(this.status == 404){
@@ -213,6 +235,11 @@ request.onreadystatechange = function() {
         /////////////////////////////////////////////
         //Génération du dessin du smile
         //Une fois le script pour dessiner les smiles chargé on exécute la fonction pour draw
+        /**
+         * To generate a drawing of the SMILES
+         * @param {*} opt 
+         * @param {*} id 
+         */
         function draw_canvas(opt, id) {
             if (response.data.molecule.smi) {
                 let input = response.data.molecule.can;
@@ -269,12 +296,7 @@ request.onreadystatechange = function() {
         //Onglet Description avec les informations principales//
         ////////////////////////////////////////////////////////
 
-        //Affichage de l'id de la molécule
-        if (response.id){
-            //On remplit l'id de la molécule
-            document.getElementById("mol_id").innerHTML = "Molecule Id : "+ response.id;
-            document.getElementById("mol_id_card").innerHTML = "Molecule Id : "+ response.id;
-        }
+        
 
         //Champ Formule
         if (response.data.molecule.formula){

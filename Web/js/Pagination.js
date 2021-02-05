@@ -27,7 +27,12 @@
 //                                                                          //
   //////////////////////////////////////////////////////////////////////////
 
-
+/**
+ * Function to set a pagination for the search function
+ * @param {int} entrie_page 
+ * @param {int} result_length 
+ * @param {int} page_number 
+ */
 function pagination(entrie_page, result_length, page_number) {
   //To get number page needed
   var numPages = Math.ceil(result_length / entrie_page);
@@ -288,6 +293,13 @@ function pagination(entrie_page, result_length, page_number) {
 
 //To set active page on our two pagination
 //To set if next/prev is disabled or not
+/**
+ * To set active page on our two pagination
+ * @param {int} pageid 
+ * @param {int} pageid_clone 
+ * @param {int} total_result 
+ * @param {int} entrie_page 
+ */
 function pageSelect(pageid, pageid_clone, total_result, entrie_page) {
   var all_li = document.querySelectorAll(".p-2.pagination > li.page-item");
   for (let i = 0; i < all_li.length; ++i) {
@@ -340,25 +352,50 @@ function pageSelect(pageid, pageid_clone, total_result, entrie_page) {
 //
 
 //prevPage function -> go page -1
+/**
+ * Pagination - To go to page - 1
+ * @param {int} current_page 
+ * @param {int} entrie_page 
+ */
 function prevPage(current_page, entrie_page) {
   search(parseInt(current_page, 10) - 1, entrie_page);
 }
 
 //nextPage function -> go page +1
+/**
+ * Pagination - To go to page + 1
+ * @param {int} current_page 
+ * @param {int} entrie_page 
+ */
 function nextPage(current_page, entrie_page) {
   search(parseInt(current_page, 10) + 1, entrie_page);
 }
 
 //plusTen function -> go page+10
+/**
+ * Pagination - To go to page + 10
+ * @param {int} current_page 
+ * @param {int} entrie_page 
+ */
 function plusTen(current_page, entrie_page) {
   search(current_page + 10, entrie_page);
 }
 //minusTen function -> go page-10
+/**
+ * Pagination - To go to page - 10
+ * @param {int} current_page 
+ * @param {int} entrie_page 
+ */
 function minusTen(current_page, entrie_page) {
   search(current_page - 10, entrie_page);
 }
 
 //To add function for each button
+/**
+ * Add onclick for each button
+ * @param {int} current_page 
+ * @param {int} entrie_page 
+ */
 function addClicfunction(current_page, entrie_page) {
   $("#next_button").click(function (event) {
     event.preventDefault();
@@ -404,6 +441,13 @@ function addClicfunction(current_page, entrie_page) {
 //When we change page -> to check if a buton is disabled or not
 // if disabled -> no_function
 // else -> add next/prev/plus/minus function
+/**
+ * When we change page -> Check if a button is disabled <br>
+ * If disabled -> no_function <br>
+ * else -> add next/prev/plus/minus function
+ * @param {int} current_page 
+ * @param {int} entrie_page 
+ */
 function changePage(current_page, entrie_page) {
   addClicfunction(current_page, entrie_page);
   if ($("#next_button").attr("class") != "page-item disabled") {

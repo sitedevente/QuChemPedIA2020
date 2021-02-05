@@ -30,11 +30,11 @@ def pretty_print_response(response):
     )
 
 
-# Test the creation of a new molecule with a right body,
-# verify that the response code is 201 and the
-# response body contains the new molecule ID.
-def test_add_molecule_with_log_file():
 
+def test_add_molecule_with_log_file():
+    """ Test the creation of a new molecule with a right body,
+    verify that the response code is 201 
+    and that the response body contains the new molecule ID. """
     # Define url for the API call.
     url = base_url + 'add'
 
@@ -70,11 +70,11 @@ def test_add_molecule_with_log_file():
     pretty_print_response(resp)
 
 
-# Test the creation of a new molecule with a right body,
-# verify that the response code is 201 and the
-# response body contains the new molecule ID.
-def test_add_molecule_without_log_file():
 
+def test_add_molecule_without_log_file():
+    """ Test the creation of a new molecule with a right body,
+    verify that the response code is 201 
+    and that the response body contains the new molecule ID. """
     # Define url for the API call.
     url = base_url + 'add'
 
@@ -109,11 +109,11 @@ def test_add_molecule_without_log_file():
     pretty_print_response(resp)
 
 
-# Test the creation of a new molecule without body,
-# verify that the response code is 400 and the
-# response body correspond to the right error message.
-def test_add_molecule_error_without_json():
 
+def test_add_molecule_error_without_json():
+    """ Test the creation of a new molecule without body,
+    verify that the response code is 400 
+    and that the response body correspond to the right error message. """
     # Define url for the API call.
     url = base_url + 'add'
 
@@ -130,11 +130,11 @@ def test_add_molecule_error_without_json():
     pretty_print_response(resp)
 
 
-# Test the suppression of a molecule with an existing ID,
-# verify that the response code is 200 and the
-# response body contains the right body.
-def test_delete_molecule():
 
+def test_delete_molecule():
+    """ Test the suppression of a molecule with an existing ID,
+    verify that the response code is 200 
+    and that the response body contains the right body. """
     # Create and get a new molecule id
     new_mol = requests.post(
         base_url + 'add',
@@ -169,11 +169,11 @@ def test_delete_molecule():
     pretty_print_response(resp)
 
 
-# Test the suppression of a molecule with an inexisting ID,
-# verify that the response code is 404 and the
-# response body contains the right error message.
-def test_delete_molecule_error():
 
+def test_delete_molecule_error():
+    """ Test the suppression of a molecule with an inexisting ID,
+    verify that the response code is 404 
+    and that the response body contains the right error message. """
     # Define url for the API call.
     id_mol = 'fake_id_mol'
     url = base_url + 'delete/' + id_mol
@@ -192,11 +192,11 @@ def test_delete_molecule_error():
     pretty_print_response(resp)
 
 
-# Test the consultation of molecule's details with an existing ID,
-# verify that the response code is 200 and the
-# response body contains the right body and the right ID.
-def test_details_molecule():
 
+def test_details_molecule():
+    """ Test the consultation of molecule's details with an existing ID,
+    verify that the response code is 200 
+    and that the response body contains the right body and the right ID. """
     # Create and get a new molecule id
     new_mol = requests.post(
         base_url + 'add',
@@ -220,11 +220,11 @@ def test_details_molecule():
     pretty_print_response(resp)
 
 
-# Test the consultation of molecule's details with an inexisting ID,
-# verify that the response code is 404 and the
-# response body contains the right error message.
-def test_details_molecule_error():
 
+def test_details_molecule_error():
+    """ Test the consultation of molecule's details with an inexisting ID,
+    verify that the response code is 404 
+    and that the response body contains the right error message. """
     # Define url for the API call.
     id_mol = 'fake_id_mol'
     url = base_url + 'details/' + id_mol
@@ -243,10 +243,10 @@ def test_details_molecule_error():
     pretty_print_response(resp)
 
 
-# Test a research of molecules with a test formula and
-# verify that the response code is 200.
-def test_search_molecule():
 
+def test_search_molecule():
+    """ Test a search of molecules with a test formula and
+    verify that the response code is 200. """
     # Define url for the API call.
     formula = 'test_formula'
     url = base_url + 'search/' + formula
@@ -262,11 +262,11 @@ def test_search_molecule():
     pretty_print_response(resp)
 
 
-# Test to call an inexisting route for the API,
-# verify that the response code is 404 and the
-# response body contains the right error message.
-def test_wrong_route():
 
+def test_wrong_route():
+    """ Test to call an inexisting route for the API,
+    verify that the response code is 404 
+    and that the response body contains the right error message. """
     # Define url for the API call.
     url = base_url + 'wrong_route'
 
