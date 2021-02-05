@@ -1,3 +1,4 @@
 {
-    "BASE_URL": "https://quchempedia.univ-angers.fr/reboot"
+    "BASE_URL": "https://quchempedia.univ-angers.fr/reboot",
+    "API_URL": "https://quchempedia.univ-angers.fr/api"
 }

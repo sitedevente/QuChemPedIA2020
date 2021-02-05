@@ -41,7 +41,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   // page, showresult -> Page and entrie on this page
   $.ajax({
     type: "GET",
-    url: CONFIG.BASE_URL+"/api/search",
+    url: CONFIG.API_URL+"/api/search",
     data: {
       type: query_type,
       q: query,
@@ -349,7 +349,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
         window.history.pushState(
           {
             url:
-              CONFIG.BASE_URL+"/Web/html/"+
+              CONFIG.BASE_URL+""+
               "?type=" +
               $("#id_typeQuery").val() +
               "&q=" +
@@ -364,7 +364,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
             id: id + 1,
           },
           "search" + $("#id_typeQuery").val() + $("#query").val() + page_number,
-          "/Web/html/?type=" +
+          "?type=" +
             $("#id_typeQuery").val() +
             "&q=" +
             $("#query").val() +
@@ -381,7 +381,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
     error: function (xhr, ajaxOptions, thrownError) {
       if (xhr.status == 404) {
         var no_result = document.createElement("img");
-        $(no_result).attr("src", "../img/confused_scientist.png");
+        $(no_result).attr("src", "img/confused_scientist.png");
         $(no_result).attr("alt", "No result");
         $(no_result).attr("id", "confused_scientist_img");
         $(no_result).css({
