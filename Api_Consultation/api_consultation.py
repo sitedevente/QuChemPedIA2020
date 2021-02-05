@@ -46,6 +46,9 @@ def search():
         return jsonify(
             {'Error': 'Something is missing please check your URL'}), 404
 
+    name = name.replace("/","\\/")
+    name = name.replace("[","\\[")
+    name = name.replace("]","\\]")
     if type == "formula":
 
         # Check if the name provided contains special characters
@@ -102,7 +105,27 @@ def search():
             })
 
     else:
-        s = s.query({"match_phrase": {"molecule." + type: name}})
+        s = s.query({
+            "bool": {
+                "should": [
+                    {
+                        "match_phrase": {
+                            "molecule."+type: {
+                                "query": name,
+                                "boost": 100
+                            }
+                        }
+                    },
+                    {
+                        "query_string": {
+                            "query": '*' + name + '*',
+                            "default_field": "molecule."+type,
+                            "boost": 10
+                        }
+                    }
+                ]
+            }
+        })
 
     mol = s.execute()
 
