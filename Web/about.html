@@ -9,11 +9,12 @@
         <script src="js/Plugins/jQuery-3.5.1.js"></script>
         <script src="js/Plugins/bootstrap.min.js"></script>
         <script src="js/NavBar.js"></script>
+        <script src="https://kit.fontawesome.com/3f608ed93f.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
         <!-- Navigation Bar -->
-        <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light"><a id="home_button" href="/reboot/" class="navbar-brand primary">QuChemPedIA</a><div class="collapse navbar-collapse"></div><form class="row justify-content-center" id="search_form">
+        <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light"><a id="home_button" href="index.html" class="navbar-brand primary">QuChemPedIA</a><div class="collapse navbar-collapse"></div><form class="row justify-content-center" id="search_form">
                 <input type="text" name="search_text" id="query" class="mr-1 col-12 col-lg-6 form-control" maxlength="500">
                 <select name="typeQuery" id="id_typeQuery" class="custom-select col-12 col-lg-3" style="width: 15%">
                     <option value="formula">Formula</option>
@@ -32,26 +33,68 @@
                 </form>
             </nav>
 
-        <div class="m-2">
-            <h1 class="diplay-2 mb-2 mr-0 mw-10 text-primary">The Quchempedia project</h1>
+        <div class="m-5">
 
-            Molecular chemistry is lagging behind in term of open science. Although modelization by quantum mechanics applied to chemistry has become almost mandatory in any major publication, computational raw data is most of the time kept in the labs or destroyed. The information may not be reused or reproduced. The first objective of the Quchempedia project is to constitute a large collaborative open platform that will store and present quantum molecular chemistry results. Original output files will be available to be reused to tackle new chemical studies for different applications. The second objective of this project is to develop artificial intelligence and optimization methods in order to explore efficiently the highly combinatorial molecular space. <br>
-            Since 2017, a collaboration was born at the university of Angers between T. Cauchy, theoretical chemist and B. Da Mota computer scientist. They obtained a small funding from the University of Angers. It has allowed the creation of a small server and storage capacity, associated with internships. In mid-2018, a postdoctoral funding on machine learning in this subject was obtained from the region Pays-de-la-Loire. Its main objectives were centered on the role of the datasets on the generalization of ML predictions. This collaboration has highlighted in 2019 that the chemical diversity of reference datasets in quantum chemistry for small molecules is indeed not optimized (https://jcheminf.biomedcentral.com/articles/10.1186/s13321-019-0391-2). A joint thesis on the subject of molecular optimization has also started in 2019. A combinatorial optimization approach has been chosen for molecule generation with an evolutionary algorithm. With actions close to the atomic level, the EvoMol generator can freely explore the chemical space and respond in principle to diversified problems (https://jcheminf.biomedcentral.com/articles/10.1186/s13321-020-00458-z). To compute the molecules proposed by EvoMol, a collaborative computing infrastructure has been launched, the QuChemPedia BOINC project (quchempedia.univ-angers.fr/athome/) with several hundred registered volunteers worldwide. More than 2 million small compounds have already been computed in DFT (end of 2020) in a manner that maximizes the diversity of chemical environments. 
+            <div class="d-flex justify-content-center">
+                
+                <div class="card" style="width: 70rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">The Quchempedia project</h5>
+                        <p class="card-text">
+                            Molecular chemistry is lagging behind in term of open science.
+                            Although modelization by quantum mechanics applied to chemistry has become almost mandatory in any major publication, computational raw data is most of the time kept in the labs or destroyed.
+                            The information may not be reused or reproduced. <br><br>
+                            The first objective of the Quchempedia project is to constitute a large collaborative open platform that will store and present quantum molecular chemistry results.
+                            Original output files will be available to be reused to tackle new chemical studies for different applications. <br><br>
+                            The second objective of this project is to develop artificial intelligence and optimization methods in order to explore efficiently the highly combinatorial molecular space. <br><br>
+                            Since 2017, a collaboration was born at the university of Angers between T. Cauchy, theoretical chemist and B. Da Mota computer scientist.
+                            They obtained a small funding from the University of Angers. It has allowed the creation of a small server and storage capacity, associated with internships. <br><br>
+                            In mid-2018, a postdoctoral funding on machine learning in this subject was obtained from the region Pays-de-la-Loire.
+                            Its main objectives were centered on the role of the datasets on the generalization of ML predictions. <br><br>
+                            This collaboration has highlighted in 2019 that the chemical diversity of reference datasets in quantum chemistry for small molecules is indeed not optimized (https://jcheminf.biomedcentral.com/articles/10.1186/s13321-019-0391-2). 
+                            A joint thesis on the subject of molecular optimization has also started in 2019. <br><br>
+                            A combinatorial optimization approach has been chosen for molecule generation with an evolutionary algorithm.
+                            With actions close to the atomic level, the EvoMol generator can freely explore the chemical space and respond in principle to diversified problems (https://jcheminf.biomedcentral.com/articles/10.1186/s13321-020-00458-z). 
+                            To compute the molecules proposed by EvoMol, a collaborative computing infrastructure has been launched, the QuChemPedia BOINC project (quchempedia.univ-angers.fr/athome/) with several hundred registered volunteers worldwide. <br><br>
+                            More than 2 million small compounds have already been computed in DFT (end of 2020) in a manner that maximizes the diversity of chemical environments. <br>
+                        </p>
+                    </div>
+                </div>
+            
 
-            <br><br>
-            <h1 class="diplay-2 mb-2 mr-0 mw-10 text-primary">Who we are</h1>
 
-            Benoit DA MOTA. Maître de conférences i.e. Associate professor (tenure). LERIA. Université d'Angers. <br>
-            Thomas CAUCHY. Maître de conférences i.e. Associate professor (tenure). MOLTECH-Anjou. Université d'Angers - CNRS. <br>
+            
+                <div class="card" style="width: 30rem;">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Who we are</h5>
+                            <p class="card-text">
+                                <i class="fas fa-user"></i> Benoit DA MOTA. Maître de conférences i.e. Associate professor (tenure). LERIA. Université d'Angers. <br><br>
+                                <i class="fas fa-user"></i> Thomas CAUCHY. Maître de conférences i.e. Associate professor (tenure). MOLTECH-Anjou. Université d'Angers - CNRS. <br><br>
+        
+                                <i class="far fa-envelope"></i> thomas.cauchy@univ-angers.fr <br><br>
+        
+                                Previous Related Internships: <br>
+                                2018 <i class="fas fa-user"></i> Brice HARISMENDY first platform <br>
+                                2019 <i class="fas fa-user"></i> Theo DEZE BOINC project <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            
+            
+            
+            
+            
+            </div>
 
-            contact thomas.cauchy@univ-angers.fr <br>
-
-            Previous Related Internships: <br>
-            2018 Brice HARISMENDY first platform <br>
-            2019 Theo DEZE BOINC project <br>
         </div>
 
     </body>
+
+
+
 
 
 </html>
