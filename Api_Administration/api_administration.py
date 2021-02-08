@@ -14,7 +14,7 @@ from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.connections import connections
 
 # Define root path for log files
-root_path_log_files = 'data_dir/'
+root_path_log_files = '/mnt/data_dir/'
 
 
 app = Flask(__name__)

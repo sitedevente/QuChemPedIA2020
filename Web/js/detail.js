@@ -515,7 +515,7 @@ request.onreadystatechange = function() {
             let id = response.id;
             let path = id.split('');
             let name = response.data.metadata.log_file;
-            let lien = "";
+            let lien = "/mnt/data_dir/";
 
             //On sépare chaque lettre de l'id par un / pour obtenir le path ou se trouve le logfile
             for(let i = 0;i<path.length;i++){

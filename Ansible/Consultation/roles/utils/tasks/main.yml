@@ -1,0 +1,14 @@
+---
+- name: Installation des paquets
+  apt:
+    name:
+      - sudo
+      - vim
+      - git
+      - htop
+      - build-essential 
+      - python-dev
+      - python3-venv
+      - python3-pip
+    state: latest
+    update_cache: yes
