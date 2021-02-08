@@ -24,6 +24,14 @@
   become: yes
   file: path=/var/www/{{ domain }} state=directory
 
+- name: Création du dossier data_dir pour stocker les logfiles
+  become: yes
+  file: path=/var/www/{{ domain }}/QuChemPedIA/data_dir state=directory
+
+- name: Lien vers /mnt/data_dir
+  become: yes
+  file: src=/mnt/data_dir dest=/var/www/{{ domain }}/{{ quchempedia }} state=link force=yes
+
 - name: Création du dossier logs Nginx
   become: yes
   file: path=/home/{{ user }}/logs state=directory
@@ -41,3 +49,4 @@
 - name: Activation du domain {{ domain }}
   file: src=/etc/nginx/sites-available/{{ domain }} dest=/etc/nginx/sites-enabled/{{ domain }} state=link
   notify: nginx reload
+
