@@ -92,3 +92,13 @@ Le site est donc accessible via :
 ```
 http://127.0.0.1/Web
 ```
+
+## Génération et accès à la documentation du code
+
+Afin de générer la documentation du code, il faut effectuer la commande suivante à la racine du projet : 
+
+    ./generateDoc.sh
+
+Vous trouverez toute la documentation générée dans le dossier Documentation puis dans les dossiers JSDoc pour les fichiers JavaScript et pyDoc pour les fichiers python.
+
+
