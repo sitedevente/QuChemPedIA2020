@@ -26,7 +26,7 @@
 //  Display an arror message, with img                                      //
 //                                                                          //
   //////////////////////////////////////////////////////////////////////////
-var API_URL = "https://quchempedia.univ-angers.fr/api";
+var API_URL = "https://quchempedia.univ-angers.fr/api/";
 var BASE_URL = "https://quchempedia.univ-angers.fr/reboot/"
 
 /**
@@ -50,7 +50,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   // page, showresult -> Page and entrie on this page
   $.ajax({
     type: "GET",
-    url: API_URL+"/api/search",
+    url: API_URL+"api/search",
     data: {
       type: query_type,
       q: query,
