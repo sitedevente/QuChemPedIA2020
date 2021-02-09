@@ -245,7 +245,7 @@ def delete_log_file(id_mol, log_file_name):
 def delete_empty_path(path):
     """ Function for the suppresion of empty folders. """
     # Delete the directory if is empty and call the function recursively.
-    if path != root_path_log_files:
+    if path != root_path_log_files[:-1]:
         os.rmdir(path)
         delete_empty_path(path[:-2])
 
