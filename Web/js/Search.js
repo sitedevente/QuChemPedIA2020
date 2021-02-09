@@ -60,7 +60,7 @@ function addClick() {
       var selection = getSelected().toString();
       //When user highlight, if nothing highlight -> go to detail page
       if (selection === "") {
-        location.href = "/QuChemPedIA/html/page_detail.html?id=" + all_li[i].id;
+        location.href = "page_detail.html?id=" + all_li[i].id;
       }
     });
   }
@@ -107,7 +107,7 @@ function search(page_number, entrie_page) {
 
       var logo = document.createElement("a");
       $(logo).attr("id", "home_button");
-      $(logo).attr("href", "index.html");
+      $(logo).attr("href", "/reboot/");
       $(logo).html(
         'QuChemPedIA'
       );

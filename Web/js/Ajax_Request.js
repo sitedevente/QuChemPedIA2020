@@ -26,7 +26,8 @@
 //  Display an arror message, with img                                      //
 //                                                                          //
   //////////////////////////////////////////////////////////////////////////
-
+var API_URL = "https://quchempedia.univ-angers.fr/api/";
+var BASE_URL = "https://quchempedia.univ-angers.fr/reboot/"
 
 /**
  * Function to execute ajax request on search API
@@ -49,7 +50,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   // page, showresult -> Page and entrie on this page
   $.ajax({
     type: "GET",
-    url: "http://127.0.0.1:5000/api/search",
+    url: API_URL+"api/search",
     data: {
       type: query_type,
       q: query,
@@ -357,7 +358,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
         window.history.pushState(
           {
             url:
-              "http://127.0.0.1/QuChemPedIA/html/"+
+              BASE_URL+""+
               "?type=" +
               $("#id_typeQuery").val() +
               "&q=" +
@@ -372,7 +373,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
             id: id + 1,
           },
           "search" + $("#id_typeQuery").val() + $("#query").val() + page_number,
-          "/QuChemPedIA/html/?type=" +
+          "?type=" +
             $("#id_typeQuery").val() +
             "&q=" +
             $("#query").val() +
@@ -389,7 +390,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
     error: function (xhr, ajaxOptions, thrownError) {
       if (xhr.status == 404) {
         var no_result = document.createElement("img");
-        $(no_result).attr("src", "../img/confused_scientist.png");
+        $(no_result).attr("src", "img/confused_scientist.png");
         $(no_result).attr("alt", "No result");
         $(no_result).attr("id", "confused_scientist_img");
         $(no_result).css({

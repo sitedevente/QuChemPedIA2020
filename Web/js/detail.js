@@ -2,6 +2,8 @@
 //Initialisation pour les datatables//
 //////////////////////////////////////
 
+var API_URL = "https://quchempedia.univ-angers.fr/api/";
+
 //Fonction qui initialise les tables apres le chargement du script
 /**
  * Function that load the tables
@@ -195,7 +197,7 @@ function exposant(chaine){
 //Récupération de l'url, l'id et construction de l'url de requete
 let url = new URL(document.location.href);
 let id = url.searchParams.get("id");
-let url_api = 'http://127.0.0.1:5000/api/details/';
+let url_api = API_URL+'api/details/';
 url_api += id;
 
 //Objet XHR ajax permettant de récupérer des données à partir d'une URL
@@ -513,7 +515,7 @@ request.onreadystatechange = function() {
             let id = response.id;
             let path = id.split('');
             let name = response.data.metadata.log_file;
-            let lien = "";
+            let lien = "data_dir/";
 
             //On sépare chaque lettre de l'id par un / pour obtenir le path ou se trouve le logfile
             for(let i = 0;i<path.length;i++){

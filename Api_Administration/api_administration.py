@@ -13,15 +13,16 @@ import elasticsearch.exceptions
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.connections import connections
 
-
-# Elasticsearch client connection
-elasticClient = Elasticsearch(
-    'https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net')
 # Define root path for log files
-root_path_log_files = 'data_dir/'
+root_path_log_files = '/mnt/data_dir/'
 
 
 app = Flask(__name__)
+
+app.config.from_pyfile(os.path.join(".", "config/app.conf"), silent=False)
+
+# Connexion au client Elasticsearch
+elasticClient = Elasticsearch(app.config.get("ES_URL"))
 
 
 
@@ -244,6 +245,9 @@ def delete_log_file(id_mol, log_file_name):
 def delete_empty_path(path):
     """ Function for the suppresion of empty folders. """
     # Delete the directory if is empty and call the function recursively.
-    if len(os.listdir(path)) == 0:
+    if path != root_path_log_files[:-1]:
         os.rmdir(path)
         delete_empty_path(path[:-2])
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')

@@ -4,20 +4,22 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.connections import connections
 import werkzeug
+import os
+
 try:
     from urllib.parse import unquote  # PY3
 except ImportError:
     from urllib import unquote  # PY2
 
-#es = Elasticsearch(['https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net:433'])
-# Connexion au client Elasticsearch
-client = Elasticsearch(
-    'https://yvwwd7r6g7:lue555jb9h@quchempedia-9079321169.eu-central-1.bonsaisearch.net')
-
 app = Flask(__name__)
 CORS(app)
 
+app.config.from_pyfile(os.path.join(".", "config/app.conf"), silent=False)
 
+# Connexion au client Elasticsearch
+client = Elasticsearch(app.config.get("ES_URL"))
+
+#  Route to look for a molecule with its formula and its name in Elasticsearch.
 
 @app.route('/api/search')
 def search():
@@ -45,7 +47,11 @@ def search():
 
         return jsonify(
             {'Error': 'Something is missing please check your URL'}), 404
-
+    
+    name = name.lower()
+    name = name.replace("/","\\/")
+    name = name.replace("[","\\[")
+    name = name.replace("]","\\]")
     if type == "formula":
 
         # Check if the name provided contains special characters
@@ -102,7 +108,27 @@ def search():
             })
 
     else:
-        s = s.query({"match_phrase": {"molecule." + type: name}})
+        s = s.query({
+            "bool": {
+                "should": [
+                    {
+                        "match_phrase": {
+                            "molecule."+type: {
+                                "query": name,
+                                "boost": 100
+                            }
+                        }
+                    },
+                    {
+                        "query_string": {
+                            "query": '*' + name + '*',
+                            "default_field": "molecule."+type,
+                            "boost": 10
+                        }
+                    }
+                ]
+            }
+        })
 
     mol = s.execute()
 
@@ -250,3 +276,6 @@ def bad_request():
 def server_error():
     """ Internal server error. """
     return jsonify({'Error': 'Sorry , an internal server error occurred'}), 500
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')

@@ -1,0 +1,13 @@
+[Unit]
+Description= API Consultation
+After=network.target
+
+[Service]
+User={{ user }}
+Group=www-data
+WorkingDirectory=/home/{{ user }}/{{ domain }}/{{ api_consultation_folder }}
+Environment="PATH=/home/{{ user }}/{{ domain }}/{{ api_consultation_folder }}/quchempedia-venv/bin"
+ExecStart=/home/{{ user }}/{{ domain }}/{{ api_consultation_folder }}/quchempedia-venv/bin/gunicorn --workers 3 --bind unix:{{ api_consultation }}.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
