@@ -246,6 +246,7 @@ def delete_empty_path(path):
     """ Function for the suppresion of empty folders. """
     # Delete the directory if is empty and call the function recursively.
     if len(os.listdir(path)) == 0:
+        print(path)
         os.rmdir(path)
         delete_empty_path(path[:-2])
 
