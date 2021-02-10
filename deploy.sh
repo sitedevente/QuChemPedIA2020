@@ -2,4 +2,4 @@
 
 
 
-sudo cp -R QuChemPedIA/ /var/www/html/
+sudo cp -R Web/ /var/www/html/
