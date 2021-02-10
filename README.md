@@ -19,13 +19,13 @@ python3 -m venv quchempedia-env
 
 Puis activez ce nouvel environnement en lançant la commande :
 ```
-source env/bin/activate
+source quchempedia-env/bin/activate
 ```
 
 
 Normalement le command prompt de votre ligne de commande change pour vous afficher l'environnement virtuel que vous utilisez. Il ne vous reste plus qu'a installer les prérequis pour l'application, contenus dans le fichier requirement.txt. Pour cela, lancez la commande :
 ```
-python3 -m pip install -r requirement.txt
+python3 -m pip install -r requirements.txt
 ```
 
 ### Modification des variables d'environnement
@@ -44,13 +44,13 @@ API_URL = http://127.0.0.1:5000/
 BASE_URL =  http://127.0.0.1/
 ```
 
-Api_Consultation/conf/app.conf :
+Api_Consultation/config/app.conf :
 
 ```
 ES_URL = "base_elasticsearch:port"
 ```
 
-Api_Administration/conf/app.conf :
+Api_Administration/config/app.conf :
 
 ```
 ES_URL = "base_elasticsearch:port"
