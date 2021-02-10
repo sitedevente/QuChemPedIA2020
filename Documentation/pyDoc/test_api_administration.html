@@ -1,0 +1,69 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module test_api_administration</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>test_api_administration</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/etudiant/Documents/M2/QuChemPedIA2020/Api_Administration/test_api_administration.py">/home/etudiant/Documents/M2/QuChemPedIA2020/Api_Administration/test_api_administration.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="api_administration.html">api_administration</a><br>
+</td><td width="25%" valign=top><a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="requests.html">requests</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-pretty_print_request"><strong>pretty_print_request</strong></a>(request)</dt><dd><tt>Function&nbsp;for&nbsp;formatting&nbsp;API&nbsp;request.</tt></dd></dl>
+ <dl><dt><a name="-pretty_print_response"><strong>pretty_print_response</strong></a>(response)</dt><dd><tt>Function&nbsp;for&nbsp;formatting&nbsp;API&nbsp;response.</tt></dd></dl>
+ <dl><dt><a name="-test_add_molecule_error_without_json"><strong>test_add_molecule_error_without_json</strong></a>()</dt><dd><tt>Test&nbsp;the&nbsp;creation&nbsp;of&nbsp;a&nbsp;new&nbsp;molecule&nbsp;without&nbsp;body,<br>
+verify&nbsp;that&nbsp;the&nbsp;response&nbsp;code&nbsp;is&nbsp;400&nbsp;<br>
+and&nbsp;that&nbsp;the&nbsp;response&nbsp;body&nbsp;correspond&nbsp;to&nbsp;the&nbsp;right&nbsp;error&nbsp;message.</tt></dd></dl>
+ <dl><dt><a name="-test_add_molecule_with_log_file"><strong>test_add_molecule_with_log_file</strong></a>()</dt><dd><tt>Test&nbsp;the&nbsp;creation&nbsp;of&nbsp;a&nbsp;new&nbsp;molecule&nbsp;with&nbsp;a&nbsp;right&nbsp;body,<br>
+verify&nbsp;that&nbsp;the&nbsp;response&nbsp;code&nbsp;is&nbsp;201&nbsp;<br>
+and&nbsp;that&nbsp;the&nbsp;response&nbsp;body&nbsp;contains&nbsp;the&nbsp;new&nbsp;molecule&nbsp;ID.</tt></dd></dl>
+ <dl><dt><a name="-test_add_molecule_without_log_file"><strong>test_add_molecule_without_log_file</strong></a>()</dt><dd><tt>Test&nbsp;the&nbsp;creation&nbsp;of&nbsp;a&nbsp;new&nbsp;molecule&nbsp;with&nbsp;a&nbsp;right&nbsp;body,<br>
+verify&nbsp;that&nbsp;the&nbsp;response&nbsp;code&nbsp;is&nbsp;201&nbsp;<br>
+and&nbsp;that&nbsp;the&nbsp;response&nbsp;body&nbsp;contains&nbsp;the&nbsp;new&nbsp;molecule&nbsp;ID.</tt></dd></dl>
+ <dl><dt><a name="-test_delete_molecule"><strong>test_delete_molecule</strong></a>()</dt><dd><tt>Test&nbsp;the&nbsp;suppression&nbsp;of&nbsp;a&nbsp;molecule&nbsp;with&nbsp;an&nbsp;existing&nbsp;ID,<br>
+verify&nbsp;that&nbsp;the&nbsp;response&nbsp;code&nbsp;is&nbsp;200&nbsp;<br>
+and&nbsp;that&nbsp;the&nbsp;response&nbsp;body&nbsp;contains&nbsp;the&nbsp;right&nbsp;body.</tt></dd></dl>
+ <dl><dt><a name="-test_delete_molecule_error"><strong>test_delete_molecule_error</strong></a>()</dt><dd><tt>Test&nbsp;the&nbsp;suppression&nbsp;of&nbsp;a&nbsp;molecule&nbsp;with&nbsp;an&nbsp;inexisting&nbsp;ID,<br>
+verify&nbsp;that&nbsp;the&nbsp;response&nbsp;code&nbsp;is&nbsp;404&nbsp;<br>
+and&nbsp;that&nbsp;the&nbsp;response&nbsp;body&nbsp;contains&nbsp;the&nbsp;right&nbsp;error&nbsp;message.</tt></dd></dl>
+ <dl><dt><a name="-test_details_molecule"><strong>test_details_molecule</strong></a>()</dt><dd><tt>Test&nbsp;the&nbsp;consultation&nbsp;of&nbsp;molecule's&nbsp;details&nbsp;with&nbsp;an&nbsp;existing&nbsp;ID,<br>
+verify&nbsp;that&nbsp;the&nbsp;response&nbsp;code&nbsp;is&nbsp;200&nbsp;<br>
+and&nbsp;that&nbsp;the&nbsp;response&nbsp;body&nbsp;contains&nbsp;the&nbsp;right&nbsp;body&nbsp;and&nbsp;the&nbsp;right&nbsp;ID.</tt></dd></dl>
+ <dl><dt><a name="-test_details_molecule_error"><strong>test_details_molecule_error</strong></a>()</dt><dd><tt>Test&nbsp;the&nbsp;consultation&nbsp;of&nbsp;molecule's&nbsp;details&nbsp;with&nbsp;an&nbsp;inexisting&nbsp;ID,<br>
+verify&nbsp;that&nbsp;the&nbsp;response&nbsp;code&nbsp;is&nbsp;404&nbsp;<br>
+and&nbsp;that&nbsp;the&nbsp;response&nbsp;body&nbsp;contains&nbsp;the&nbsp;right&nbsp;error&nbsp;message.</tt></dd></dl>
+ <dl><dt><a name="-test_search_molecule"><strong>test_search_molecule</strong></a>()</dt><dd><tt>Test&nbsp;a&nbsp;search&nbsp;of&nbsp;molecules&nbsp;with&nbsp;a&nbsp;test&nbsp;formula&nbsp;and<br>
+verify&nbsp;that&nbsp;the&nbsp;response&nbsp;code&nbsp;is&nbsp;200.</tt></dd></dl>
+ <dl><dt><a name="-test_wrong_route"><strong>test_wrong_route</strong></a>()</dt><dd><tt>Test&nbsp;to&nbsp;call&nbsp;an&nbsp;inexisting&nbsp;route&nbsp;for&nbsp;the&nbsp;API,<br>
+verify&nbsp;that&nbsp;the&nbsp;response&nbsp;code&nbsp;is&nbsp;404&nbsp;<br>
+and&nbsp;that&nbsp;the&nbsp;response&nbsp;body&nbsp;contains&nbsp;the&nbsp;right&nbsp;error&nbsp;message.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>base_url</strong> = 'http://127.0.0.1:5000/api/'<br>
+<strong>root_path</strong> = 'data_dir/'</td></tr></table>
+</body></html>

@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Titre et Icone du Site-->
+    <title>QuChemPedIA</title>
+
+    <!--Bootstrap, datatable, icons et css-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+    <link href='https://css.gg/view-split.css' rel='stylesheet'>
+    <link href='https://css.gg/display-grid.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/detail.css">
+    <script src="https://kit.fontawesome.com/3f608ed93f.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    
+    <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light"><a id="home_button" href="/reboot/" class="navbar-brand primary">QuChemPedIA</a><div class="collapse navbar-collapse"></div><form class="row justify-content-center" id="search_form">
+        <input type="text" name="search_text" id="query" class="mr-1 col-12 col-lg-6 form-control" maxlength="500">
+        <select name="typeQuery" id="id_typeQuery" class="custom-select col-12 col-lg-3" style="width: 15%">
+            <option value="formula">Formula</option>
+
+            <option value="inchi">InChi</option>
+
+            <option value="smi">SMILES</option>
+        </select>
+        <button id="submit_search" type="submit" class="btn bluecolorbtn ml-1" onclick="searchnavbar();return false">
+            Search
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+            </svg>
+        </button>
+        </form>
+    </nav>
+
+<!-- Partie qui s'affiche sous la forme d'onglets-->
+<div class="container mt-4" id="diplay-tab">
+
+    <!--Corps de la page-->
+    <div class="card text-center mb-4">
+        <div class="card-header">
+            <!--Barre en header de carte avec les onglets description et results-->
+            <ul class="nav nav-pills text-primary">
+                <li class="nav-item">
+                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Results</a>
+                </li>
+            </ul>
+        </div>
+
+        <!--Contenu des onglets-->
+        <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+                <!-- Onglet description avec les informations principales-->
+                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                    <div class="container">
+                        <!--Formule de la molécule et informations sommaires-->
+                        <div class="row-justify-content-around">
+                            <div class="col-auto d-inline text-primary">
+                                <h2 id="titre"></h2>
+                            </div>
+                        </div>
+
+                        <div class="row my-4">
+                            <div class="col-md" id="inchi_display">
+                                <div id="inchi"></div>
+                            </div>
+
+                            <div class="col-md" id="smiles_display">
+                                <div id="smiles"></div>
+                            </div>
+
+                            <div class="col-md" id="iupac_display">
+                                <div id="iupac"></div>
+                            </div>
+                        </div>
+
+                        <!-- Description plus détaillée de la molécule-->
+                        <div class="row">
+                            <div class="col-lg">
+                                <div class="card bg-light" style="width: 100%">
+                                    <div class="card-header">
+                                        <canvas id="smile"></canvas>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container">
+                                            <div class="row">
+                                                <!--Partie sur les détails de calculs-->
+                                                <div class="col text-left" id="display-comp-detail">
+                                                    <h5 class="card-title">Computation details</h5>
+                                                    <div class="dropdown-divider"></div>
+                                                    <div class="container">
+                                                        <div class="row" id="diplay_software">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Software</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="software"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="comp_display">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Computational method</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="computational"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="func_display">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Functional</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="functional"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="basis_display">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Basis Set Name</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="basis"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="nb_basis_display">
+                                                            <div class="col-8">
+                                                                <p class="text-secondary">Number of basis set functions</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="number_basis"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="shell_display">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Closed shell calculation</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="shell_calc"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="integration_display">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Integration grid</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="integration"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="solvent_display">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Solvent</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="solvent"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="convergence_display">
+                                                            <div class="col-9">
+                                                                <p class="text-secondary">Requested SCF convergence on RMS density</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="convergence"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="convergence_max_display">
+                                                            <div class="col-9">
+                                                                <p class="text-secondary">Requested SCF convergence on MAX density</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="convergence_max"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="convergence_energie_display">
+                                                            <div class="col-9">
+                                                                <p class="text-secondary">Requested SCF convergence on energy</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="convergence_energie"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="temperature_display">
+                                                            <div class="col-9">
+                                                                <p class="text-secondary">Temperature</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="temperature"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="anharmonicity_display">
+                                                            <div class="col-9">
+                                                                <p class="text-secondary">Anharmonic effects</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="anharmonicity"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="nb_excited_display">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Number of excited states</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="nb_excited_state"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Partie détail de la molécule-->
+                                                <div class="col text-left">
+                                                    <h5 class="card-title">Molecule Details</h5>
+                                                    <div class="dropdown-divider"></div>
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Formule</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="formule"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="charge_display">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Charge</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="charge"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="spin_display">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Spin multiplicity</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="spin"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="monoisotopic_display">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Monoisotopic mass</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <p id="monoisotopic"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" id="log_display">
+                                                            <div class="col">
+                                                                <p class="text-secondary">Original log file</p>
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <a type="button" class="btn btn-primary btn-lg" id="logfile">Download</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Onglet Results avec les résultats détaillés avec 4 sous onglets-->
+                <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+                    <div class="card border-light">
+                        <div class="row no-gutters">
+                            <div class="col-2 card-header">
+                                <div class="col">
+                                    <!--Différents onglets pour la partie Results-->
+                                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                        <a class="nav-link active" id="v-pills-wavefunction-tab" data-toggle="pill" href="#v-pills-wavefunction" role="tab" aria-controls="v-pills-wavefunction" aria-selected="true">Wavefunction</a>
+                                        <a class="nav-link" id="v-pills-geometry-tab" data-toggle="pill" href="#v-pills-geometry" role="tab" aria-controls="v-pills-geometry" aria-selected="false">Geometry</a>
+                                        <a class="nav-link" id="v-pills-thermochemistry-tab" data-toggle="pill" href="#v-pills-thermochemistry" role="tab" aria-controls="v-pills-thermochemistry" aria-selected="false">Thermochemistry</a>
+                                        <a class="nav-link" id="v-pills-states-tab" data-toggle="pill" href="#v-pills-states" role="tab" aria-controls="v-pills-states" aria-selected="false">Excited States</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <div class="tab-content" id="v-pills-tabContent">
+                                        <!--Sous onglet WAVEFUNCTION-->
+                                        <div class="tab-pane fade show active" id="v-pills-wavefunction" role="tabpanel" aria-labelledby="v-pills-wavefunction-tab">
+                                            <div class="col text-left">
+                                                <div class="row" id="energy_display">
+                                                    <div class="col">
+                                                        <p class="text-secondary">Total molecular energy</p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <p id="energy"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" id="homo_display">
+                                                    <div class="col">
+                                                        <p class="text-secondary">HOMO number</p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <p id="homo"></p>
+                                                    </div>
+                                                </div>
+
+                                                <!--Tableau des calculated energies-->
+                                                <div class="calculated_energies">
+                                                    <div class="row">
+                                                        <div class="col text-center">
+                                                            <div class="h5 my-4">Calculated energies for the frontier molecular orbitals</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" id="tableau_calc_energies_tab">
+                                                        <div class="col text-center">
+                                                            <table id="calc_id_tab" class="display" style="width: 100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Homo-1</th>
+                                                                        <th>Homo</th>
+                                                                        <th>Lumo</th>
+                                                                        <th>Lumo+1</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="calc_table_tab"></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Tableau des mulliken charges-->
+                                                <div id="mulliken_charges">
+                                                    <div class="row">
+                                                        <div class="col text-center">
+                                                            <div class="h5 my-4">Most intense Mulliken atomic charges</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col text-center">
+                                                            <p id="moyenne"></p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row" id="tableau_atomes">
+                                                        <div class="col text-center">
+                                                            <table id="mull_id" class="display" style="width: 100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Atom</th>
+                                                                        <th>Number</th>
+                                                                        <th>Mulliken partial charges</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="mulliken_table"></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--Sous onglet GEOMETRY-->
+                                        <div class="tab-pane fade" id="v-pills-geometry" role="tabpanel" aria-labelledby="v-pills-geometry-tab">
+                                            <div class="col text-left">
+                                                <div class="row" id="nuclear_display">
+                                                    <div class="col">
+                                                        <p class="text-secondary">Nuclear repulsion energy in atomic units</p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <p id="nuclear"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div id="geometry_opti">
+                                                    <div class="row">
+                                                        <div class="col text-center">
+                                                            <div class="h5 my-4">Geometry optimization convergence criteria</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col text-center">
+                                                            <p>This calculation is the result of a geometry optimization process.</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row" id="tableau_opti">
+                                                        <div class="col text-left">
+                                                            <table id="opti_id" class="display" style="width: 100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th>Value</th>
+                                                                    <th>Threshold</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="opti_table"></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Tableau des Cartesian atomic coordinate-->
+                                                <div id="cartesian_tab">
+                                                    <div class="row my-4">
+                                                        <div class="col text-center">
+                                                            <div class="h5 mt-4">Cartesian atomic coordinates</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col text-center">
+                                                            <a type="button" class="btn btn-primary btn-lg" id="download_cartesian">Download</a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col text-center">
+                                                            <p class="text-center text-secondary mt-3">Coordinates are shown in Angstroms</p>
+                                                            <table id="cartesian_id" class="display" style="width: 100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Atom</th>
+                                                                    <th>X</th>
+                                                                    <th>Y</th>
+                                                                    <th>Z</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="cartesian_table"></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--Sous onglet THERMOCHEMISTRY-->
+                                        <div class="tab-pane fade" id="v-pills-thermochemistry" role="tabpanel" aria-labelledby="v-pills-thermochemistry-tab">
+                                            <div class="col text-left">
+                                                <div class="row my-4">
+                                                    <div class="col text-center">
+                                                        <div class="h5 my-4">Thermochemistry and normal modes</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row my-4">
+                                                    <div class="col text-center">
+                                                        <p>All values was calculated at 298.150000 K in atomic units.</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" id="zero_point">
+                                                    <div class="col">
+                                                        <p class="text-secondary">Sum of electronic and zero-point energy</p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <p id="zero_point_value"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" id="elec_energie">
+                                                    <div class="col">
+                                                        <p class="text-secondary">Sum of electronic and thermal</p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <p id="elec_energie_value"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" id="entropy">
+                                                    <div class="col">
+                                                        <p class="text-secondary">Entropy</p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <p id="entropy_value"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" id="enthalpy">
+                                                    <div class="col">
+                                                        <p class="text-secondary">Enthalpy</p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <p id="enthalpy_value"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" id="free_energy">
+                                                    <div class="col">
+                                                        <p class="text-secondary">Gibbs free energy</p>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <p id="free_energy_value"></p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- tableau des vibrations-->
+                                                <div id="vibration_tab">
+                                                    <div class="row my-4">
+                                                        <div class="col text-center">
+                                                            <div class="h5 my-4">Table of the most intense molecular vibrations (> 20 km/mol)</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col text-center">
+                                                            <table id="vibration_id" class="display" style="width: 100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Frequencies (cm<sup>-1</sup>)</th>
+                                                                    <th>Intensity (km/mol)</th>
+                                                                    <th>Symmetry</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="vibration_table"></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--Sous onglet EXCITED STATES-->
+                                        <div class="tab-pane fade" id="v-pills-states" role="tabpanel" aria-labelledby="v-pills-states-tab">
+                                            <div class="col text-center">
+                                                <div id="excitation_display">
+                                                    <div class="row">
+                                                        <div class="col text-center">
+                                                            <div class="h5 my-2">Calculated mono-electronic excitations</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col text-center">
+                                                            <table id="excitation_id" class="display" style="width: 100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Number</th>
+                                                                        <th>Energy (cm<sup>-1</sup>)</th>
+                                                                        <th>Energy (nm)</th>
+                                                                        <th>Symmetry</th>
+                                                                        <th>Oscillator Strength</th>
+                                                                        <th>Rotatory strength</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="excitation_table"></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Partie qui s'affiche sous la forme de cartes pour l'impression-->
+<div class="container mt-4 mb-4" id="diplay-card" style="display: none">
+    
+    
+
+    <!--Affichage des informations en mode carte-->
+    <div class="container">
+        <div class="row mb-6">
+            <div class="col">
+                <!--Carte avec les informations principales-->
+                <div class="card mb-3">
+                    <div class="card-header h5">Molecule</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-secondary">Formule</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="formule_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="iupac_display2">
+                            <div class="col">
+                                <p class="text-secondary">
+                                    <acronym title='International Union of Pure and Applied Chemistry' style='text-decoration: none'>IUPAC :</acronym>
+                                </p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="iupac_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="charge_display2">
+                            <div class="col">
+                                <p class="text-secondary">Charge</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="charge_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="spin_display2">
+                            <div class="col">
+                                <p class="text-secondary">Spin multiplicity</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="spin_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="monoisotopic_display2">
+                            <div class="col">
+                                <p class="text-secondary">Monoisotopic mass</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="monoisotopic_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="inchi_display2">
+                            <div class="col">
+                                <p class="text-secondary">
+                                    <acronym title='International Chemical Identifier' style='text-decoration: none'>Inchi :</acronym>
+                                </p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="inchi_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="smiles_display2">
+                            <div class="col">
+                                <p class="text-secondary">
+                                    <acronym title='Simplified Molecular-Input Line-Entry System' style='text-decoration: none'>SMILES :</acronym>
+                                </p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="smiles_card"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Titre en gros de la molécule un canvas devait remplacer cette partie pour le dessin du smiles-->
+            <div class="col">
+                <div class="card" style="height: 96%">
+                    <div class="card-body">
+                        <div class="card-title text-center">
+                            <canvas id="smile_card"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Carte sur les détails des calculs-->
+        <div class="row mt-4">
+            <div class="col text-left">
+                <div class="card">
+                    <div class="card-header h5">Computation details</div>
+                    <div class="card-body">
+                        <div class="row" id="diplay_software2">
+                            <div class="col">
+                                <p class="text-secondary">Software</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="software_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="comp_display2">
+                            <div class="col">
+                                <p class="text-secondary">Computational method</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="computational_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="func_display2">
+                            <div class="col">
+                                <p class="text-secondary">Functional</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="functional_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="basis_display2">
+                            <div class="col">
+                                <p class="text-secondary">Basis Set Name</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="basis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="nb_basis_display2">
+                            <div class="col-8">
+                                <p class="text-secondary">Number of basis set functions</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="number_basis_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="shell_display2">
+                            <div class="col">
+                                <p class="text-secondary">Closed shell calculation</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="shell_calc_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="integration_display2">
+                            <div class="col">
+                                <p class="text-secondary">Integration grid</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="integration_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="solvent_display2">
+                            <div class="col">
+                                <p class="text-secondary">Solvent</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="solvent_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="convergence_display2">
+                            <div class="col-10">
+                                <p class="text-secondary">Requested SCF convergence on RMS density</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="convergence_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="convergence_max_display2">
+                            <div class="col-10">
+                                <p class="text-secondary">Requested SCF convergence on MAX density</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="convergence_max_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="convergence_energie_display2">
+                            <div class="col-10">
+                                <p class="text-secondary">Requested SCF convergence on energy</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="convergence_energie_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="temperature_display2">
+                            <div class="col-10">
+                                <p class="text-secondary">Temperature</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="temperature_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="anharmonicity_display2">
+                            <div class="col-10">
+                                <p class="text-secondary">Anharmonic effects</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="anharmonicity_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="nb_excited_display2">
+                            <div class="col">
+                                <p class="text-secondary">Number of excited states</p>
+                            </div>
+                            <div class="col text-right">
+                                <p id="nb_excited_state_card"></p>
+                            </div>
+                        </div>
+
+                        <div class="row" id="log_display2">
+                            <div class="col">
+                                <p class="text-secondary">Original log file</p>
+                            </div>
+                            <div class="col text-right">
+                                <a type="button" class="btn btn-primary btn-lg" id="logfile_card">Download</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Carte avec les résultats-->
+        <div class="row mt-4">
+            <div class="col text-left">
+                <div class="card">
+                    <div class="card-header h5">Results</div>
+                    <div class="card-body">
+
+                        <!--Partie WAVEFUNCTION-->
+                        <div id="wavefunction_display">
+                            <div class="card-title text-center h5">Wavefunction</div>
+
+                            <div class="row" id="energy_display2">
+                                <div class="col">
+                                    <p class="text-secondary">Total molecular energy</p>
+                                </div>
+                                <div class="col text-right">
+                                    <p id="energy_card"></p>
+                                </div>
+                            </div>
+
+                            <div class="row" id="homo_display2">
+                                <div class="col">
+                                    <p class="text-secondary">HOMO number</p>
+                                </div>
+                                <div class="col text-right">
+                                    <p id="homo_card"></p>
+                                </div>
+                            </div>
+
+                            <div id="calculated_energies2">
+                                <div class="row my-4">
+                                    <div class="col text-center">
+                                        <div class="h5 my-4">Calculated energies for the frontier molecular orbitals</div>
+                                    </div>
+                                </div>
+                                <div class="row" id="tableau_calc_energies">
+                                    <div class="col text-center">
+                                        <table id="calc_id_card" class="display" style="width: 100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Homo-1</th>
+                                                <th>Homo</th>
+                                                <th>Lumo</th>
+                                                <th>Lumo+1</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="calc_table_card"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="mulliken_charges_card">
+                                <div class="row my-4">
+                                    <div class="col text-center">
+                                        <div class="h5 my-4">Most intense Mulliken atomic charges</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <p id="moyenne_card"></p>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="tableau_atomes_card">
+                                    <div class="col text-center">
+                                        <table id="mull_id_card" class="display" style="width: 100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Atom</th>
+                                                <th>Number</th>
+                                                <th>Mulliken partial charges</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="mulliken_table_card"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Partie GEOMETRY-->
+                        <div id="geometry_display">
+                            <div class="dropdown-divider mt-4"></div>
+                            <div class="card-title text-center h5 mt-4">Geometry</div>
+
+                            <div class="row my-4" id="nuclear_display2">
+                                <div class="col">
+                                    <p class="text-secondary">Nuclear repulsion energy in atomic units</p>
+                                </div>
+                                <div class="col text-right">
+                                    <p id="nuclear_card"></p>
+                                </div>
+                            </div>
+
+                            <div id="geometry_opti_card">
+                                <div class="row mb-4">
+                                    <div class="col text-center">
+                                        <div class="h5 my-4">Geometry optimization convergence criteria</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <p>This calculation is the result of a geometry optimization process.</p>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="tableau_opti_card">
+                                    <div class="col text-left">
+                                        <table id="opti_id_card" class="display" style="width: 100%">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Value</th>
+                                                <th>Threshold</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="opti_table_card"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="cartesian_card">
+                                <div class="row my-4">
+                                    <div class="col text-center">
+                                        <div class="h5 my-4">Cartesian atomic coordinates</div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <a type="button" class="btn btn-primary btn-lg" id="download_cartesian_card">Download</a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <p class="text-center text-secondary mt-3">Coordinates are shown in Angstroms</p>
+                                        <table id="cartesian_id_card" class="display" style="width: 100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Atom</th>
+                                                <th>X</th>
+                                                <th>Y</th>
+                                                <th>Z</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="cartesian_table_card"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Partie THERMOCHEMISTRY-->
+                        <div id="thermochemistry_display">
+                            <div class="dropdown-divider mt-4"></div>
+                            <div class="card-title text-center h5 mt-4">Thermochemistry and normal modes</div>
+
+                            <div class="row" id="zero_point_card">
+                                <div class="col">
+                                    <p class="text-secondary">Sum of electronic and zero-point energy</p>
+                                </div>
+                                <div class="col text-right">
+                                    <p id="zero_point_value_card"></p>
+                                </div>
+                            </div>
+
+                            <div class="row" id="elec_energie_card">
+                                <div class="col">
+                                    <p class="text-secondary">Sum of electronic and thermal</p>
+                                </div>
+                                <div class="col text-right">
+                                    <p id="elec_energie_value_card"></p>
+                                </div>
+                            </div>
+
+                            <div class="row" id="entropy_card">
+                                <div class="col">
+                                    <p class="text-secondary">Entropy</p>
+                                </div>
+                                <div class="col text-right">
+                                    <p id="entropy_value_card"></p>
+                                </div>
+                            </div>
+
+                            <div class="row" id="enthalpy_card">
+                                <div class="col">
+                                    <p class="text-secondary">Enthalpy</p>
+                                </div>
+                                <div class="col text-right">
+                                    <p id="enthalpy_value_card"></p>
+                                </div>
+                            </div>
+
+                            <div class="row" id="free_energy_card">
+                                <div class="col">
+                                    <p class="text-secondary">Gibbs free energy</p>
+                                </div>
+                                <div class="col text-right">
+                                    <p id="free_energy_value_card"></p>
+                                </div>
+                            </div>
+
+                            <div id="vibration_tab_card">
+                                <div class="row my-4">
+                                    <div class="col text-center">
+                                        <div class="h5 my-4">Table of the most intense molecular vibrations (> 20 km/mol)</div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <table id="vibration_id_card" class="display" style="width: 100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Frequencies (cm<sup>-1</sup>)</th>
+                                                <th>Intensity (km/mol)</th>
+                                                <th>Symmetry</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="vibration_table_card"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Partie EXCITED STATES-->
+                        <div id="excitation_card">
+                            <div class="dropdown-divider mt-4"></div>
+                            <div class="card-title text-center h5 mt-4">Excited States</div>
+
+                            <div id="excitation_display_card">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <div class="h5 my-2">Calculated mono-electronic excitations</div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <table id="excitation_id_card" class="display">
+                                            <thead>
+                                            <tr>
+                                                <th>Number</th>
+                                                <th>Energy (cm<sup>-1</sup>)</th>
+                                                <th>Energy (nm)</th>
+                                                <th>Symmetry</th>
+                                                <th>Oscillator Strength</th>
+                                                <th>Rotatory strength</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="excitation_table_card"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Affichage de la page d'erreur en cas de code 404 sur la réponse de l'api sur la requête-->
+<div class='container' style='margin-top:50px; display: none' id="display-404">
+    <div class="row row404">
+        <div class="col text-center">
+            <h1>404 - We can't find the molecule you're looking for.</h1>
+        </div>
+    </div>
+    <div class="row row404">
+        <div class="col text-center">
+            <img src="img/confused_scientist.png" style="height:300px;" alt="Scientist">
+        </div>
+    </div>
+</div>
+
+<!-- Bouton permettant de changer d'affichage (onglets/cartes)-->
+<footer>
+    <button style="position:fixed; bottom:1%; right:1%;z-index:9999;" class="btn btn-primary" type="button" id="switchDiplay">
+        <i class="fas fa-print fa-3x" id="icone"></i>
+        <i class="far fa-window-restore fa-3x" id="icone2" style="display: none"></i>
+    </button>
+</footer>
+
+<!--Bootstrap datatable et js-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://unpkg.com/smiles-drawer@1.0.10/dist/smiles-drawer.min.js"></script>
+<script src="js/smiles-drawer.min.js"></script>
+<script src="js/detail.js"></script>
+<script src="js/NavBar.js"></script>
+
+
+</body>
+</html>

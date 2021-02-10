@@ -1,0 +1,20 @@
+---
+- name: Création d'un utilisateur
+  when: user is defined
+  user: name={{ user }} comment="QuChemPedIA admin"
+
+- name: Création du dossier .ssh
+  become: yes
+  file: path=~/.ssh state=directory
+
+- name: Génération d'une paire de clé RSA
+  openssh_keypair:
+    path: "~/.ssh/id_rsa_api"
+    type: rsa
+    size: 4096
+    state: present
+    force: no
+
+- name: "{{ user }} devient sudoers"
+  when: user is defined
+  template: src=templates/sudoers.j2 dest=/etc/sudoers.d/{{ user }}-sudoer validate='visudo -cf %s'

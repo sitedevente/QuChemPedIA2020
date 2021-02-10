@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style media="screen">
+
+          #container {
+            position: absolute;
+            margin: auto;
+            overflow: hidden;
+            margin-top: 5%;
+            margin-left: 220px;
+            width: 2000px;
+            height: 700px;
+            transform: translate(-15%, 0%) rotate(0deg);
+            vertical-align: middle
+          }
+
+          h1 {
+            font-size: 1.5em;
+            font-weight: 100px;
+            letter-spacing: 3px;
+            padding-top: 5px;
+            color: #FCFCFC;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+          }
+
+          .green {
+            color: darken(#99DBB4, 20%);
+          }
+
+          .red {
+            color: black;
+          }
+
+          .alert {
+            font-weight: 700;
+            letter-spacing: 5px;
+          }
+
+          p {
+            margin-top: -5px;
+            font-size: 0.5em;
+            font-weight: 100;
+            color: darken(#777777, 10%);
+            letter-spacing: 1px;
+          }
+
+          button, .dot {
+            cursor: pointer;
+          }
+
+
+          #error-box {
+            position: absolute;
+            width: 35%;
+            height: 100%;
+            right: 35%;
+            background: linear-gradient(to bottom left, #EF8D9C 40%, #FFC39E 100%);
+            border-radius: 20px;
+            box-shadow: 5px 5px 20px rgba(#CBCDD3, 10%);
+          }
+
+          .dot {
+            width: 8px;
+            height: 8px;
+            background: #FCFCFC;
+            border-radius: 50%;
+            position: absolute;
+            top: 4%;
+            right: 6%;
+            &:hover {
+              background: darken(#FCFCFC, 20%);
+            }
+          }
+
+          .two {
+            right: 12%;
+            opacity: .5;
+          }
+
+          .face {
+            position: absolute;
+            width: 22%;
+            height: 22%;
+            background: #FCFCFC;
+            border-radius: 50%;
+            border: 1px solid #777777;
+            top: 21%;
+            left: 37.5%;
+            z-index: 2;
+            animation: bounce 1s ease-in infinite;
+          }
+
+          .face2 {
+            position: absolute;
+            width: 22%;
+            height: 22%;
+            background: #FCFCFC;
+            border-radius: 50%;
+            border: 1px solid #777777;
+            top: 21%;
+            left: 37.5%;
+            z-index: 2;
+            animation: roll 3s ease-in-out infinite;
+          }
+
+          .eye {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #777777;
+            border-radius: 50%;
+            top: 40%;
+            left: 20%;
+          }
+
+          .right {
+            left: 68%;
+          }
+
+          .mouth {
+            position:absolute;
+            top: 43%;
+            left: 41%;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+          }
+          .sad {
+            top: 49%;
+            border: 2px solid;
+            border-color: #777777 transparent transparent #777777;
+            transform: rotate(45deg);
+          }
+
+          .shadow {
+            position: absolute;
+            width: 21%;
+            height: 3%;
+            opacity: .5;
+            background: #777777;
+            left: 40%;
+            top: 43%;
+            border-radius: 50%;
+            z-index: 1;
+          }
+
+          .scale {
+            animation: scale 1s ease-in infinite;
+          }
+          .move {
+            animation: move 3s ease-in-out infinite;
+          }
+
+
+          .message {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            height: 40%;
+            top: 47%;
+          }
+
+          .button-box {
+            position: absolute;
+            background: #FCFCFC;
+            width: 50%;
+            height: 15%;
+            border-radius: 20px;
+            top: 73%;
+            left: 25%;
+            outline: 0;
+            border: none;
+            box-shadow: 2px 2px 10px rgba(#777777, .5);
+            transition: all .5s ease-in-out;
+            &:hover {
+              background: darken(#FCFCFC, 5%);
+              transform: scale(1.05);
+              transition: all .3s ease-in-out;
+            }
+          }
+
+          @keyframes bounce {
+            50% {
+               transform: translateY(-10px);
+            }
+          }
+
+          @keyframes scale {
+            50% {
+              transform: scale(0.9);
+            }
+          }
+
+          @keyframes roll {
+            0% {
+              transform: rotate(0deg);
+              left: 25%;
+            }
+            50% {
+              left: 60%;
+              transform: rotate(168deg);
+            }
+            100% {
+              transform: rotate(0deg);
+              left: 25%;
+            }
+          }
+
+          @keyframes move {
+            0% {
+              left: 25%;
+            }
+            50% {
+              left: 60%;
+            }
+            100% {
+              left: 25%;
+            }
+          }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+   <link rel="stylesheet" href="{{ url_for('static', filename='Ajax-Pagination/dist/bs-pagination.min.css') }}" />
+    <script src="https://unpkg.com/smiles-drawer@1.0.10/dist/smiles-drawer.min.js"></script>
+  </head>
+  <body style="background: url('https://source.unsplash.com/twukN12EN7c/1920x1080')no-repeat center center fixed;">
+    <div class="">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand primary" href="/accueil/accueil">QuChemPedIA</a>
+
+      <div class="navbar-collapse collapse show" id="navbarSupportedContent" style="">
+         <form class="form-inline my-2 my-lg-0" action="/access/query" method="GET">
+          <input type="hidden" name="csrfmiddlewaretoken" value="oIt3Kd3dAGk8DlHzGzOo64CdukuIATQaHg9iM9spFHdIt9um7KudBBSLhxqWpUug">
+          <input type="text" name="search" value="sfdsfds" id="query" class="mr-1  col-12 col-lg-6 form-control" maxlength="500">
+    <select name="typeQuery" id="id_typeQuery" class="form-control                                                                                                           col-12 col-lg-3">
+      <option value="Formula" selected="">Formula</option>
+
+      <option value="formule">Formula</option>
+
+      <option value="inchi">InChi</option>
+
+      <option value="iupac">IUPAC name</option>
+
+      <option value="cid">CID PubChem</option>
+
+      <option value="smiles">SMILES</option>
+
+      <option value="id_log">id_log</option>
+
+    </select>
+           <button class="btn btn-outline-primary btn-lg mt-lg-0  my-2 my-sm-0" type="submit">Search <i class="fa fa-search"></i></button>
+
+        </form>
+      </div>
+    </nav>
+    <div id="container">
+      <div id="error-box">
+        <div class="dot"></div>
+        <div class="dot two"></div>
+        <div class="face2">
+          <div class="eye"></div>
+          <div class="eye right"></div>
+          <div class="mouth sad"></div>
+        </div>
+        <div class="shadow move"></div>
+        <div class="message">
+          <h1 class="alert">Sorry but the molecule does not exist!!</h1>
+          <h3>Please try again</h3>
+        </div>
+
+        <a href="">
+          <button class="button-box">
+            <h1 class="red">QuChemPedIA</h1>
+          </button>
+        </a>
+      </div>
+    </div>
+  </body>
+</div>
+</html>

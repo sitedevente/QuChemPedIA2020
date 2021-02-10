@@ -1,0 +1,14 @@
+---
+- name: Installation d'ElasticSearch
+  hosts: api
+  remote_user: root
+  connection: local
+  vars:
+        ansible_python_interpreter: /usr/bin/python3
+        user: quchempedia_admin
+        ip: 192.168.0.102
+        port: 9200
+        path_root_es_data: /mnt/data_elasticsearch/
+  roles:
+        - utils
+        - user
