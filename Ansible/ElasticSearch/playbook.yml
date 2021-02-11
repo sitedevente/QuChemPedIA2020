@@ -1,8 +1,7 @@
 ---
 - name: Installation d'ElasticSearch
-  hosts: api
+  hosts: es
   remote_user: root
-  connection: local
   vars:
         ansible_python_interpreter: /usr/bin/python3
         user: quchempedia_admin

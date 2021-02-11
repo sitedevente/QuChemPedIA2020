@@ -2,14 +2,14 @@
 - name: Création d'un utilisateur
   when: user is defined
   user: name={{ user }} comment="QuChemPedIA admin"
-
+  
 - name: Création du dossier .ssh
   become: yes
   file: path=~/.ssh state=directory
-
+  
 - name: Génération d'une paire de clé RSA
   openssh_keypair:
-    path: "~/.ssh/id_rsa_api"
+    path: "~/.ssh/id_rsa_es"
     type: rsa
     size: 4096
     state: present

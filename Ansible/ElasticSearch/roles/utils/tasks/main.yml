@@ -6,6 +6,7 @@
       - vim
       - git
       - htop
+      - gnupg
     state: latest
     update_cache: yes
 
@@ -23,7 +24,7 @@
 
 - name: Installation de Java
   apt:
-    name: openjdk-8-jre
+    name: default-jdk
     state: present
     update_cache: yes
 
@@ -34,7 +35,7 @@
     update_cache: yes
 
 - name: Chargement de la configuration ElasticSearch
-  template: src=templates/elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml
+  template: src=elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml
 
 - name: Reload systemd config
   systemd: daemon_reload=yes
