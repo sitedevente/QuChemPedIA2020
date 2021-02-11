@@ -5,7 +5,7 @@
   remote_user: root
   vars:
     domain: quchempedia.univ-angers.fr
-    repo: https://github.com/younesr19/QuChemPedIA2020.git
+    repo: https://github.com/BenoitDamota/QuChemPedIA2020.git
     ansible_python_interpreter: /usr/bin/python3
     quchempedia: QuChemPedIA
     user: quchempedia_admin
