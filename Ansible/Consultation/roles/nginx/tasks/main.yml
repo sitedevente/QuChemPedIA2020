@@ -18,7 +18,7 @@
 
 - name: Clonage du site {{ domain }} depuis {{ repo }}
   become: yes
-  git: dest=/home/{{ user }}/{{ domain }} key_file="~/.ssh/id_rsa_api" accept_hostkey=yes clone=yes repo={{ repo }} version=feat-deploy force=yes
+  git: dest=/home/{{ user }}/{{ domain }} key_file="~/.ssh/id_rsa_api" accept_hostkey=yes clone=yes repo={{ repo }} version={{ branch }} force=yes
 
 - name: Création du dossier {{ domain }} dans le répertoire www
   become: yes

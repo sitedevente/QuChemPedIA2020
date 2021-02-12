@@ -18,23 +18,23 @@
 
 - name: Clonage du site {{ domain }} depuis {{ repo }}
   become: yes
-  git: dest=/home/{{ user }}/{{ domain }} key_file="~/.ssh/id_rsa_quchempedia" accept_hostkey=yes clone=yes repo={{ repo }} version=feat-deploy force=yes
+  git: dest=/home/{{ user }}/{{ domain }} key_file="~/.ssh/id_rsa_quchempedia" accept_hostkey=yes clone=yes repo={{ repo }} version={{ branch }} force=yes
 
 - name: Création du dossier {{ domain }} dans le répertoire www
   become: yes
   file: path=/var/www/{{ domain }} state=directory
 
-- name: Création du dossier data_dir pour stocker les logfiles
+- name: Création du dossier logs Nginx
   become: yes
-  file: path=/var/www/{{ domain }}/QuChemPedIA/data_dir state=directory
+  file: path=/home/{{ user }}/logs state=directory
+
+#- name: Création du dossier data_dir pour stocker les logfiles
+#  become: yes
+#  file: path=/var/www/{{ domain }}/QuChemPedIA/data_dir state=directory
 
 - name: Lien vers /mnt/data_dir
   become: yes
   file: src=/mnt/data_dir dest=/var/www/{{ domain }}/{{ quchempedia }} state=link force=yes
-
-- name: Création du dossier logs Nginx
-  become: yes
-  file: path=/home/{{ user }}/logs state=directory
  
 - name: Lien vers www
   become: yes

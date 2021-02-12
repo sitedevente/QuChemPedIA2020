@@ -1,11 +1,11 @@
 ---
 - name: Installation et déploiement de QuChemPedIA
   hosts: web
-  connection: local
   remote_user: root
   vars:
     domain: quchempedia.univ-angers.fr
     repo: https://github.com/BenoitDamota/QuChemPedIA2020.git
+    branch: master
     ansible_python_interpreter: /usr/bin/python3
     quchempedia: QuChemPedIA
     user: quchempedia_admin
