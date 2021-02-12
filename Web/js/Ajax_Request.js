@@ -27,7 +27,7 @@
 //                                                                          //
   //////////////////////////////////////////////////////////////////////////
 var API_URL = "https://quchempedia.univ-angers.fr/api/";
-var BASE_URL = "https://quchempedia.univ-angers.fr/reboot/"
+var BASE_URL = "https://quchempedia.univ-angers.fr/"
 
 /**
  * Function to execute ajax request on search API
