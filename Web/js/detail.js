@@ -704,11 +704,10 @@ request.onreadystatechange = function() {
         if(response.data.comp_details.geometry.geometric_targets){
             let geometric_targets = response.data.comp_details.geometry.geometric_targets;
             let geometric_values = response.data.results.geometry.geometric_values[response.data.results.geometry.geometric_values.length - 1];
+	    let titreLines = ["Crit. 1","Crit. 2","Crit. 3","Crit. 4"];
 	    if(response.data.comp_details.general.package &&
 	       (response.data.comp_details.general.package=="Gaussian")) {
-                let titreLines = ["Maximum Force","RMS Force","Maximum Displacement","RMS Displacement"];
-	    } else {
-		let titreLines = ["Crit. 1","Crit. 2","Crit. 3","Crit. 4"];
+                titreLines = ["Maximum Force","RMS Force","Maximum Displacement","RMS Displacement"];
 	    }
             let html = "";
 
