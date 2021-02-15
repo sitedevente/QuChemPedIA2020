@@ -735,12 +735,13 @@ request.onreadystatechange = function() {
         }
 
         //Partie THERMOCHEMISTRY
-        // if((!response.data.results.freq) ||
-	//    (response.data.results.freq.length == undefined)){
-        //     document.getElementById("v-pills-thermochemistry").style.display = "none";
-        //     document.getElementById("v-pills-thermochemistry-tab").style.display = "none";
-        //     document.getElementById("thermochemistry_display").style.display = "none";
-        // }
+        if((!response.data.results.freq)
+	   //  || (response.data.results.freq.length == undefined)
+	  ){
+            document.getElementById("v-pills-thermochemistry").style.display = "none";
+            document.getElementById("v-pills-thermochemistry-tab").style.display = "none";
+            document.getElementById("thermochemistry_display").style.display = "none";
+        }
 
         //Champ Sum of electronic and zero-point energy
         if(response.data.results.freq.zero_point_energy){
