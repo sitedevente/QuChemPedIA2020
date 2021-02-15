@@ -184,9 +184,9 @@ def search():
                 list(molecules.comp_details.general.list_theory))
             dict["list_theory"] = list_theory
 
-        if(hasattr(molecules.comp_details.general, 'total_molecular_energy')):
+        if(hasattr(molecules.results.wavefunction, 'total_molecular_energy')):
             total_molecular_energy = json.dumps(
-                list(molecules.comp_details.general.total_molecular_energy))
+                list(molecules.results.wavefunction.total_molecular_energy))
             dict["total_molecular_energy"] = total_molecular_energy
 
         liste.append(dict)
