@@ -250,7 +250,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
         if (data.data[i].basis_set_name != undefined) {
           $(div_col).append(
             "<span class='text-muted'>Basis set name : </span> " +
-              data.data[i].charge +
+              data.data[i].basis_set_name +
               "<br>"
           );
         } else
