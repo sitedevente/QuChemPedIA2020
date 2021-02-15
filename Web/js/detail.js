@@ -891,7 +891,7 @@ request.onreadystatechange = function() {
 					createCol(Math.round(nm)) +
 					createCol(et_sym[i]) +
 					createCol(et_oscs[i].toFixed(4)) +
-					createCol("Unknown"));
+					createCol("N/A"));
                 }
             }
             document.getElementById("excitation_table").innerHTML = html;
