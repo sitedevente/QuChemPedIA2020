@@ -695,8 +695,7 @@ request.onreadystatechange = function() {
         if (response.data.results.geometry.nuclear_repulsion_energy_from_xyz){
             document.getElementById("nuclear").innerHTML = response.data.results.geometry.nuclear_repulsion_energy_from_xyz;
             document.getElementById("nuclear_card").innerHTML = response.data.results.geometry.nuclear_repulsion_energy_from_xyz;
-        }
-        else{
+        } else {
             document.getElementById("nuclear_display").style.display = "none";
             document.getElementById("nuclear_display2").style.display = "none";
         }
@@ -706,7 +705,7 @@ request.onreadystatechange = function() {
             let geometric_targets = response.data.comp_details.geometry.geometric_targets;
             let geometric_values = response.data.results.geometry.geometric_values[response.data.results.geometry.geometric_values.length - 1];
 	    if(response.data.comp_details.general.package &&
-	       (response.data.comp_details.general.package=="Gaussian")){
+	       (response.data.comp_details.general.package=="Gaussian")) {
                 let titreLines = ["Maximum Force","RMS Force","Maximum Displacement","RMS Displacement"];
 	    } else {
 		let titreLines = ["Crit. 1","Crit. 2","Crit. 3","Crit. 4"];
@@ -718,15 +717,12 @@ request.onreadystatechange = function() {
 				    createCol(geometric_values[i].toFixed(6)) +
 				    createCol(geometric_targets[i].toFixed(6)));
             }
-
             document.getElementById("opti_table").innerHTML = html;
             document.getElementById("opti_table_card").innerHTML = html;
-            }
-        else{
+        } else {
             document.getElementById("geometry_opti").style.display = "none";
             document.getElementById("geometry_opti_card").style.display = "none";
         }
-    }
 
 
         //Remplissage du tableau de coordonnées cartésiennes
