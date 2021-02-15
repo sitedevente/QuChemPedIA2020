@@ -701,26 +701,32 @@ request.onreadystatechange = function() {
             document.getElementById("nuclear_display2").style.display = "none";
         }
 
-        //Si le logiciel utilisé est Gaussian on affiche les cibles géométriques dans la partie GEOMETRY
-        if(response.data.comp_details.general.package && (response.data.comp_details.general.package=="Gaussian")){
-            if(response.data.comp_details.geometry.geometric_targets){
-                let geometric_targets = response.data.comp_details.geometry.geometric_targets;
-                let geometric_values = response.data.results.geometry.geometric_values[response.data.results.geometry.geometric_values.length -1 ];
-                let titreCols = ["Maximum Force","RMS Force","Maximum Displacement","RMS Displacement"];
-                let html = "";
+	// geometric convergence criteria
+        if(response.data.comp_details.geometry.geometric_targets){
+            let geometric_targets = response.data.comp_details.geometry.geometric_targets;
+            let geometric_values = response.data.results.geometry.geometric_values[response.data.results.geometry.geometric_values.length - 1];
+	    if(response.data.comp_details.general.package &&
+	       (response.data.comp_details.general.package=="Gaussian")){
+                let titreLines = ["Maximum Force","RMS Force","Maximum Displacement","RMS Displacement"];
+	    } else {
+		let titreLines = ["Crit. 1","Crit. 2","Crit. 3","Crit. 4"]
+	    }
+            let html = "";
 
-                for(let i=0;i<geometric_targets.length && i< titreCols.length;i++){
-                    html += createLigne(createCol(titreCols[i]) + createCol(geometric_values[i].toFixed(6)) + createCol(geometric_targets[i].toFixed(6)));
-                }
+            for(let i=0;i<geometric_targets.length && i< titreLines.length;i++){
+                html += createLigne(createCol(titreLines[i]) +
+				    createCol(geometric_values[i].toFixed(6)) +
+				    createCol(geometric_targets[i].toFixed(6)));
+            }
 
-                document.getElementById("opti_table").innerHTML = html;
-                document.getElementById("opti_table_card").innerHTML = html;
+            document.getElementById("opti_table").innerHTML = html;
+            document.getElementById("opti_table_card").innerHTML = html;
             }
-            else{
-                document.getElementById("geometry_opti").style.display = "none";
-                document.getElementById("geometry_opti_card").style.display = "none";
-            }
+        else{
+            document.getElementById("geometry_opti").style.display = "none";
+            document.getElementById("geometry_opti_card").style.display = "none";
         }
+    }
 
 
         //Remplissage du tableau de coordonnées cartésiennes
