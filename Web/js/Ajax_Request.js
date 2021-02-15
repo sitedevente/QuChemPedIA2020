@@ -135,15 +135,15 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
           $(div_container_row).addClass("container row");
           var div_col = document.createElement("div");
           $(div_col).addClass("col-lg-6");
-          if (data.data[i].solvent != undefined) {
+          if (data.data[i].inchi !== undefined) {
             $(div_col).append(
-              "<span class='text-primary'>Inchi : </span>" +
+              "<span class='text-primary'>InChI : </span>" +
                 data.data[i].inchi +
                 "<br>"
             );
           } else
             $(div_col).append(
-              "<span class='text-muted'>Inchi : </span> No inchi<br>"
+              "<span class='text-muted'>InChI : </span> No InChI<br>"
             );
           $(div_container_row).append(div_col);
           $(div_col_infos).append(div_container_row);
@@ -155,15 +155,15 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
           $(div_container_row).addClass("container row");
           var div_col = document.createElement("div");
           $(div_col).addClass("col-lg-6");
-          if (data.data[i].solvent != undefined) {
+          if (data.data[i].smi !== undefined) {
             $(div_col).append(
-              "<span class='text-primary'>Smile : </span>" +
+              "<span class='text-primary'>SMILES : </span>" +
                 data.data[i].smi +
                 "<br>"
             );
           } else
             $(div_col).append(
-              "<span class='text-muted'>Inchi : </span> No Smile<br>"
+              "<span class='text-muted'>SMILES : </span> No SMILES<br>"
             );
           $(div_container_row).append(div_col);
           $(div_col_infos).append(div_container_row);
