@@ -824,7 +824,8 @@ request.onreadystatechange = function() {
         }
 
         //Partie sur les EXCITED STATES
-        if(!response.data.results.excited_states.et_energies || response.data.results.excited_states.et_energies == {}){
+        if( (! response.data.results.excited_states.et_energies) ||
+	    (response.data.results.excited_states.et_energies == {})){
             document.getElementById("v-pills-states").style.display = "none";
             document.getElementById("v-pills-states-tab").style.display = "none";
             document.getElementById("excitation_card").style.display = "none";
@@ -848,15 +849,24 @@ request.onreadystatechange = function() {
                 let nm = 10000000 / et_energies[i];
 
                 if (et_rot[i]) {
-                    html += createLigne(createCol(inde[i]) + createCol(Math.round(et_energies[i])) + createCol(Math.round(nm)) + createCol(et_sym[i]) + createCol(et_oscs[i].toFixed(4)) + createCol(et_rot[i].toFixed(4)));
+                    html += createLigne(createCol(inde[i]) +
+					createCol(Math.round(et_energies[i])) +
+					createCol(Math.round(nm)) +
+					createCol(et_sym[i]) +
+					createCol(et_oscs[i].toFixed(4)) +
+					createCol(et_rot[i].toFixed(4)));
                 } else {
-                    html += createLigne(createCol(inde[i]) + createCol(Math.round(et_energies[i])) + createCol(Math.round(nm)) + createCol(et_sym[i]) + createCol(et_oscs[i].toFixed(4)) + createCol("Unknown"));
+                    html += createLigne(createCol(inde[i]) +
+					createCol(Math.round(et_energies[i])) +
+					createCol(Math.round(nm)) +
+					createCol(et_sym[i]) +
+					createCol(et_oscs[i].toFixed(4)) +
+					createCol("Unknown"));
                 }
             }
-            document.getElementById("excitation_table").innerHTML = html;
-            document.getElementById("excitation_table_card").innerHTML = html;
-        }
-        else{
+            document.getElementById("excitation_display").innerHTML = html;
+            document.getElementById("excitation_display_card").innerHTML = html;
+        } else {
             document.getElementById("excitation_display").style.display = "none";
             document.getElementById("excitation_display_card").style.display = "none";
         }
