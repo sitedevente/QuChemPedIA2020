@@ -580,11 +580,20 @@ request.onreadystatechange = function() {
             let ligne = "";
             for(let j=0;j<homo_indexes.length;j++){
                 if (homo_indexes[j] <= 0) {
-                    ligne += createLigne(createCol(N/A) + createCol(MO_energies[j][homo_indexes[j]].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j]+1].toFixed(2)) + createCol(N/A));
-                }
-                else {
-                    //ligne += createLigne(createCol(MO_energies[j][homo_indexes[j] - 1].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j]].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j] + 1].toFixed(2)) + createCol(MO_energies[j][homo_indexes[j] + 2].toFixed(2)));
-                    ligne += createLigne(createCol(MO_energies[j][3].toFixed(2)) + createCol(MO_energies[j][4].toFixed(2)) + createCol(MO_energies[j][5].toFixed(2)) + createCol(MO_energies[j][6].toFixed(2)));
+                    ligne += createLigne(createCol(N/A) +
+					 createCol(MO_energies[j][homo_indexes[j]].toFixed(2)) +
+					 createCol(MO_energies[j][homo_indexes[j]+1].toFixed(2)) +
+					 createCol(N/A));
+                } else {
+                    ligne += createLigne(createCol(MO_energies[j][homo_indexes[j] - 1].toFixed(2)) +
+					 createCol(MO_energies[j][homo_indexes[j]].toFixed(2)) +
+					 createCol(MO_energies[j][homo_indexes[j] + 1].toFixed(2)) +
+					 createCol(MO_energies[j][homo_indexes[j] + 2].toFixed(2)));
+                    //ligne += createLigne(
+		    //createCol(MO_energies[j][3].toFixed(2)) +
+		    //createCol(MO_energies[j][4].toFixed(2)) +
+		    //createCol(MO_energies[j][5].toFixed(2)) +
+		    //createCol(MO_energies[j][6].toFixed(2)));
                 }
             }
             document.getElementById("calc_table_tab").innerHTML = ligne;
