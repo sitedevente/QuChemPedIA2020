@@ -864,7 +864,7 @@ request.onreadystatechange = function() {
             for (let i = 0; i < et_energies.length; i++) {
                 let nm = 10000000 / et_energies[i];
 
-                if (et_rot[i]) {
+                if (et_rot) {
                     html += createLigne(createCol(inde[i]) +
 					createCol(Math.round(et_energies[i])) +
 					createCol(Math.round(nm)) +
