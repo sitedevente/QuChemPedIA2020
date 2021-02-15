@@ -709,7 +709,7 @@ request.onreadystatechange = function() {
 	       (response.data.comp_details.general.package=="Gaussian")){
                 let titreLines = ["Maximum Force","RMS Force","Maximum Displacement","RMS Displacement"];
 	    } else {
-		let titreLines = ["Crit. 1","Crit. 2","Crit. 3","Crit. 4"]
+		let titreLines = ["Crit. 1","Crit. 2","Crit. 3","Crit. 4"];
 	    }
             let html = "";
 
