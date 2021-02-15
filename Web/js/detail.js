@@ -197,7 +197,7 @@ function exposant(chaine){
 //Récupération de l'url, l'id et construction de l'url de requete
 let url = new URL(document.location.href);
 let id = url.searchParams.get("id");
-let url_api = API_URL+'api/details/';
+let url_api = API_URL+'details/';
 url_api += id;
 
 //Objet XHR ajax permettant de récupérer des données à partir d'une URL

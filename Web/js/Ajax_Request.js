@@ -50,7 +50,7 @@ function ajaxGet(page_number, entrie_page, query, query_type, pop_state) {
   // page, showresult -> Page and entrie on this page
   $.ajax({
     type: "GET",
-    url: API_URL+"api/search",
+    url: API_URL+"search",
     data: {
       type: query_type,
       q: query,

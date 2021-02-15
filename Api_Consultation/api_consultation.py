@@ -21,7 +21,7 @@ client = Elasticsearch(app.config.get("ES_URL"))
 
 #  Route to look for a molecule with its formula and its name in Elasticsearch.
 
-@app.route('/api/search')
+@app.route('/search')
 def search():
     """Route to look for a molecule with its formula and its name in Elasticsearch."""
     # Check if a type , name ,page number and results number were provided in the URL
@@ -202,7 +202,7 @@ def search():
     return response, 200
 
 
-@app.route('/api/details/<id>')
+@app.route('/details/<id>')
 def details(id):
     """ Route to retrieve a molecule with its ID in Elasticsearch."""
 
