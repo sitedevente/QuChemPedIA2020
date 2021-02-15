@@ -880,8 +880,8 @@ request.onreadystatechange = function() {
 					createCol("Unknown"));
                 }
             }
-            document.getElementById("excitation_display").innerHTML = html;
-            document.getElementById("excitation_display_card").innerHTML = html;
+            document.getElementById("excitation_table").innerHTML = html;
+            document.getElementById("excitation_table_card").innerHTML = html;
         } else {
             document.getElementById("excitation_display").style.display = "none";
             document.getElementById("excitation_display_card").style.display = "none";
