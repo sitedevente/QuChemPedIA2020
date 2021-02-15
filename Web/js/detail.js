@@ -421,7 +421,8 @@ request.onreadystatechange = function() {
         }
 
         //Champs Request SCF Convergence
-        if (response.data.comp_details.general.scf_targets || response.data.comp_details.general.scf_targets.length == 0){
+        if (response.data.comp_details.general.scf_targets ||
+	    response.data.comp_details.general.scf_targets.length == 0){
             let val = response.data.comp_details.general.scf_targets[response.data.comp_details.general.scf_targets.length-1];
             document.getElementById("convergence").innerHTML = exposant(val[0]);
             document.getElementById("convergence_card").innerHTML = exposant(val[0]);
@@ -444,7 +445,8 @@ request.onreadystatechange = function() {
         }
 
         //Champ Temperature
-        if(response.data.comp_details.freq.temperature || response.data.comp_details.freq.temperature  == 0){
+        if(response.data.comp_details.freq.temperature ||
+	   response.data.comp_details.freq.temperature  == 0){
             document.getElementById("temperature").innerHTML = response.data.comp_details.freq.temperature ;
             document.getElementById("temperature_card").innerHTML = response.data.comp_details.freq.temperature ;
         }
@@ -693,8 +695,10 @@ request.onreadystatechange = function() {
 
         //Champ Nuclear repulsion energy in atomic units
         if (response.data.results.geometry.nuclear_repulsion_energy_from_xyz){
-            document.getElementById("nuclear").innerHTML = response.data.results.geometry.nuclear_repulsion_energy_from_xyz;
-            document.getElementById("nuclear_card").innerHTML = response.data.results.geometry.nuclear_repulsion_energy_from_xyz;
+            document.getElementById("nuclear").innerHTML =
+		response.data.results.geometry.nuclear_repulsion_energy_from_xyz;
+            document.getElementById("nuclear_card").innerHTML =
+		response.data.results.geometry.nuclear_repulsion_energy_from_xyz;
         } else {
             document.getElementById("nuclear_display").style.display = "none";
             document.getElementById("nuclear_display2").style.display = "none";
@@ -706,7 +710,8 @@ request.onreadystatechange = function() {
             let geometric_values = response.data.results.geometry.geometric_values[response.data.results.geometry.geometric_values.length - 1];
 	    let titreLines = ["Crit. 1","Crit. 2","Crit. 3","Crit. 4"];
 	    if(response.data.comp_details.general.package &&
-	       (response.data.comp_details.general.package=="Gaussian")) {
+	       ((response.data.comp_details.general.package=="Gaussian") ||
+		(response.data.comp_details.general.package=="NWChem")) {
                 titreLines = ["Maximum Force","RMS Force","Maximum Displacement","RMS Displacement"];
 	    }
             let html = "";
@@ -731,7 +736,10 @@ request.onreadystatechange = function() {
             let html = "";
 
             for(let i=0;i<elements_3D_coords_converged.length;i+=3){
-                html += createLigne(createCol(Symbol[atoms_Z[i/3]-1]) + createCol(elements_3D_coords_converged[i].toFixed(4)) + createCol(elements_3D_coords_converged[i+1].toFixed(4)) + createCol(elements_3D_coords_converged[i+2].toFixed(4)));
+                html += createLigne(createCol(Symbol[atoms_Z[i/3]-1]) +
+				    createCol(elements_3D_coords_converged[i].toFixed(4)) +
+				    createCol(elements_3D_coords_converged[i+1].toFixed(4)) +
+				    createCol(elements_3D_coords_converged[i+2].toFixed(4)));
             }
 
             document.getElementById("cartesian_table").innerHTML = html;
@@ -743,7 +751,8 @@ request.onreadystatechange = function() {
         }
 
         //Partie THERMOCHEMISTRY
-        if(!response.data.results.freq || response.data.results.freq.length == undefined){
+        if((! response.data.results.freq) ||
+	   (response.data.results.freq.length == undefined)){
             document.getElementById("v-pills-thermochemistry").style.display = "none";
             document.getElementById("v-pills-thermochemistry-tab").style.display = "none";
             document.getElementById("thermochemistry_display").style.display = "none";
@@ -751,8 +760,10 @@ request.onreadystatechange = function() {
 
         //Champ Sum of electronic and zero-point energy
         if(response.data.results.freq.zero_point_energy){
-            document.getElementById("zero_point_value").innerHTML = response.data.results.freq.zero_point_energy;
-            document.getElementById("zero_point_value_card").innerHTML = response.data.results.freq.zero_point_energy;
+            document.getElementById("zero_point_value").innerHTML =
+		response.data.results.freq.zero_point_energy;
+            document.getElementById("zero_point_value_card").innerHTML =
+		response.data.results.freq.zero_point_energy;
         }
         else{
             document.getElementById("zero_point").style.display = "none";
@@ -761,8 +772,10 @@ request.onreadystatechange = function() {
 
         //Champ Sum of electronic and thermal
         if(response.data.results.freq.electronic_thermal_energy){
-            document.getElementById("elec_energie_value").innerHTML = response.data.results.freq.electronic_thermal_energy;
-            document.getElementById("elec_energie_value_card").innerHTML = response.data.results.freq.electronic_thermal_energy;
+            document.getElementById("elec_energie_value").innerHTML =
+		response.data.results.freq.electronic_thermal_energy;
+            document.getElementById("elec_energie_value_card").innerHTML =
+		response.data.results.freq.electronic_thermal_energy;
         }
         else{
             document.getElementById("elec_energie").style.display = "none";
