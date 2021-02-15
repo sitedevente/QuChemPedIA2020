@@ -308,8 +308,7 @@ request.onreadystatechange = function() {
         if(response.data.molecule.iupac){
             document.getElementById("iupac").innerHTML = "<acronym title='International Union of Pure and Applied Chemistry' style='text-decoration: none'>IUPAC :</acronym>" + " "+ response.data.molecule.iupac;
             document.getElementById("iupac_card").innerHTML = response.data.molecule.iupac;
-        }
-        else{
+        } else {
             document.getElementById("iupac_display").style.display = "none";
             document.getElementById("iupac_display2").style.display = "none";
         }
@@ -319,8 +318,7 @@ request.onreadystatechange = function() {
             //Substring pour ne pas prendre le début avec "INCHI="
             document.getElementById("inchi").innerHTML = "<acronym title='International Chemical Identifier' style='text-decoration: none'>Inchi :</acronym>" + " " + response.data.molecule.inchi.substring(6);
             document.getElementById("inchi_card").innerHTML = response.data.molecule.inchi.substring(6);
-        }
-        else{
+        } else {
             document.getElementById("inchi_display").style.display = "none";
             document.getElementById("inchi_display2").style.display = "none";
         }
@@ -329,8 +327,7 @@ request.onreadystatechange = function() {
         if (response.data.molecule.smi){
             document.getElementById("smiles").innerHTML = "<acronym title='Simplified Molecular-Input Line-Entry System' style='text-decoration: none'>SMILES :</acronym>" + " " + response.data.molecule.smi;
             document.getElementById("smiles_card").innerHTML = response.data.molecule.smi;
-        }
-        else{
+        } else {
             document.getElementById("smiles_display").style.display = "none";
             document.getElementById("smiles_display2").style.display = "none";
         }
@@ -344,8 +341,7 @@ request.onreadystatechange = function() {
         if (response.data.comp_details.general.package && response.data.comp_details.general.package_version){
             document.getElementById("software").innerHTML = response.data.comp_details.general.package +" ("+response.data.comp_details.general.package_version+")";
             document.getElementById("software_card").innerHTML = response.data.comp_details.general.package +" ("+response.data.comp_details.general.package_version+")";
-        }
-        else{
+        } else {
             document.getElementById("diplay_software").style.display = "none";
             document.getElementById("diplay_software2").style.display = "none";
         }
@@ -354,8 +350,7 @@ request.onreadystatechange = function() {
         if (response.data.comp_details.general.last_theory){
             document.getElementById("computational").innerHTML = response.data.comp_details.general.last_theory;
             document.getElementById("computational_card").innerHTML = response.data.comp_details.general.last_theory;
-        }
-        else{
+        } else {
             document.getElementById("comp_display").style.display = "none";
             document.getElementById("comp_display2").style.display = "none";
         }
@@ -364,8 +359,7 @@ request.onreadystatechange = function() {
         if (response.data.comp_details.general.functional){
             document.getElementById("functional").innerHTML = response.data.comp_details.general.functional;
             document.getElementById("functional_card").innerHTML = response.data.comp_details.general.functional;
-        }
-        else{
+        } else {
             document.getElementById("func_display").style.display = "none";
             document.getElementById("func_display2").style.display = "none";
         }
@@ -374,8 +368,7 @@ request.onreadystatechange = function() {
         if (response.data.comp_details.general.basis_set_name){
             document.getElementById("basis").innerHTML = response.data.comp_details.general.basis_set_name;
             document.getElementById("basis_card").innerHTML = response.data.comp_details.general.basis_set_name;
-        }
-        else{
+        } else {
             document.getElementById("basis_display").style.display = "none";
             document.getElementById("basis_display2").style.display = "none";
         }
@@ -384,8 +377,7 @@ request.onreadystatechange = function() {
         if (response.data.comp_details.general.basis_set_size || response.data.comp_details.general.basis_set_size == 0){
             document.getElementById("number_basis").innerHTML = response.data.comp_details.general.basis_set_size;
             document.getElementById("number_basis_card").innerHTML = response.data.comp_details.general.basis_set_size;
-        }
-        else{
+        } else {
             document.getElementById("nb_basis_display").style.display = "none";
             document.getElementById("nb_basis_display2").style.display = "none";
         }
@@ -394,8 +386,7 @@ request.onreadystatechange = function() {
         if (response.data.comp_details.general.is_closed_shell){
             document.getElementById("shell_calc").innerHTML = response.data.comp_details.general.is_closed_shell;
             document.getElementById("shell_calc_card").innerHTML = response.data.comp_details.general.is_closed_shell;
-        }
-        else{
+        } else {
             document.getElementById("shell_display").style.display = "none";
             document.getElementById("shell_display2").style.display = "none";
         }
@@ -404,8 +395,7 @@ request.onreadystatechange = function() {
         if (response.data.comp_details.general.integration_grid){
             document.getElementById("integration").innerHTML = response.data.comp_details.general.integration_grid;
             document.getElementById("integration_card").innerHTML = response.data.comp_details.general.integration_grid;
-        }
-        else{
+        } else {
             document.getElementById("integration_display").style.display = "none";
             document.getElementById("integration_display2").style.display = "none";
         }
@@ -414,8 +404,7 @@ request.onreadystatechange = function() {
         if (response.data.comp_details.general.solvent){
             document.getElementById("solvent").innerHTML = response.data.comp_details.general.solvent;
             document.getElementById("solvent_card").innerHTML = response.data.comp_details.general.solvent;
-        }
-        else{
+        } else {
             document.getElementById("solvent_display").style.display = "none";
             document.getElementById("solvent_display2").style.display = "none";
         }
@@ -432,8 +421,7 @@ request.onreadystatechange = function() {
 
             document.getElementById("convergence_energie").innerHTML = val[2];
             document.getElementById("convergence_energie_card").innerHTML = val[2];
-        }
-        else{
+        } else {
             document.getElementById("convergence_display").style.display = "none";
             document.getElementById("convergence_display2").style.display = "none";
 
@@ -449,8 +437,7 @@ request.onreadystatechange = function() {
 	   response.data.comp_details.freq.temperature  == 0){
             document.getElementById("temperature").innerHTML = response.data.comp_details.freq.temperature ;
             document.getElementById("temperature_card").innerHTML = response.data.comp_details.freq.temperature ;
-        }
-        else{
+        } else {
             document.getElementById("temperature_display").style.display = "none";
             document.getElementById("temperature_display2").style.display = "none";
         }
@@ -459,23 +446,25 @@ request.onreadystatechange = function() {
         if(response.data.comp_details.freq.anharmonicity != null){
             document.getElementById("anharmonicity").innerHTML = response.data.comp_details.freq.anharmonicity;
             document.getElementById("anharmonicity_card").innerHTML = response.data.comp_details.freq.anharmonicity;
-        }
-        else{
+        } else {
             document.getElementById("anharmonicity_display").style.display = "none";
             document.getElementById("anharmonicity_display2").style.display = "none";
         }
 
         //Champ Number of excited states
-        if (response.data.comp_details.excited_states.nb_et_states || response.data.comp_details.excited_states.nb_et_states  == 0){
-            document.getElementById("nb_excited_state").innerHTML = response.data.comp_details.excited_states.nb_et_states;
-            document.getElementById("nb_excited_state_card").innerHTML = response.data.comp_details.excited_states.nb_et_states;
-        }
-        else{
+        if (response.data.comp_details.excited_states.nb_et_states ||
+	    response.data.comp_details.excited_states.nb_et_states  == 0){
+            document.getElementById("nb_excited_state").innerHTML =
+		response.data.comp_details.excited_states.nb_et_states;
+            document.getElementById("nb_excited_state_card").innerHTML =
+		response.data.comp_details.excited_states.nb_et_states;
+        } else {
             document.getElementById("nb_excited_display").style.display = "none";
             document.getElementById("nb_excited_display2").style.display = "none";
         }
 
-        //Partie plus détaillée pour les caractéristiques de la molécule (partie détail de la molécule en affichage normal)
+        // Partie plus détaillée pour les caractéristiques de la molécule
+	// (partie détail de la molécule en affichage normal)
         if (response.data.molecule.formula){
             document.getElementById("formule").innerHTML = mol_sub(response.data.molecule.formula);
             document.getElementById("formule_card").innerHTML = mol_sub(response.data.molecule.formula);
@@ -485,8 +474,7 @@ request.onreadystatechange = function() {
         if (response.data.molecule.charge || response.data.molecule.charge == 0){
             document.getElementById("charge").innerHTML = response.data.molecule.charge;
             document.getElementById("charge_card").innerHTML = response.data.molecule.charge;
-        }
-        else{
+        } else {
             document.getElementById("charge_display").style.display = "none";
             document.getElementById("charge_display2").style.display = "none";
         }
@@ -495,8 +483,7 @@ request.onreadystatechange = function() {
         if (response.data.molecule.multiplicity || response.data.molecule.multiplicity == 0){
             document.getElementById("spin").innerHTML = response.data.molecule.multiplicity;
             document.getElementById("spin_card").innerHTML = response.data.molecule.multiplicity;
-        }
-        else{
+        } else {
             document.getElementById("spin_display").style.display = "none";
             document.getElementById("spin_display2").style.display = "none";
         }
@@ -505,8 +492,7 @@ request.onreadystatechange = function() {
         if (response.data.molecule.monoisotopic_mass || response.data.molecule.monoisotopic_mass == 0){
             document.getElementById("monoisotopic").innerHTML = response.data.molecule.monoisotopic_mass;
             document.getElementById("monoisotopic_card").innerHTML = response.data.molecule.monoisotopic_mass;
-        }
-        else{
+        } else {
             document.getElementById("monoisotopic_display").style.display = "none";
             document.getElementById("monoisotopic_display2").style.display = "none";
         }
@@ -530,8 +516,7 @@ request.onreadystatechange = function() {
 
             let logbtn2 = document.getElementById("logfile_card");
             logbtn2.setAttribute("href",lien);
-        }
-        else{
+        } else {
             document.getElementById("log_display").style.display = "none";
             document.getElementById("log_display2").style.display = "none";
         }
@@ -548,11 +533,13 @@ request.onreadystatechange = function() {
         }
 
         //Champ Total Molecular energy
-        if (response.data.results.wavefunction.total_molecular_energy || response.data.results.wavefunction.total_molecular_energy == 0){
-            document.getElementById("energy").innerHTML = response.data.results.wavefunction.total_molecular_energy;
-            document.getElementById("energy_card").innerHTML = response.data.results.wavefunction.total_molecular_energy;
-        }
-        else{
+        if (response.data.results.wavefunction.total_molecular_energy ||
+	    response.data.results.wavefunction.total_molecular_energy == 0){
+            document.getElementById("energy").innerHTML =
+		response.data.results.wavefunction.total_molecular_energy;
+            document.getElementById("energy_card").innerHTML =
+		response.data.results.wavefunction.total_molecular_energy;
+        } else {
             document.getElementById("energy_display").style.display = "none";
             document.getElementById("energy_display2").style.display = "none";
         }
@@ -600,8 +587,7 @@ request.onreadystatechange = function() {
             }
             document.getElementById("calc_table_tab").innerHTML = ligne;
             document.getElementById("calc_table_card").innerHTML = ligne;
-        }
-        else{
+        } else {
             document.getElementById("calculated_energies").style.display = "none";
             document.getElementById("calculated_energies2").style.display = "none";
         }
@@ -680,8 +666,7 @@ request.onreadystatechange = function() {
 
             document.getElementById("mulliken_table").innerHTML = html;
             document.getElementById("mulliken_table_card").innerHTML = html;
-        }
-        else{
+        } else {
             document.getElementById("mulliken_charges").style.display = "none";
             document.getElementById("mulliken_charges_card").style.display = "none";
         }
@@ -744,19 +729,18 @@ request.onreadystatechange = function() {
 
             document.getElementById("cartesian_table").innerHTML = html;
             document.getElementById("cartesian_table_card").innerHTML = html;
-        }
-        else{
+        } else {
             document.getElementById("cartesian_tab").style.display = "none";
             document.getElementById("cartesian_card").style.display = "none";
         }
 
         //Partie THERMOCHEMISTRY
-        if((! response.data.results.freq) ||
-	   (response.data.results.freq.length == undefined)){
-            document.getElementById("v-pills-thermochemistry").style.display = "none";
-            document.getElementById("v-pills-thermochemistry-tab").style.display = "none";
-            document.getElementById("thermochemistry_display").style.display = "none";
-        }
+        // if((!response.data.results.freq) ||
+	//    (response.data.results.freq.length == undefined)){
+        //     document.getElementById("v-pills-thermochemistry").style.display = "none";
+        //     document.getElementById("v-pills-thermochemistry-tab").style.display = "none";
+        //     document.getElementById("thermochemistry_display").style.display = "none";
+        // }
 
         //Champ Sum of electronic and zero-point energy
         if(response.data.results.freq.zero_point_energy){
@@ -764,8 +748,7 @@ request.onreadystatechange = function() {
 		response.data.results.freq.zero_point_energy;
             document.getElementById("zero_point_value_card").innerHTML =
 		response.data.results.freq.zero_point_energy;
-        }
-        else{
+        } else {
             document.getElementById("zero_point").style.display = "none";
             document.getElementById("zero_point_card").style.display = "none";
         }
@@ -776,8 +759,7 @@ request.onreadystatechange = function() {
 		response.data.results.freq.electronic_thermal_energy;
             document.getElementById("elec_energie_value_card").innerHTML =
 		response.data.results.freq.electronic_thermal_energy;
-        }
-        else{
+        } else {
             document.getElementById("elec_energie").style.display = "none";
             document.getElementById("elec_energie_card").style.display = "none";
         }
@@ -786,8 +768,7 @@ request.onreadystatechange = function() {
         if(response.data.results.freq.entropy){
             document.getElementById("entropy_value").innerHTML = response.data.results.freq.entropy;
             document.getElementById("entropy_value_card").innerHTML = response.data.results.freq.entropy;
-        }
-        else{
+        } else {
             document.getElementById("entropy").style.display = "none";
             document.getElementById("entropy_card").style.display = "none";
         }
@@ -796,8 +777,7 @@ request.onreadystatechange = function() {
         if(response.data.results.freq.enthalpy){
             document.getElementById("enthalpy_value").innerHTML = response.data.results.freq.enthalpy;
             document.getElementById("enthalpy_value_card").innerHTML = response.data.results.freq.enthalpy;
-        }
-        else{
+        } else {
             document.getElementById("enthalpy").style.display = "none";
             document.getElementById("enthalpy_card").style.display = "none";
         }
@@ -806,8 +786,7 @@ request.onreadystatechange = function() {
         if(response.data.results.freq.free_energy){
             document.getElementById("free_energy_value").innerHTML = response.data.results.freq.free_energy;
             document.getElementById("free_energy_value_card").innerHTML = response.data.results.freq.free_energy;
-        }
-        else{
+        } else {
             document.getElementById("free_energy").style.display = "none";
             document.getElementById("free_energy_card").style.display = "none";
         }
@@ -847,8 +826,7 @@ request.onreadystatechange = function() {
             }
             document.getElementById("vibration_table").innerHTML = html;
             document.getElementById("vibration_table_card").innerHTML = html;
-        }
-        else{
+        } else {
             document.getElementById("vibration_tab").style.display = "none";
             document.getElementById("vibration_tab_card").style.display = "none";
         }
