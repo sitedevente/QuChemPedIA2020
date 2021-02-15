@@ -580,10 +580,10 @@ request.onreadystatechange = function() {
             let ligne = "";
             for(let j=0;j<homo_indexes.length;j++){
                 if (homo_indexes[j] <= 0) {
-                    ligne += createLigne(createCol(N/A) +
+                    ligne += createLigne(createCol("N/A") +
 					 createCol(MO_energies[j][homo_indexes[j]].toFixed(2)) +
 					 createCol(MO_energies[j][homo_indexes[j]+1].toFixed(2)) +
-					 createCol(N/A));
+					 createCol("N/A"));
                 } else {
                     ligne += createLigne(createCol(MO_energies[j][homo_indexes[j] - 1].toFixed(2)) +
 					 createCol(MO_energies[j][homo_indexes[j]].toFixed(2)) +
@@ -811,7 +811,7 @@ request.onreadystatechange = function() {
 		    if (!vibrational_sym) {
 			html +=  createLigne(createCol(vibrational_freq[i]) +
 					     createCol(vibrational_int[i]) +
-					     createCol(N/A));
+					     createCol("N/A"));
 		    } else {
 			html +=  createLigne(createCol(vibrational_freq[i]) +
 					     createCol(vibrational_int[i]) +
@@ -822,7 +822,7 @@ request.onreadystatechange = function() {
 		    if (!vibrational_sym) {
 			html += createLigne(createCol(Math.round(vibrational_freq[i])) +
 					    createCol(Math.round(vibrational_int[i])) +
-					    createCol(N/A));
+					    createCol("N/A"));
 		    } else {
 			html += createLigne(createCol(Math.round(vibrational_freq[i])) +
 					    createCol(Math.round(vibrational_int[i])) +
