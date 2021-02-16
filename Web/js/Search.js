@@ -227,6 +227,9 @@ function searchURL() {
 
   if (type != null && q != null && page != null && entrie != null) {
       $("#query").val(q);
+      //
+      //
+      search(page, entrie);
       $('#id_typeQuery option[value="' + type + '"]').prop('selected', true);
       $("#id_typeQuery").val(type).trigger("change");
       search(page, entrie);
