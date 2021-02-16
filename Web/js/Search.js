@@ -203,6 +203,7 @@ function prepareResultsLayout(page_number, entrie_page) {
         $("#select_entrie").children("option:selected").val()
       );
     }    
+  }
 }
 
 /**
@@ -218,7 +219,6 @@ function search(page_number, entrie_page) {
     query = $("#query").val();
     query_type = $("#id_typeQuery").val();
     ajaxGet(page_number, entrie_page, query, query_type, false);
-  }
 }
 
 // 
