@@ -240,6 +240,7 @@ function searchURL() {
       $("#query").val(q);
       $('#id_typeQuery option[value="' + type + '"]').prop('selected', true);
       $("#id_typeQuery").val(type).trigger("change");
+      window.alert(type);
       search(page, entrie);
   }
 }
