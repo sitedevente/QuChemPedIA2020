@@ -227,7 +227,7 @@ function searchURL() {
 
   if (type != null && q != null && page != null && entrie != null) {
     $("#query").val(q);
-    $('#id_typeQuery" option[value="' + type + '"]').prop('selected', true);
+    $('#id_typeQuery option[value="' + type + '"]').prop('selected', true);
     search(page, entrie);
   }
 }
