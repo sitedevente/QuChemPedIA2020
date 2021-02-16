@@ -214,14 +214,12 @@ function prepareResultsLayout(page_number, entrie_page) {
  *                                                                         
  */
 function search(page_number, entrie_page) {
-    window.alert($("#id_typeQuery").val() + " " + $("#query").val());
-
-    prepareResultsLayout(page_number, entrie_page)
-    // Sent parameter to ajax request
-    query = $("#query").val();
     query_type = $("#id_typeQuery").val();
-    window.alert($("#id_typeQuery").val() + " " + $("#query").val());
+    query = $("#query").val();
+    
+    prepareResultsLayout(page_number, entrie_page)
 
+    // Sent parameter to ajax request
     ajaxGet(page_number, entrie_page, query, query_type, false);
 }
 
@@ -240,7 +238,6 @@ function searchURL() {
   let entrie = parseInt(url.searchParams.get("showresult"), 10);
 
   if (type != null && q != null && page != null && entrie != null) {
-      prepareResultsLayout(page, entrie);
       $("#query").val(q);
       $('#id_typeQuery option[value="' + type + '"]').prop('selected', true);
       $("#id_typeQuery").val(type).trigger("change");
