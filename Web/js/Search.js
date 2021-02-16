@@ -236,7 +236,7 @@ function searchURL() {
   let entrie = parseInt(url.searchParams.get("showresult"), 10);
 
   if (type != null && q != null && page != null && entrie != null) {
-      prepareResultsLayout(page_number, entrie_page)
+      prepareResultsLayout(page, entrie)
       $("#query").val(q);
       $('#id_typeQuery option[value="' + type + '"]').prop('selected', true);
       $("#id_typeQuery").val(type).trigger("change");
