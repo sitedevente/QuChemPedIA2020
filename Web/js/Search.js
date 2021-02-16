@@ -78,19 +78,18 @@ function blockSearch() {
 }
 //---------------------------------------
 
-
-
 /**
- *  Search function call after each click on submit button <br/>
+ *  Utilitary function to prepare the page for search results. <br/>
  *  First we check if it's the first request make from index.html <br/>
  *  YES -> Creation of navbar, and each div use to display result,          
  *  pagination                                         <br/>
- *  NO -> We clear the area to display the new request <br/>                                                      
+ *  NO -> We clear the area to display the new request <br/>                              
+
  *  @param {int} page_number - page number to display                                    
  *  @param {int} entrie_page - entries per page                                           
- *                                                                         
- */
-function search(page_number, entrie_page) {
+
+*/
+function prepareResultsLayout(page_number, entrie_page) {
   if ($("#query").val() != "") {
     // First submit, we create navbar
     if ($("#navbar_top").length === 0) {
@@ -203,7 +202,18 @@ function search(page_number, entrie_page) {
       entrie_page = parseInt(
         $("#select_entrie").children("option:selected").val()
       );
-    }
+    }    
+}
+
+/**
+ *  Search function call after each click on submit button <br/>
+                        
+ *  @param {int} page_number - page number to display                                    
+ *  @param {int} entrie_page - entries per page                                           
+ *                                                                         
+ */
+function search(page_number, entrie_page) {
+    prepareResultsLayout(page_number, entrie_page)
     // Sent parameter to ajax request
     query = $("#query").val();
     query_type = $("#id_typeQuery").val();
@@ -226,10 +236,8 @@ function searchURL() {
   let entrie = parseInt(url.searchParams.get("showresult"), 10);
 
   if (type != null && q != null && page != null && entrie != null) {
+      prepareResultsLayout(page_number, entrie_page)
       $("#query").val(q);
-      //
-      //
-      search(page, entrie);
       $('#id_typeQuery option[value="' + type + '"]').prop('selected', true);
       $("#id_typeQuery").val(type).trigger("change");
       search(page, entrie);
