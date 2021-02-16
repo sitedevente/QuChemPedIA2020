@@ -219,6 +219,10 @@ function search(page_number, entrie_page) {
     
     prepareResultsLayout(page_number, entrie_page)
 
+    // set the select to right value
+    $('#id_typeQuery option[value="' + query_type + '"]').prop('selected', true);
+    $("#id_typeQuery").val(query_type).trigger("change");
+
     // Sent parameter to ajax request
     ajaxGet(page_number, entrie_page, query, query_type, false);
 }
