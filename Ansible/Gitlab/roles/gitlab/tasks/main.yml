@@ -1,0 +1,21 @@
+---
+- name: Installation des paquets requis pour installer gitlab-ce
+  yum:
+    name:
+      - sudo
+      - curl
+      - ca-certificates
+      - perl
+
+- name: Telechargement du script installation fournie par gitlab
+  get_url:
+    url: '{{ gitlab_repository_installation_script }}'
+    dest: '/home/{{ user }}/script.deb.sh'
+    owner: '{{ user }}'
+    mode: 0777
+
+- name: Lancement du script
+  command: '/home/{{ user }}/script.deb.sh'
+
+- name: Installation de gitlab-ce en precisant un nom de domaine
+  command: apt install gitlab-ce

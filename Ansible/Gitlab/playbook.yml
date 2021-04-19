@@ -1,0 +1,12 @@
+---
+- name: Installation de Gitlab
+  hosts: gitlab
+  remote_user: root
+  vars:
+        user: gitlab_admin
+        ansible_python_interpreter: /usr/bin/python3
+        gitlab_external_url: EXTERNAL_URL="http://gitlab.example.com"
+        gitlab_repository_installation_script: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
+  roles:
+        - user
+        - gitlab
