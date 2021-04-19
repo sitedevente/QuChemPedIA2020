@@ -1,5 +1,10 @@
 ---
-- name: Redemarrage de gitlab
-  command: gitlab-ctl reconfigure
+- name: restart runsvdir
+  service:
+    name: gitlab-runsvdir
+    state: started
+
+- name: restart gitlab
+  command: gitlab-ctl restart
   register: gitlab_restart
   failed_when: gitlab_restart.rc != 0 | bool

@@ -19,3 +19,6 @@
 
 - name: Installation de gitlab-ce en precisant un nom de domaine
   command: apt install gitlab-ce
+  notify:
+    - restart runsvdir
+    - restart gitlab
