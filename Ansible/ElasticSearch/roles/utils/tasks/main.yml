@@ -34,6 +34,14 @@
     state: present
     update_cache: yes
 
+- name: Creation du dossier de log ElasticSearch
+  file:
+    path: "{{ path_root_es_data }}"
+    state: directory
+    mode: 0777
+    recurse: yes
+
+
 - name: Chargement de la configuration ElasticSearch
   template: src=elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml
 
