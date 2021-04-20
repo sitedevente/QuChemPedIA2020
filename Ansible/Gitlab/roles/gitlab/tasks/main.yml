@@ -7,18 +7,25 @@
       - ca-certificates
       - perl
 
+- name: Verification de si Gitlab est deja installe
+  stat:
+    path: usr/bin/gitlab-ctl
+  register: gitlab_installed
+
 - name: Telechargement du script installation fournie par gitlab
   get_url:
     url: '{{ gitlab_repository_installation_script }}'
     dest: '/home/{{ user }}/script.deb.sh'
     owner: '{{ user }}'
     mode: 0777
+  when: not gitlab_installed.stat.exists
 
 - name: Lancement du script
   command: '/home/{{ user }}/script.deb.sh'
-
-- name: Installation de gitlab-ce en precisant un nom de domaine
+  when: not gitlab_installed.stat.exists
+  
+- name: Installation de gitlab-ce
   command: apt install gitlab-ce
   notify:
-    - restart runsvdir
-    - restart gitlab
+    - reconfigure gitlab
+  
