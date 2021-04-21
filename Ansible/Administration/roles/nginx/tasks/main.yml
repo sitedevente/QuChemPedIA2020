@@ -30,7 +30,7 @@
  
 - name: Lien vers www
   become: yes
-  file: src=/home/{{ user }}/{{ domain }}/{{ api_administration_folder }} dest=/var/www/{{ domain }}/{{ api_administration_folder }} state=link force=yes
+  file: src=/home/{{ user }}/{{ domain }} dest=/var/www/{{ domain }}/{{ api_administration_folder }} state=link force=yes
 
 - name: Modification des droits du dossier {{ api_administration_folder }}
   file: dest=/var/www/{{ domain }} state=directory mode=777 recurse=yes

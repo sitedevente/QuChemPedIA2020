@@ -38,7 +38,7 @@
  
 - name: Lien vers www
   become: yes
-  file: src=/home/{{ user }}/{{ domain }}/Web dest=/var/www/{{ domain }}/{{ quchempedia }} state=link force=yes
+  file: src=/home/{{ user }}/{{ domain }} dest=/var/www/{{ domain }}/{{ quchempedia }} state=link force=yes
 
 - name: Modification des droits du dossier {{ quchempedia }}
   file: dest=/var/www/{{ domain }} state=directory mode=777 recurse=yes
