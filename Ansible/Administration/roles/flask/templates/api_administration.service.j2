@@ -5,9 +5,9 @@ After=network.target
 [Service]
 User={{ user }}
 Group=www-data
-WorkingDirectory=/home/{{ user }}/{{ domain }}/{{ api_administration_folder }}
-Environment="PATH=/home/{{ user }}/{{ domain }}/{{ api_administration_folder }}/quchempedia-venv/bin"
-ExecStart=/home/{{ user }}/{{ domain }}/{{ api_administration_folder }}/quchempedia-venv/bin/gunicorn --workers 3 --bind unix:{{ api_administration }}.sock -m 007 wsgi:app
+WorkingDirectory=/home/{{ user }}/{{ domain }}
+Environment="PATH=/home/{{ user }}/{{ domain }}/quchempedia-venv/bin"
+ExecStart=/home/{{ user }}/{{ domain }}/quchempedia-venv/bin/gunicorn --workers 3 --bind unix:{{ api_administration }}.sock -m 007 wsgi:app
 
 [Install]
 WantedBy=multi-user.target
