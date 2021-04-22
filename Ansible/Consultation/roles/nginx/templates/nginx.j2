@@ -13,6 +13,6 @@ server {
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/home/{{ user }}/{{ domain }}/{{ api_consultation_folder }}/{{ api_consultation }}.sock;
+        proxy_pass http://unix:/home/{{ user }}/{{ domain }}/{{ api_consultation }}.sock;
     }
 }
