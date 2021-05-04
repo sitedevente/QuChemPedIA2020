@@ -1,31 +1,49 @@
 ---
-- name: Installation des paquets requis pour installer gitlab-ce
-  yum:
-    name:
-      - sudo
-      - curl
-      - ca-certificates
-      - perl
+- name: Installation des dépendances de gitlab-ce
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - sudo
+    - curl
+    - ca-certificates
+    - perl
+    - gnupg2
+
+# Check for previous installation
+- name: Vérifie si le fichier de configuration existe
+  stat: 
+    path: /etc/gitlab/gitlab.rb
+  register: gitlab_config_file
 
 - name: Verification de si Gitlab est deja installe
   stat:
     path: usr/bin/gitlab-ctl
   register: gitlab_installed
 
-- name: Telechargement du script installation fournie par gitlab
+- name: Telechargement du script installation du repo gitlab
   get_url:
     url: '{{ gitlab_repository_installation_script }}'
-    dest: '/home/{{ user }}/script.deb.sh'
-    owner: '{{ user }}'
-    mode: 0777
+    dest: /tmp/gitlab_install_repository.sh
   when: not gitlab_installed.stat.exists
 
 - name: Lancement du script
-  command: '/home/{{ user }}/script.deb.sh'
+  command: bash /tmp/gitlab_install_repository.sh
+  register: output
   when: not gitlab_installed.stat.exists
-  
+
 - name: Installation de gitlab-ce
-  command: apt install gitlab-ce
+  apt:
+    name: gitlab-ce
+    state: present
   notify:
     - reconfigure gitlab
-  
+
+- name: Copy GitLab configuration file.
+  template:
+    src: gitlab.rb.j2
+    dest: /etc/gitlab/gitlab.rb
+    owner: root
+    group: root
+    mode: 0600
+  notify: reconfigure gitlab
