@@ -1,0 +1,17 @@
+---
+- name: Installation des runners pour Gitlab CI
+  hosts: runner
+  remote_user: root
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+    user: gitlab-runner
+
+    external_url: "http://192.168.0.200"
+
+    token: "P8A8uhCFgKzMPjfRQ8mp"
+
+    docker_image: "alpine:latest"
+  roles:
+    - user
+    - runner

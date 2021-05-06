@@ -1,0 +1,30 @@
+---
+# Download the binary for Linux
+- name: Télécharge l'exe de gitlab runner
+  get_url:
+    url: https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
+    dest: /usr/local/bin/gitlab-runner
+    mode: u+x
+  become: yes
+
+- name: Installation du runner
+  command: "gitlab-runner install --user={{ user }} --working-directory=/home/{{ user }}"
+  become: yes
+
+- name: Lancement du runner
+  command: gitlab-runner start
+  become: yes
+
+- name: Enregistrement du runner
+  command: |
+    gitlab-runner register 
+    --non-interactive
+    --url {{ external_url }} 
+    --registration-token {{ token }}
+    --description "docker-runner"
+    --executor "docker"
+    --docker-image {{ docker_image }}
+    --tag-list ""
+    --run-untagged
+    --locked="false"
+  become: yes

@@ -1,0 +1,14 @@
+---
+- name: Création d'un utilisateur
+  when: user is defined
+  user:
+    name: "{{ user }}"
+    comment: "GitLab Runner"
+    shell: /bin/bash
+
+- name: "{{ user }} devient sudoers"
+  when: user is defined
+  template:
+    src: templates/sudoers.j2
+    dest: /etc/sudoers.d/{{ user }}-sudoer
+    validate: "visudo -cf %s"
