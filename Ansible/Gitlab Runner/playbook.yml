@@ -5,13 +5,17 @@
   vars:
     ansible_python_interpreter: /usr/bin/python3
 
-    user: gitlab-runner
-
     external_url: "http://192.168.0.200"
 
+    user: gitlab-runner
     token: "P8A8uhCFgKzMPjfRQ8mp"
 
     docker_image: "alpine:latest"
+
+    docker_compose_version: "1.29.1"
+    docker_compose_path: /usr/local/bin/docker-compose
+
   roles:
     - user
     - runner
+    - docker

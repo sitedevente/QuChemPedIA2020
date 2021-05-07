@@ -1,0 +1,70 @@
+---
+- name: Supression des anciennes versions de docker
+  package:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - docker
+    - docker-ce
+    - docker-engine
+    - docker.io
+    - containerd
+    - runc
+
+- name: Installation des dépendances
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg
+    - lsb-release
+
+- name: Ajouter la clé apt de docker
+  apt_key:
+    url: "https://download.docker.com/linux/debian/gpg"
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    state: present
+  ignore_errors: false
+
+- name: Télecharge le fichier deb
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    state: present
+    update_cache: true
+
+- name: Installation de docker
+  package:
+    name: "{{ item }}"
+    state: present
+  notify: Demarrage de docker
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+- name: Lance docker
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Force les handlers notifier a ce lancer maintenant
+  meta: flush_handlers
+
+- name: Installation de docker compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    mode: 0755
+  when: >
+    docker_compose_current_version.stdout is not defined
+    or docker_compose_version not in docker_compose_current_version.stdout
+
+- name: Ajoute l'utilisateur au groupe docker
+  user:
+    name: "{{ user }}"
+    groups: docker
+    append: true
