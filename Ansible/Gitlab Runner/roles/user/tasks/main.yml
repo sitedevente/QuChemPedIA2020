@@ -1,4 +1,9 @@
 ---
+- name: Installation de visudo
+  package:
+    name: visudo
+    state: present
+
 - name: Création d'un utilisateur
   when: user is defined
   user:
