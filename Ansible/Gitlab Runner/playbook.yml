@@ -16,6 +16,7 @@
     docker_compose_path: /usr/local/bin/docker-compose
 
   roles:
+    - utils
     - user
     - runner
     - docker

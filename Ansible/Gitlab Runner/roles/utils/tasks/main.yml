@@ -1,0 +1,11 @@
+---
+- name: Installation des paquets
+  apt:
+    name:
+      - sudo
+      - vim
+      - git
+      - htop
+      - gnupg
+    state: latest
+    update_cache: yes

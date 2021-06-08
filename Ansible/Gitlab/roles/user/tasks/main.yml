@@ -1,12 +1,4 @@
 ---
-- name: Installation des paquets pour la gestion utilisateur Linux
-  package:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - visudo
-    - sudo
-
 - name: Creation du user
   when: user is defined
   user: name={{ user }} comment="gitlab admin"
