@@ -1,12 +1,17 @@
 ---
+- name: Installation de visudo
+  package:
+    name: visudo
+    state: present
+
 - name: Creation du user
   when: user is defined
   user: name={{ user }} comment="gitlab admin"
 
 - name: Creation du dossier .ssh
   become: yes
-  file: 
-    path: ~/.ssh 
+  file:
+    path: ~/.ssh
     state: directory
 
 - name: Generation de cle RSA
@@ -22,4 +27,4 @@
   template:
     src: templates/sudoers.j2
     dest: /etc/sudoers.d/{{ user }}-sudoer
-    validate: 'visudo -cf %s'
+    validate: "visudo -cf %s"
