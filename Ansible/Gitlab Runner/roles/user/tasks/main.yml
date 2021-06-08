@@ -1,8 +1,11 @@
 ---
-- name: Installation de visudo
+- name: Installation des paquets pour la gestion utilisateur Linux
   package:
-    name: visudo
+    name: "{{ item }}"
     state: present
+  loop:
+    - visudo
+    - sudo
 
 - name: Création d'un utilisateur
   when: user is defined
