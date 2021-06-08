@@ -7,6 +7,9 @@
     mode: u+x
   become: yes
 
+# ADD a task to delete any binary or config file related to the runner if you want idempotence
+# else in case of reinstallation because of failure, you will have to delete the created file yourself
+
 - name: Installation du runner
   command: "gitlab-runner install --user={{ user }} --working-directory=/home/{{ user }}"
   become: yes
