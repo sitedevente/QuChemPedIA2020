@@ -1,6 +1,18 @@
-## GitLab URL
+# GitLab URL
 external_url "{{ gitlab_external_url }}"
 
+# Basic config
 gitlab_rails['gitlab_default_theme'] = 2
 
 gitlab_rails['initial_root_password'] = "{{ gitlab_admin_password }}"
+
+# Gitlab reverse proxy setup - should be completed
+nginx['listen_port'] = 8088
+nginx['listen_https'] = false
+
+# Each address is added to the the NGINX config as 'set_real_ip_from <address>;'
+nginx['real_ip_trusted_addresses'] = [ '192.168.0.1/24', '192.168.0.1', '192.168.0.254' ]
+
+# other real_ip config options
+nginx['real_ip_header'] = 'X-Forwarded-For'
+nginx['real_ip_recursive'] = 'on'
